@@ -1,5 +1,5 @@
-### Atlas-Beetle
-#### by _Astrosaur-Projects™_
+### Atlas Beetle
+#### by _Astrosaur Projects™_
 
 ---
 
