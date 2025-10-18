@@ -40,5 +40,11 @@
 # debug information files
 *.dwo
 
+# Workspace files
 .DS_Store
 .vs/
+
+# CMake generated files
+/out
+CMakePresets.json
+CMakeSettings.json
