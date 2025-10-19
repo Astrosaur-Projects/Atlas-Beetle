@@ -2,15 +2,15 @@
 
 MainWindowFrame::MainWindowFrame() : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur Projects™")
 {
-    wxMenu* menuFile = new wxMenu;
+    menuFile = new wxMenu;
     menuFile->Append(1, "&Hello...\tCtrl-H", "Help string shown in status bar for this menu item");
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT);
 
-    wxMenu* menuHelp = new wxMenu;
+    menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
 
-    wxMenuBar* menuBar = new wxMenuBar;
+    menuBar = new wxMenuBar;
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuHelp, "&Help");
 

@@ -10,6 +10,11 @@ public:
     ~MainWindowFrame();
 
 private:
+    wxMenuBar* menuBar = nullptr;
+    wxMenu* menuFile = nullptr;
+    wxMenu* menuHelp = nullptr;
+
+private:
     void OnHello(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
