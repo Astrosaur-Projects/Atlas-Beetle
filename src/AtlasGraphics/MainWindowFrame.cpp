@@ -24,6 +24,10 @@ MainWindowFrame::MainWindowFrame() : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by
     Bind(wxEVT_MENU, &MainWindowFrame::OnExit, this, wxID_EXIT);
 }
 
+MainWindowFrame::~MainWindowFrame()
+{
+}
+
 void MainWindowFrame::OnExit(wxCommandEvent& event)
 {
     Close(true);

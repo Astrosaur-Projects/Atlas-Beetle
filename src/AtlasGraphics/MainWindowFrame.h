@@ -5,7 +5,9 @@
 
 class MainWindowFrame : public wxFrame
 {
-public: MainWindowFrame();
+public:
+    MainWindowFrame();
+    ~MainWindowFrame();
 
 private:
     void OnHello(wxCommandEvent& event);
