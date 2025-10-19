@@ -1,5 +1,5 @@
 ﻿# CMakeList.txt : CMake project for Atlas-Beetle
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.27)
 
 # Enable Hot Reload for MSVC compilers if supported
 if(POLICY CMP0141)
@@ -13,7 +13,10 @@ project("Atlas-Beetle"
 	LANGUAGES CXX
 )
 
-add_executable(PlanetariumSoftware)
+find_package(wxWidgets REQUIRED COMPONENTS core base)
+include(${wxWidgets_USE_FILE})
+
+add_executable(PlanetariumSoftware WIN32)
 
 target_sources(PlanetariumSoftware PRIVATE
 	"src/main.cpp"
@@ -24,3 +27,5 @@ set_target_properties(PlanetariumSoftware PROPERTIES
 	CXX_STANDARD_REQUIRED ON
 	CXX_EXTENSIONS OFF
 )
+
+target_link_libraries(PlanetariumSoftware PRIVATE wxWidgets::wxWidgets)
