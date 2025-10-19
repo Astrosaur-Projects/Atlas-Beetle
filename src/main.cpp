@@ -1,4 +1,14 @@
-﻿#include <iostream>
+﻿#include <wx/wx.h>
+#include "AtlasGraphics/MainWindowFrame.h"
+
+class AtlasApp : public wxApp
+{
+public:
+    bool OnInit() override;
+
+private:
+	MainWindowFrame* mainWindowFrame = nullptr;
+};
 
 /*
 * 
@@ -12,7 +22,7 @@
 *
 *   Project: Atlas Beetle
 *
-*   Author: Sean Maloney (Astrosaur Projects™)
+*   Author: Sean Maloney (Astrosaur Projects�)
 * 
 *	Date: October 18, 2025
 *
@@ -26,9 +36,12 @@
 *	 - https://wxwidgets.org/
 *	 - https://cmake.org/
 */
-int main(int argc, char *argv[])
-{
-	std::cout << "Hello, World!" << std::endl;
+wxIMPLEMENT_APP(AtlasApp);
 
-	return 0;
+bool AtlasApp::OnInit()
+{
+    mainWindowFrame = new MainWindowFrame();
+    mainWindowFrame->Show(true);
+
+    return true;
 }
