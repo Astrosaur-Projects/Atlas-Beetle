@@ -33,3 +33,6 @@ set_target_properties(PlanetariumSoftware PROPERTIES
 target_link_libraries(PlanetariumSoftware PRIVATE wxWidgets::wxWidgets)
 
 target_include_directories(PlanetariumSoftware PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+# Suppress the C28251 warning (inconsistent SAL annotations) 
+target_compile_options(PlanetariumSoftware PRIVATE /wd28251)
