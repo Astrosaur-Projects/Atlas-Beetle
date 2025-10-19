@@ -19,7 +19,9 @@ include(${wxWidgets_USE_FILE})
 add_executable(PlanetariumSoftware WIN32)
 
 target_sources(PlanetariumSoftware PRIVATE
-	"src/main.cpp"
+	"src/AtlasApp.cpp"
+	"src/AtlasGraphics/MainWindowFrame.cpp"
+	"src/AtlasGraphics/MainWindowFrame.h"
 )
 
 set_target_properties(PlanetariumSoftware PROPERTIES
@@ -29,3 +31,5 @@ set_target_properties(PlanetariumSoftware PROPERTIES
 )
 
 target_link_libraries(PlanetariumSoftware PRIVATE wxWidgets::wxWidgets)
+
+target_include_directories(PlanetariumSoftware PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
