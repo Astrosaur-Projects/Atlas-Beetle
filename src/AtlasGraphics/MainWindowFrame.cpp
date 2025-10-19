@@ -1,6 +1,6 @@
 #include "AtlasGraphics/MainWindowFrame.h"
 
-MainWindowFrame::MainWindowFrame() : wxFrame(nullptr, wxID_ANY, "Hello World")
+MainWindowFrame::MainWindowFrame() : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur Projects™")
 {
     wxMenu* menuFile = new wxMenu;
     menuFile->Append(1, "&Hello...\tCtrl-H", "Help string shown in status bar for this menu item");
