@@ -31,14 +31,17 @@ MainWindowFrame::~MainWindowFrame()
 void MainWindowFrame::OnExit(wxCommandEvent& event)
 {
     Close(true);
+    event.Skip();
 }
 
 void MainWindowFrame::OnAbout(wxCommandEvent& event)
 {
     wxMessageBox("This is a wxWidgets Hello World example", "About Hello World", wxOK | wxICON_INFORMATION);
+    event.Skip();
 }
 
 void MainWindowFrame::OnHello(wxCommandEvent& event)
 {
     wxLogMessage("Hello world from wxWidgets!");
+    event.Skip();
 }
