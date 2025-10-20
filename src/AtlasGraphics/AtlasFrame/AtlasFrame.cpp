@@ -1,4 +1,4 @@
-#include "AtlasGraphics/AtlasFrame.h"
+#include "AtlasGraphics/AtlasFrame/AtlasFrame.h"
 
 AtlasFrame::AtlasFrame() : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur Projects™")
 {
