@@ -20,8 +20,8 @@ add_executable(PlanetariumSoftware WIN32)
 
 target_sources(PlanetariumSoftware PRIVATE
 	"src/AtlasApp.cpp"
-	"src/AtlasGraphics/MainWindowFrame.cpp"
-	"src/AtlasGraphics/MainWindowFrame.h"
+	"src/AtlasGraphics/AtlasFrame.cpp" "src/AtlasGraphics/AtlasFrame.h"
+	"src/AtlasGraphics/AtlasMenuBar.cpp" "src/AtlasGraphics/AtlasMenuBar.h"
 )
 
 set_target_properties(PlanetariumSoftware PROPERTIES
