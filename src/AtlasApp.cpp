@@ -1,5 +1,5 @@
 ﻿#include <wx/wx.h>
-#include "AtlasGraphics/MainWindowFrame.h"
+#include "AtlasGraphics/AtlasFrame.h"
 
 class AtlasApp : public wxApp
 {
@@ -7,11 +7,11 @@ public:
     bool OnInit() override;
 
 private:
-	MainWindowFrame* mainWindowFrame = nullptr;
+    AtlasFrame* atlasFrame = nullptr;
 };
 
 /*
-* 
+*
 *         .o.           .   oooo                          oooooooooo.                          .   oooo
 *        .888.        .o8   `888                          `888'   `Y8b                       .o8   `888
 *       .8"888.     .o888oo  888   .oooo.    .oooo.o       888     888  .ooooo.   .ooooo.  .o888oo  888   .ooooo.
@@ -22,14 +22,14 @@ private:
 *
 *   Project: Atlas Beetle
 *
-*   Author: Sean Maloney (Astrosaur Projects�)
-* 
+*   Author: Sean Maloney (Astrosaur Projects™)
+*
 *	Date: October 18, 2025
 *
 *   Description: A home-brewed, planetarium software with plugin extensibility; built for amateur astronomers, budding computer scientists, and do-it-yourself enthusiasts.
-* 
+*
 *	License: MIT License
-* 
+*
 *	Technologies:
 *	 - https://cplusplus.com/
 *	 - https://www.sfml-dev.org/
@@ -40,8 +40,8 @@ wxIMPLEMENT_APP(AtlasApp);
 
 bool AtlasApp::OnInit()
 {
-    mainWindowFrame = new MainWindowFrame();
-    mainWindowFrame->Show(true);
+    atlasFrame = new AtlasFrame();
+    atlasFrame->Show(true);
 
     return true;
 }
