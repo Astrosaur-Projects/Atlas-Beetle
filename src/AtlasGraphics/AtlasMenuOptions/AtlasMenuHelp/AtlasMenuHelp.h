@@ -11,6 +11,7 @@ public:
 
 private:
     void OnAbout(wxCommandEvent& event);
+	void OnGitHub(wxCommandEvent& event);
 };
 
 #endif
