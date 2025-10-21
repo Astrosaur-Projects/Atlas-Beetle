@@ -1,14 +1,16 @@
 #include "AtlasGraphics\AtlasMenuOptions\AtlasMenuFile\AtlasMenuFile.h"
+#include "AtlasGraphics\AtlasMenuOptions\AtlasMenuOptionEnums.h"
+#include "AtlasUtilities\AtlasEnumUtilities.h"
 
 AtlasMenuFile::AtlasMenuFile() : wxMenu()
 {
-    this->Append(1, "&Hello...\tCtrl-H", "Help string shown in status bar for this menu item");
+    this->Append(AtlasEnumUtilities::getValue(AtlasMenuOptionEnums::ID_HELLO), "&Hello...\tCtrl-H", "Help string shown in status bar for this menu item");
 
     this->AppendSeparator();
 
     this->Append(wxID_EXIT);
 
-    Bind(wxEVT_MENU, &AtlasMenuFile::OnHello, this, 1);
+    Bind(wxEVT_MENU, &AtlasMenuFile::OnHello, this, AtlasEnumUtilities::getValue(AtlasMenuOptionEnums::ID_HELLO));
 }
 
 AtlasMenuFile::~AtlasMenuFile()
