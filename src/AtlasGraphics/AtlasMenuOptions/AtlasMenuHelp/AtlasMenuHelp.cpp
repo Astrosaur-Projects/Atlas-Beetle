@@ -14,5 +14,6 @@ AtlasMenuHelp::~AtlasMenuHelp()
 void AtlasMenuHelp::OnAbout(wxCommandEvent& event)
 {
     wxMessageBox("This is a wxWidgets Hello World example", "About Hello World", wxOK | wxICON_INFORMATION);
+
     event.Skip();
 }

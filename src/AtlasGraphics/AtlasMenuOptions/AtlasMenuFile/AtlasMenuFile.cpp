@@ -18,5 +18,6 @@ AtlasMenuFile::~AtlasMenuFile()
 void AtlasMenuFile::OnHello(wxCommandEvent& event)
 {
     wxLogMessage("Hello world from wxWidgets!");
+
     event.Skip();
 }

@@ -41,6 +41,7 @@ wxIMPLEMENT_APP(AtlasApp);
 bool AtlasApp::OnInit()
 {
     atlasFrame = new AtlasFrame();
+
     atlasFrame->Show(true);
 
     return true;

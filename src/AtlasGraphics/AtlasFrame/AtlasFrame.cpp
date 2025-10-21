@@ -18,5 +18,6 @@ AtlasFrame::~AtlasFrame()
 void AtlasFrame::OnExit(wxCommandEvent& event)
 {
     Close(true);
+
     event.Skip();
 }
