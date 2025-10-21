@@ -7,8 +7,16 @@ AtlasFrame::AtlasFrame() : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur
     SetMenuBar(atlasMenuBar);
 
     CreateStatusBar();
+
+    Bind(wxEVT_MENU, &AtlasFrame::OnExit, this, wxID_EXIT);
 }
 
 AtlasFrame::~AtlasFrame()
 {
+}
+
+void AtlasFrame::OnExit(wxCommandEvent& event)
+{
+    Close(true);
+    event.Skip();
 }

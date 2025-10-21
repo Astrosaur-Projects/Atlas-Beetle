@@ -15,17 +15,10 @@ AtlasMenuBar::AtlasMenuBar() : wxMenuBar()
 
     Bind(wxEVT_MENU, &AtlasMenuBar::OnHello, this, 1);
     Bind(wxEVT_MENU, &AtlasMenuBar::OnAbout, this, wxID_ABOUT);
-    Bind(wxEVT_MENU, &AtlasMenuBar::OnExit, this, wxID_EXIT);
 }
 
 AtlasMenuBar::~AtlasMenuBar()
 {
-}
-
-void AtlasMenuBar::OnExit(wxCommandEvent& event)
-{
-    Close(true);
-    event.Skip();
 }
 
 void AtlasMenuBar::OnAbout(wxCommandEvent& event)

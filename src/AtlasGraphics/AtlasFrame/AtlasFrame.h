@@ -12,6 +12,9 @@ public:
 
 private:
     AtlasMenuBar* atlasMenuBar = nullptr;
+
+private:
+    void OnExit(wxCommandEvent& event);
 };
 
 #endif
