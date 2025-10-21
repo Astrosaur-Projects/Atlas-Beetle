@@ -11,9 +11,6 @@ public:
 
 private:
     wxMenu* menuFile = nullptr;
-    wxMenu* menuView = nullptr;
-    wxMenu* menuExtensions = nullptr;
-    wxMenu* menuWindow = nullptr;
     wxMenu* menuHelp = nullptr;
 
 private:

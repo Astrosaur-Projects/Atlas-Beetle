@@ -7,19 +7,10 @@ AtlasMenuBar::AtlasMenuBar() : wxMenuBar()
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT);
 
-    menuView = new wxMenu;
-
-    menuExtensions = new wxMenu;
-
-    menuWindow = new wxMenu;
-
     menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
 
     this->Append(menuFile, "&File");
-    this->Append(menuView, "&View");
-    this->Append(menuExtensions, "&Extensions");
-    this->Append(menuWindow, "&Window");
     this->Append(menuHelp, "&Help");
 
     Bind(wxEVT_MENU, &AtlasMenuBar::OnHello, this, 1);
