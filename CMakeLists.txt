@@ -22,6 +22,8 @@ target_sources(PlanetariumSoftware PRIVATE
 	"src/AtlasApp.cpp"
 	"src/AtlasGraphics/AtlasFrame/AtlasFrame.cpp" "src/AtlasGraphics/AtlasFrame/AtlasFrame.h"
 	"src/AtlasGraphics/AtlasMenuBar/AtlasMenuBar.cpp" "src/AtlasGraphics/AtlasMenuBar/AtlasMenuBar.h"
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.cpp" "src/AtlasGraphics/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.h"
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.cpp" "src/AtlasGraphics/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.h" 
 )
 
 set_target_properties(PlanetariumSoftware PROPERTIES
