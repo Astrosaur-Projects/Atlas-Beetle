@@ -7,7 +7,7 @@ project("Atlas-Beetle"
 	LANGUAGES CXX
 )
 
-find_package(wxWidgets REQUIRED COMPONENTS core base)
+find_package(wxWidgets REQUIRED COMPONENTS gl core base)
 include(${wxWidgets_USE_FILE})
 
 add_executable(PlanetariumSoftware WIN32)
@@ -20,6 +20,7 @@ target_sources(PlanetariumSoftware PRIVATE
 	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuOptionEnums.h"
 	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.cpp" "src/AtlasGraphics/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.h" 
 	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.cpp" "src/AtlasGraphics/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.h" 
+	"src/AtlasGraphics/AtlasCanvas/AtlasCanvas.cpp" "src/AtlasGraphics/AtlasCanvas/AtlasCanvas.h"
 )
 
 set_target_properties(PlanetariumSoftware PROPERTIES
