@@ -7,6 +7,8 @@ project("Atlas-Beetle"
 	LANGUAGES CXX
 )
 
+find_package(OpenGL REQUIRED)
+
 find_package(wxWidgets REQUIRED COMPONENTS gl core base)
 include(${wxWidgets_USE_FILE})
 
@@ -29,9 +31,15 @@ set_target_properties(PlanetariumSoftware PROPERTIES
 	CXX_EXTENSIONS OFF
 )
 
-target_link_libraries(PlanetariumSoftware PRIVATE wxWidgets::wxWidgets)
+target_link_libraries(PlanetariumSoftware PRIVATE
+	${wxWidgets_LIBRARIES}
+	${OPENGL_LIBRARIES}
+)
 
-target_include_directories(PlanetariumSoftware PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_include_directories(PlanetariumSoftware PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}/src
+	${OPENGL_INCLUDE_DIRS}
+)
 
 # Suppress the C28251 warning (inconsistent SAL annotations) 
 target_compile_options(PlanetariumSoftware PRIVATE /wd28251)
