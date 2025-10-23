@@ -2,6 +2,22 @@
 
 AtlasFrame::AtlasFrame() : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur Projects™")
 {
+    wxGLAttributes canvasAttributes;
+    canvasAttributes.PlatformDefaults().Defaults().EndList();
+
+    atlasCanvas = new AtlasCanvas(this, canvasAttributes);
+
+    wxBoxSizer* frameSizer = new wxBoxSizer(wxVERTICAL);
+
+    if (wxGLCanvas::IsDisplaySupported(canvasAttributes))
+    {
+        atlasCanvas = new AtlasCanvas(this, canvasAttributes);
+
+        frameSizer->Add(atlasCanvas, 1, wxEXPAND);
+    }
+
+    SetSizerAndFit(frameSizer);
+    
     atlasMenuBar = new AtlasMenuBar();
 
     SetMenuBar(atlasMenuBar);

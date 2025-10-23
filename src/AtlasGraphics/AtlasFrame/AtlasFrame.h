@@ -3,6 +3,7 @@
 
 #include <wx/wx.h>
 #include "AtlasGraphics/AtlasMenuBar/AtlasMenuBar.h"
+#include "AtlasGraphics/AtlasCanvas/AtlasCanvas.h"
 
 class AtlasFrame : public wxFrame
 {
@@ -12,6 +13,7 @@ public:
 
 private:
     AtlasMenuBar* atlasMenuBar = nullptr;
+    AtlasCanvas* atlasCanvas = nullptr;
 
 private:
     void OnExit(wxCommandEvent& event);
