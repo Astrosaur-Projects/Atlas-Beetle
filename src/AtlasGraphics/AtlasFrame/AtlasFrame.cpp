@@ -5,8 +5,6 @@ AtlasFrame::AtlasFrame() : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur
     wxGLAttributes canvasAttributes;
     canvasAttributes.PlatformDefaults().Defaults().EndList();
 
-    atlasCanvas = new AtlasCanvas(this, canvasAttributes);
-
     wxBoxSizer* frameSizer = new wxBoxSizer(wxVERTICAL);
 
     if (wxGLCanvas::IsDisplaySupported(canvasAttributes))
