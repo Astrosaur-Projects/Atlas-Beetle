@@ -32,7 +32,7 @@ private:
 *
 *	Technologies:
 *	 - https://cplusplus.com/
-*	 - https://www.sfml-dev.org/
+*	 - https://www.opengl.org/
 *	 - https://wxwidgets.org/
 *	 - https://cmake.org/
 */
