@@ -19,13 +19,9 @@ AtlasMenuHelp::~AtlasMenuHelp()
 void AtlasMenuHelp::OnAbout(wxCommandEvent& event)
 {
     wxMessageBox("This is a wxWidgets Hello World example", "About Hello World", wxOK | wxICON_INFORMATION);
-
-    event.Skip();
 }
 
 void AtlasMenuHelp::OnGitHub(wxCommandEvent& event)
 {
     wxLaunchDefaultBrowser("https://github.com/SMaloney2017/Atlas-Beetle");
-
-    event.Skip();
 }
