@@ -1,6 +1,6 @@
-#include "AtlasGraphics\AtlasMenuOptions\AtlasMenuHelp\AtlasMenuHelp.h"
-#include "AtlasGraphics\AtlasMenuOptions\AtlasMenuOptionEnums.h"
-#include "AtlasUtilities\AtlasEnumUtilities.h"
+#include <AtlasGraphics/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.h>
+#include <AtlasGraphics/AtlasMenuOptions/AtlasMenuOptionEnums.h>
+#include <AtlasUtilities/AtlasEnumUtilities.h>
 
 AtlasMenuHelp::AtlasMenuHelp() : wxMenu()
 {

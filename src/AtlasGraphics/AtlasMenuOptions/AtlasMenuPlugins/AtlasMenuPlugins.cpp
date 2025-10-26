@@ -1,7 +1,7 @@
-#include "AtlasGraphics\AtlasMenuOptions\AtlasMenuPlugins\AtlasMenuPlugins.h"
-#include "AtlasGraphics\AtlasMenuOptions\AtlasMenuOptionEnums.h"
-#include "AtlasGraphics\AtlasPluginManager\AtlasPluginManager.h"
-#include "AtlasUtilities\AtlasEnumUtilities.h"
+#include <AtlasGraphics/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.h>
+#include <AtlasGraphics/AtlasMenuOptions/AtlasMenuOptionEnums.h>
+#include <AtlasGraphics/AtlasPluginManager/AtlasPluginManager.h>
+#include <AtlasUtilities/AtlasEnumUtilities.h>
 
 AtlasMenuPlugins::AtlasMenuPlugins() : wxMenu()
 {
