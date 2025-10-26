@@ -27,7 +27,9 @@ target_sources(PlanetariumSoftware PRIVATE
 	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.cpp"
 	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.h"
 	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.cpp"
-	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.h" 
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.h"
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.cpp"
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.h" 
 	"src/AtlasGraphics/AtlasCanvas/AtlasCanvas.cpp"
 	"src/AtlasGraphics/AtlasCanvas/AtlasCanvas.h"
 )
