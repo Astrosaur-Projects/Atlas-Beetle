@@ -8,6 +8,9 @@ class AtlasMenuPlugins : public wxMenu
 public:
     AtlasMenuPlugins();
     ~AtlasMenuPlugins();
+
+private:
+    void OnManage(wxCommandEvent& event);
 };
 
 #endif
