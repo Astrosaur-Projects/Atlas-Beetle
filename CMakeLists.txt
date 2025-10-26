@@ -29,11 +29,11 @@ target_sources(PlanetariumSoftware PRIVATE
 	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.cpp"
 	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.h"
 	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.cpp"
-	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.h" 
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.h"
+	"src/AtlasGraphics/AtlasPluginManager/AtlasPluginManager.cpp"
+	"src/AtlasGraphics/AtlasPluginManager/AtlasPluginManager.h"
 	"src/AtlasGraphics/AtlasCanvas/AtlasCanvas.cpp"
 	"src/AtlasGraphics/AtlasCanvas/AtlasCanvas.h"
-	"src/AtlasPlugins/AtlasPluginManager.cpp"
-	"src/AtlasPlugins/AtlasPluginManager.h"
 )
 
 set_target_properties(PlanetariumSoftware PROPERTIES
