@@ -5,5 +5,4 @@
 enum class AtlasMenuOptionEnums : int
 {
 	ID_HELLO = wxID_HIGHEST + 1,
-	ID_GITHUB,
 };
