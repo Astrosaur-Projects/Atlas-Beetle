@@ -32,6 +32,8 @@ target_sources(PlanetariumSoftware PRIVATE
 	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.h" 
 	"src/AtlasGraphics/AtlasCanvas/AtlasCanvas.cpp"
 	"src/AtlasGraphics/AtlasCanvas/AtlasCanvas.h"
+	"src/AtlasPlugins/AtlasPluginManager.cpp"
+	"src/AtlasPlugins/AtlasPluginManager.h"
 )
 
 set_target_properties(PlanetariumSoftware PROPERTIES
