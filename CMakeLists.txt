@@ -17,12 +17,19 @@ add_executable(PlanetariumSoftware WIN32)
 target_sources(PlanetariumSoftware PRIVATE
 	"src/AtlasApp.cpp"
 	"src/AtlasUtilities/AtlasEnumUtilities.h"
-	"src/AtlasGraphics/AtlasFrame/AtlasFrame.cpp" "src/AtlasGraphics/AtlasFrame/AtlasFrame.h"
-	"src/AtlasGraphics/AtlasMenuBar/AtlasMenuBar.cpp" "src/AtlasGraphics/AtlasMenuBar/AtlasMenuBar.h"
+	"src/AtlasGraphics/AtlasFrame/AtlasFrame.cpp"
+	"src/AtlasGraphics/AtlasFrame/AtlasFrame.h"
+	"src/AtlasGraphics/AtlasMenuBar/AtlasMenuBar.cpp"
+	"src/AtlasGraphics/AtlasMenuBar/AtlasMenuBar.h"
 	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuOptionEnums.h"
-	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.cpp" "src/AtlasGraphics/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.h" 
-	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.cpp" "src/AtlasGraphics/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.h" 
-	"src/AtlasGraphics/AtlasCanvas/AtlasCanvas.cpp" "src/AtlasGraphics/AtlasCanvas/AtlasCanvas.h"
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.cpp"
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.h"
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.cpp"
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.h"
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.cpp"
+	"src/AtlasGraphics/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.h" 
+	"src/AtlasGraphics/AtlasCanvas/AtlasCanvas.cpp"
+	"src/AtlasGraphics/AtlasCanvas/AtlasCanvas.h"
 )
 
 set_target_properties(PlanetariumSoftware PROPERTIES
