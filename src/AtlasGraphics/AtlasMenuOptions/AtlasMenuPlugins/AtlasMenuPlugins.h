@@ -1,0 +1,13 @@
+#ifndef ATLAS_MENU_PLUGINS_H
+#define ATLAS_MENU_PLUGINS_H
+
+#include <wx/wx.h>
+
+class AtlasMenuPlugins : public wxMenu
+{
+public:
+    AtlasMenuPlugins();
+    ~AtlasMenuPlugins();
+};
+
+#endif
