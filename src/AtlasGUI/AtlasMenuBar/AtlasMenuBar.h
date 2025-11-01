@@ -2,10 +2,10 @@
 #define ATLAS_MENU_BAR_H
 
 #include <wx/wx.h>
-#include <AtlasGUI/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.h>
-#include <AtlasGUI/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.h>
-#include <AtlasGUI/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.h>
-#include <AtlasGUI/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.h>
+#include "AtlasGUI/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.h"
+#include "AtlasGUI/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.h"
+#include "AtlasGUI/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.h"
+#include "AtlasGUI/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.h"
 
 class AtlasMenuBar : public wxMenuBar
 {

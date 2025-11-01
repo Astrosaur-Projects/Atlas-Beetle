@@ -1,4 +1,4 @@
-#include <AtlasGUI/AtlasMenuBar/AtlasMenuBar.h>
+#include "AtlasGUI/AtlasMenuBar/AtlasMenuBar.h"
 
 AtlasMenuBar::AtlasMenuBar() : wxMenuBar()
 {

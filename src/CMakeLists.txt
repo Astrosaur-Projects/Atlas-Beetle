@@ -4,23 +4,14 @@ add_executable(PlanetariumSoftware WIN32)
 
 target_sources(PlanetariumSoftware PRIVATE
 	"AtlasApp.cpp"
-	"AtlasGUI/AtlasFrame/AtlasFrame.cpp"
-	"AtlasGUI/AtlasFrame/AtlasFrame.h"
-	"AtlasGUI/AtlasMenuBar/AtlasMenuBar.cpp"
-	"AtlasGUI/AtlasMenuBar/AtlasMenuBar.h"
-	"AtlasGUI/AtlasMenuOptions/AtlasMenuOptionEnums.h"
-	"AtlasGUI/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.cpp"
-	"AtlasGUI/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.h"
-	"AtlasGUI/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.cpp"
-	"AtlasGUI/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.h"
-	"AtlasGUI/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.cpp"
-	"AtlasGUI/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.h"
-	"AtlasGUI/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.cpp"
-	"AtlasGUI/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.h"
-	"AtlasGUI/AtlasPluginManager/AtlasPluginManager.cpp"
-	"AtlasGUI/AtlasPluginManager/AtlasPluginManager.h"
 	"AtlasGUI/AtlasCanvas/AtlasCanvas.cpp"
-	"AtlasGUI/AtlasCanvas/AtlasCanvas.h"
+	"AtlasGUI/AtlasFrame/AtlasFrame.cpp"
+	"AtlasGUI/AtlasMenuBar/AtlasMenuBar.cpp"
+	"AtlasGUI/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.cpp"
+	"AtlasGUI/AtlasMenuOptions/AtlasMenuHelp/AtlasMenuHelp.cpp"
+	"AtlasGUI/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.cpp"
+	"AtlasGUI/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.cpp"
+	"AtlasGUI/AtlasPluginManager/AtlasPluginManager.cpp"
 )
 
 target_include_directories(PlanetariumSoftware PRIVATE

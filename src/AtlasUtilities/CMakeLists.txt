@@ -1,6 +1,6 @@
 ﻿add_library(AtlasUtilities INTERFACE)
 
-target_sources(AtlasUtilities PRIVATE
+target_sources(AtlasUtilities INTERFACE
 	"AtlasEnumUtilities.h"
 )
 

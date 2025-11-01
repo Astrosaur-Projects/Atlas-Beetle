@@ -1,5 +1,5 @@
 #include <wx/wx.h>
-#include <AtlasGUI/AtlasFrame/AtlasFrame.h>
+#include "AtlasGUI/AtlasFrame/AtlasFrame.h"
 
 class AtlasApp : public wxApp
 {
