@@ -1,8 +1,9 @@
-﻿add_executable(PlanetariumSoftware WIN32)
+﻿add_subdirectory(AtlasUtilities)
+
+add_executable(PlanetariumSoftware WIN32)
 
 target_sources(PlanetariumSoftware PRIVATE
 	"AtlasApp.cpp"
-	"AtlasUtilities/AtlasEnumUtilities.h"
 	"AtlasGUI/AtlasFrame/AtlasFrame.cpp"
 	"AtlasGUI/AtlasFrame/AtlasFrame.h"
 	"AtlasGUI/AtlasMenuBar/AtlasMenuBar.cpp"
@@ -27,6 +28,7 @@ target_include_directories(PlanetariumSoftware PRIVATE
 )
 
 target_link_libraries(PlanetariumSoftware PRIVATE
+	AtlasUtilities
 	wxWidgets::wxWidgets
 	OpenGL::GL
 )
