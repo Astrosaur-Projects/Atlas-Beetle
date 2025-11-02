@@ -12,6 +12,7 @@ target_sources(PlanetariumSoftware PRIVATE
 	"AtlasGUI/AtlasMenuOptions/AtlasMenuPlugins/AtlasMenuPlugins.cpp"
 	"AtlasGUI/AtlasMenuOptions/AtlasMenuView/AtlasMenuView.cpp"
 	"AtlasGUI/AtlasPluginManager/AtlasPluginManager.cpp"
+	"AtlasGUI/AtlasCatalogManager/AtlasCatalogManager.cpp"
 )
 
 target_include_directories(PlanetariumSoftware PRIVATE
