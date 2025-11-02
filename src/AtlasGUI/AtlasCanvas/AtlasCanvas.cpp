@@ -1,5 +1,3 @@
-#include <wx/wx.h>
-#include <wx/glcanvas.h>
 #include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
 
 AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& canvasAttributes) : wxGLCanvas(parent, canvasAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
