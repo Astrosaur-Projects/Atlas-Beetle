@@ -10,7 +10,7 @@ public:
     ~AtlasMenuFile();
 
 private:
-    void OnHello(wxCommandEvent& event);
+    void OnCatalogManager(wxCommandEvent& event);
 };
 
 #endif

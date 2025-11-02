@@ -6,6 +6,6 @@
 */
 enum class AtlasMenuOptionEnums : int
 {
-	ID_HELLO = wxID_HIGHEST + 1,
+	ID_CATALOG_MANAGER = wxID_HIGHEST + 1,
 	ID_PLUGIN_MANAGER
 };

@@ -1,23 +1,25 @@
 #include "AtlasGUI/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.h"
 #include "AtlasGUI/AtlasMenuOptions/AtlasMenuOptionEnums.h"
+#include "AtlasGUI/AtlasCatalogManager/AtlasCatalogManager.h"
 #include "AtlasEnumUtilities.h"
 
 AtlasMenuFile::AtlasMenuFile() : wxMenu()
 {
-    this->Append(AtlasEnumUtilities::getValue(AtlasMenuOptionEnums::ID_HELLO), "&Hello...\tCtrl-H", "Help string shown in status bar for this menu item");
+    this->Append(AtlasEnumUtilities::getValue(AtlasMenuOptionEnums::ID_CATALOG_MANAGER), "&Catalogs", "Add or remove astronomical catalogs");
 
     this->AppendSeparator();
 
     this->Append(wxID_EXIT);
 
-    Bind(wxEVT_MENU, &AtlasMenuFile::OnHello, this, AtlasEnumUtilities::getValue(AtlasMenuOptionEnums::ID_HELLO));
+    Bind(wxEVT_MENU, &AtlasMenuFile::OnCatalogManager, this, AtlasEnumUtilities::getValue(AtlasMenuOptionEnums::ID_CATALOG_MANAGER));
 }
 
 AtlasMenuFile::~AtlasMenuFile()
 {
 }
 
-void AtlasMenuFile::OnHello(wxCommandEvent& event)
+void AtlasMenuFile::OnCatalogManager(wxCommandEvent& event)
 {
-    wxLogMessage("Hello world from wxWidgets!");
+    AtlasCatalogManager atlasCatalogManager;
+    atlasCatalogManager.ShowModal();
 }
