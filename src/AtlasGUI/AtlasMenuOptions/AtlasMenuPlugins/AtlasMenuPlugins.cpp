@@ -9,14 +9,14 @@ AtlasMenuPlugins::AtlasMenuPlugins() : wxMenu()
 
     this->AppendSeparator();
 
-    Bind(wxEVT_MENU, &AtlasMenuPlugins::OnManage, this, AtlasEnumUtilities::getValue(AtlasMenuOptionEnums::ID_PLUGIN_MANAGER));
+    Bind(wxEVT_MENU, &AtlasMenuPlugins::OnPluginManager, this, AtlasEnumUtilities::getValue(AtlasMenuOptionEnums::ID_PLUGIN_MANAGER));
 }
 
 AtlasMenuPlugins::~AtlasMenuPlugins()
 {
 }
 
-void AtlasMenuPlugins::OnManage(wxCommandEvent& event)
+void AtlasMenuPlugins::OnPluginManager(wxCommandEvent& event)
 {
     AtlasPluginManager pluginManagerDialog;
     pluginManagerDialog.ShowModal();

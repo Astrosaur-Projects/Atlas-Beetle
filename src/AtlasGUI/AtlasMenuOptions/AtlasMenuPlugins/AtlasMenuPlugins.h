@@ -10,7 +10,7 @@ public:
     ~AtlasMenuPlugins();
 
 private:
-    void OnManage(wxCommandEvent& event);
+    void OnPluginManager(wxCommandEvent& event);
 };
 
 #endif
