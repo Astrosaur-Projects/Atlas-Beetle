@@ -14,6 +14,9 @@ public:
 private:
 	wxSearchCtrl* catalogManagerSearchControl = nullptr;
 	wxListView* catalogManagerList = nullptr;
+
+private:
+	void OnSearch(wxCommandEvent& event);
 };
 
 #endif

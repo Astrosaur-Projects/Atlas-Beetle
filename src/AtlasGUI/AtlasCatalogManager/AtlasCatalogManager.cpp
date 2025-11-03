@@ -19,9 +19,15 @@ AtlasCatalogManager::AtlasCatalogManager() : wxDialog(NULL, wxID_ANY, "Catalog M
 	catalogManagerSizer->Add(catalogManagerList, 1, wxALL | wxEXPAND, 5);
 
 	SetSizerAndFit(catalogManagerSizer);
+
+	Bind(wxEVT_SEARCH, &AtlasCatalogManager::OnSearch, this);
 }
 
 
 AtlasCatalogManager::~AtlasCatalogManager()
+{
+}
+
+void AtlasCatalogManager::OnSearch(wxCommandEvent& event)
 {
 }
