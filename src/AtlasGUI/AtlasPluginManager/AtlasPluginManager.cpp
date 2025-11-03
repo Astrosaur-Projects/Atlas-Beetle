@@ -13,9 +13,10 @@ AtlasPluginManager::AtlasPluginManager() : wxDialog(nullptr, wxID_ANY, "Plugin M
 	pluginManagerList = new wxListView(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT | wxLC_VIRTUAL);
 
 	pluginManagerList->AppendColumn("Name");
-	pluginManagerList->AppendColumn("Version");
-	pluginManagerList->AppendColumn("Installed");
 	pluginManagerList->AppendColumn("Description");
+	pluginManagerList->AppendColumn("Version");
+	pluginManagerList->AppendColumn("Enabled");
+	pluginManagerList->AppendColumn("Installed");
 	pluginManagerList->AppendColumn("Tags");
 
 	pluginManagerSizer->Add(pluginManagerList, 1, wxALL | wxEXPAND, 5);
@@ -23,7 +24,6 @@ AtlasPluginManager::AtlasPluginManager() : wxDialog(nullptr, wxID_ANY, "Plugin M
 	SetSizerAndFit(pluginManagerSizer);
 
 	Bind(wxEVT_SEARCH, &AtlasPluginManager::OnSearch, this);
-
 }
 
 AtlasPluginManager::~AtlasPluginManager()
