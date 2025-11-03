@@ -3,6 +3,7 @@
 
 #include <wx/wx.h>
 #include <wx/listctrl.h>
+#include <wx/srchctrl.h>
 
 class AtlasCatalogManager : public wxDialog
 {
@@ -11,6 +12,7 @@ public:
 	~AtlasCatalogManager();
 
 private:
+	wxSearchCtrl* catalogManagerSearchControl = nullptr;
 	wxListView* catalogManagerList = nullptr;
 };
 

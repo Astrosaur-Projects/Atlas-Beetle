@@ -2,13 +2,19 @@
 
 AtlasCatalogManager::AtlasCatalogManager() : wxDialog(NULL, wxID_ANY, "Catalog Manager")
 {
+	catalogManagerSearchControl = new wxSearchCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
+
+	catalogManagerSearchControl->ShowCancelButton(true);
+
+	wxBoxSizer* catalogManagerSizer = new wxBoxSizer(wxVERTICAL);
+
+	catalogManagerSizer->Add(catalogManagerSearchControl, 0, wxALL | wxEXPAND, 5);
+
 	catalogManagerList = new wxListView(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT | wxLC_VIRTUAL);
 
 	catalogManagerList->AppendColumn("Name");
 	catalogManagerList->AppendColumn("Type");
 	catalogManagerList->AppendColumn("Enabled");
-
-	wxBoxSizer* catalogManagerSizer = new wxBoxSizer(wxVERTICAL);
 
 	catalogManagerSizer->Add(catalogManagerList, 1, wxALL | wxEXPAND, 5);
 
