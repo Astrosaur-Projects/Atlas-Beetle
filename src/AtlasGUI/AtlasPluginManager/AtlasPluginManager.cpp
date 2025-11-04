@@ -18,7 +18,7 @@ AtlasPluginManager::AtlasPluginManager() : wxDialog(nullptr, wxID_ANY, "Plugin M
 	pluginManagerList->AppendColumn("Enabled");
 	pluginManagerList->AppendColumn("Tags");
 
-	pluginManagerSizer->Add(pluginManagerList, 1, wxALL | wxEXPAND, 5);
+	pluginManagerSizer->Add(pluginManagerList, 1, wxLEFT | wxBOTTOM | wxRIGHT | wxEXPAND, 5);
 
 	SetSizerAndFit(pluginManagerSizer);
 

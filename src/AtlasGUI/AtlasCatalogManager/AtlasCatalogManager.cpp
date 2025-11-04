@@ -16,7 +16,7 @@ AtlasCatalogManager::AtlasCatalogManager() : wxDialog(NULL, wxID_ANY, "Catalog M
 	catalogManagerList->AppendColumn("Type");
 	catalogManagerList->AppendColumn("Enabled");
 
-	catalogManagerSizer->Add(catalogManagerList, 1, wxALL | wxEXPAND, 5);
+	catalogManagerSizer->Add(catalogManagerList, 1, wxLEFT | wxBOTTOM | wxRIGHT | wxEXPAND, 5);
 
 	SetSizerAndFit(catalogManagerSizer);
 
