@@ -16,7 +16,6 @@ AtlasPluginManager::AtlasPluginManager() : wxDialog(nullptr, wxID_ANY, "Plugin M
 	pluginManagerList->AppendColumn("Description");
 	pluginManagerList->AppendColumn("Version");
 	pluginManagerList->AppendColumn("Enabled");
-	pluginManagerList->AppendColumn("Installed");
 	pluginManagerList->AppendColumn("Tags");
 
 	pluginManagerSizer->Add(pluginManagerList, 1, wxALL | wxEXPAND, 5);
