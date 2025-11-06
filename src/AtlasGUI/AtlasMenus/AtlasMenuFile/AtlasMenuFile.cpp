@@ -1,5 +1,5 @@
-#include "AtlasGUI/AtlasMenuOptions/AtlasMenuFile/AtlasMenuFile.h"
-#include "AtlasGUI/AtlasMenuOptions/AtlasMenuOptionEnums.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuFile/AtlasMenuFile.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuOptionEnums.h"
 #include "AtlasGUI/AtlasCatalogManager/AtlasCatalogManager.h"
 #include "AtlasEnumUtilities.h"
 
