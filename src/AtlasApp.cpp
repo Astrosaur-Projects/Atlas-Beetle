@@ -34,6 +34,7 @@ private:
 *	 - https://cplusplus.com/
 *	 - https://www.opengl.org/
 *	 - https://wxwidgets.org/
+*	 - https://curl.se/
 *	 - https://cmake.org/
 */
 wxIMPLEMENT_APP(AtlasApp);
