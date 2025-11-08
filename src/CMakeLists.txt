@@ -23,6 +23,7 @@ target_link_libraries(PlanetariumSoftware PRIVATE
 	AtlasUtilities
 	wxWidgets::wxWidgets
 	OpenGL::GL
+	CURL::libcurl
 )
 
 if(MSVC)
