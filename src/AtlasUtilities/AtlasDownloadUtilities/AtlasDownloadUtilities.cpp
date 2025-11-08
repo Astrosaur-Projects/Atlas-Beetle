@@ -7,7 +7,7 @@ CURLcode AtlasDownloadUtilities::download(const std::string url, const std::stri
     CURLcode result = CURLE_FAILED_INIT;
 
     if (!curl) {
-        printf("Error initializing curl: %s (Code: %s)", curl_easy_strerror(result), result);
+        printf("Error initializing curl: %s (Code: %d)", curl_easy_strerror(result), result);
 
         return result;
     }
@@ -23,7 +23,7 @@ CURLcode AtlasDownloadUtilities::download(const std::string url, const std::stri
     if (!file) {
         result = CURLE_WRITE_ERROR;
 
-        printf("Error opening file %s: %s (Code: %s)", filename.c_str(), curl_easy_strerror(result), result);
+        printf("Error opening file %s: %s (Code: %d)", filename.c_str(), curl_easy_strerror(result), result);
 
         return result;
     }
