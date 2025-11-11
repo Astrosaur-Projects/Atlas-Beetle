@@ -36,6 +36,7 @@ private:
 *	 - https://wxwidgets.org/
 *	 - https://curl.se/
 *	 - https://cmake.org/
+*	 - https://sqlite.org/
 */
 wxIMPLEMENT_APP(AtlasApp);
 
