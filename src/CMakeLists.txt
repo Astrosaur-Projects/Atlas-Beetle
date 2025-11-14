@@ -24,6 +24,7 @@ target_link_libraries(PlanetariumSoftware PRIVATE
 	wxWidgets::wxWidgets
 	OpenGL::GL
 	CURL::libcurl
+	SQLite::SQLite3
 )
 
 if(MSVC)

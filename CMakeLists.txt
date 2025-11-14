@@ -14,5 +14,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(OpenGL REQUIRED)
 find_package(wxWidgets REQUIRED COMPONENTS gl core base)
 find_package(CURL REQUIRED)
+find_package(SQLite3 REQUIRED)
 
 add_subdirectory(src)
