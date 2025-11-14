@@ -1,4 +1,5 @@
 #include <wx/wx.h>
+#include <curl/curl.h>
 #include "AtlasGUI/AtlasFrame/AtlasFrame.h"
 
 class AtlasApp : public wxApp
@@ -42,6 +43,8 @@ wxIMPLEMENT_APP(AtlasApp);
 
 bool AtlasApp::OnInit()
 {
+    curl_global_init(CURL_GLOBAL_ALL);
+
     atlasFrame = new AtlasFrame();
 
     atlasFrame->Show(true);
