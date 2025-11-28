@@ -1,6 +1,7 @@
 #include <wx/wx.h>
-#include <curl/curl.h>
 #include "AtlasGUI/AtlasFrame/AtlasFrame.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasLoadCurl/AtlasLoadCurl.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasCreateDatabase/AtlasCreateDatabase.h"
 
 class AtlasApp : public wxApp
 {
@@ -43,7 +44,16 @@ wxIMPLEMENT_APP(AtlasApp);
 
 bool AtlasApp::OnInit()
 {
-    curl_global_init(CURL_GLOBAL_ALL);
+    AtlasLoadCurl loadCurl;
+    AtlasCreateDatabase atlasCreateDatabase;
+
+    std::expected<bool, std::string> initResult = true;
+
+    initResult.and_then([&](bool success) -> std::expected<bool, std::string> {
+        return loadCurl.process();
+    }).and_then([&](bool success) -> std::expected<bool, std::string> {
+        return atlasCreateDatabase.process();
+    });
 
     atlasFrame = new AtlasFrame();
 
