@@ -9,7 +9,7 @@ std::expected<bool, std::string> AtlasCreateDatabase::process() const
     int resultCode = sqlite3_open(atlasDatabasePath.c_str(), &atlasDatabase);
 
     if (resultCode) {
-        std::string errorMessage = std::format("Error opening database: %s (Code: %d)", sqlite3_errmsg(atlasDatabase), resultCode);
+        std::string errorMessage = std::format("Error opening database: {} (Code: {})", sqlite3_errmsg(atlasDatabase), resultCode);
 
         sqlite3_close(atlasDatabase);
 
@@ -32,7 +32,7 @@ std::expected<bool, std::string> AtlasCreateDatabase::initCatalogDirectoryTable(
     int resultCode = sqlite3_exec(atlasDatabase, createCatalogDirectoryTableSql.c_str(), nullptr, 0, &sqlErrorBuffer);
 
     if (resultCode) {
-        std::string errorMessage = std::format("Error creating CatalogDirectory table: %s (Code: %d)", errorMessage, resultCode);
+        std::string errorMessage = std::format("Error creating CatalogDirectory table: {} (Code: {})", errorMessage, resultCode);
 
         sqlite3_free(sqlErrorBuffer);
 
