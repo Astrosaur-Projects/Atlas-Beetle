@@ -8,7 +8,7 @@
 
 namespace AtlasDatabaseUtilities
 {
-	wxString getPath();
+	std::string getPath();
 	bool isInitialized();
 };
 

@@ -1,6 +1,6 @@
 #include "AtlasDatabaseUtilities.h"
 
-wxString AtlasDatabaseUtilities::getPath()
+std::string AtlasDatabaseUtilities::getPath()
 {
 	wxStandardPaths& wxStandardPaths = wxStandardPaths::Get();
 
@@ -8,7 +8,7 @@ wxString AtlasDatabaseUtilities::getPath()
 
 	wxString atlasDatabasePath = atlasDatabaseDirectory + wxFileName::GetPathSeparator() + "AtlasDatabase.db";
 
-	return atlasDatabasePath;
+	return atlasDatabasePath.ToStdString();
 }
 
 bool AtlasDatabaseUtilities::isInitialized()
