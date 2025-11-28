@@ -1,14 +1,14 @@
 #include "AtlasCreateDatabase.h"
 
-std::expected<bool, std::string> AtlasCreateDatabase::process()
+std::expected<bool, std::string> AtlasCreateDatabase::process() const
 {
     sqlite3* atlasDatabase;
 
     wxString atlasDatabasePath = AtlasDatabaseUtilities::getPath();
 
-    int resultCode = sqlite3_open(atlasDatabasePath, &atlasDatabase);
+    int resultCode = sqlite3_open(atlasDatabasePath.c_str(), &atlasDatabase);
 
-    if (!resultCode) {
+    if (resultCode) {
         std::string errorMessage = std::format("Error opening database: %s (Code: %d)", sqlite3_errmsg(atlasDatabase), resultCode);
 
         sqlite3_close(atlasDatabase);
@@ -23,7 +23,7 @@ std::expected<bool, std::string> AtlasCreateDatabase::process()
     return result;
 }
 
-std::expected<bool, std::string> AtlasCreateDatabase::initCatalogDirectoryTable(sqlite3* atlasDatabase)
+std::expected<bool, std::string> AtlasCreateDatabase::initCatalogDirectoryTable(sqlite3* atlasDatabase) const
 {
     char* sqlErrorBuffer = nullptr;
 
@@ -31,7 +31,7 @@ std::expected<bool, std::string> AtlasCreateDatabase::initCatalogDirectoryTable(
 
     int resultCode = sqlite3_exec(atlasDatabase, createCatalogDirectoryTableSql.c_str(), nullptr, 0, &sqlErrorBuffer);
 
-    if (!resultCode) {
+    if (resultCode) {
         std::string errorMessage = std::format("Error creating CatalogDirectory table: %s (Code: %d)", errorMessage, resultCode);
 
         sqlite3_free(sqlErrorBuffer);
