@@ -2,7 +2,6 @@
 #define ATLAS_DOWNLOAD_UTILS_H
 
 #include <curl/curl.h>
-#include <cstdio>
 #include <string>
 
 namespace AtlasDownloadUtilities

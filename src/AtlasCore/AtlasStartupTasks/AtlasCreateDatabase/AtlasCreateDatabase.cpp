@@ -1,4 +1,6 @@
 #include "AtlasCreateDatabase.h"
+#include "AtlasDatabaseUtilities.h"
+#include <wx/wx.h>
 
 std::expected<bool, std::string> AtlasCreateDatabase::process() const
 {

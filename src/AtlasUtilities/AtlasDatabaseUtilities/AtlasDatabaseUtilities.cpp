@@ -1,4 +1,6 @@
 #include "AtlasDatabaseUtilities.h"
+#include <wx/stdpaths.h>
+#include <wx/filename.h>
 
 std::string AtlasDatabaseUtilities::getPath()
 {

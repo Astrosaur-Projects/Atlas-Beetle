@@ -1,5 +1,5 @@
 #include "AtlasCore/AtlasStartupTasks/AtlasTask.h"
-#include "AtlasDatabaseUtilities.h"
+#include <sqlite3.h>
 
 class AtlasCreateDatabase : public AtlasTask
 {

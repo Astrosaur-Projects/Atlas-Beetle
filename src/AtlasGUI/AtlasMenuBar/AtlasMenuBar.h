@@ -20,7 +20,6 @@ private:
     AtlasMenuView* atlasMenuView = nullptr;
 
 private:
-    void OnHello(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
 };
 
