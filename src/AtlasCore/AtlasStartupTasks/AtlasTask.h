@@ -7,7 +7,7 @@
 class AtlasTask
 {
 public:
-	virtual ~AtlasTask() {}
+	virtual ~AtlasTask() = default;
 	virtual std::expected<bool, std::string> process() const = 0;
 };
 
