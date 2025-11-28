@@ -32,7 +32,7 @@ std::expected<bool, std::string> AtlasCreateDatabase::initCatalogDirectoryTable(
     int resultCode = sqlite3_exec(atlasDatabase, createCatalogDirectoryTableSql.c_str(), nullptr, 0, &sqlErrorBuffer);
 
     if (resultCode) {
-        std::string errorMessage = std::format("Error creating CatalogDirectory table: {} (Code: {})", errorMessage, resultCode);
+        std::string errorMessage = std::format("Error creating CatalogDirectory table: {} (Code: {})", sqlErrorBuffer, resultCode);
 
         sqlite3_free(sqlErrorBuffer);
 
