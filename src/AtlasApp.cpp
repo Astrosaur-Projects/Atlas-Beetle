@@ -49,11 +49,9 @@ bool AtlasApp::OnInit()
 
     std::expected<bool, std::string> initResult = true;
 
-    initResult.and_then([&](bool success) -> std::expected<bool, std::string> {
-        return loadCurl.process();
-    }).and_then([&](bool success) -> std::expected<bool, std::string> {
-        return atlasCreateDatabase.process();
-    });
+    initResult
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return loadCurl.process(); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return atlasCreateDatabase.process(); });
 
     atlasFrame = new AtlasFrame();
 
