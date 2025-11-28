@@ -1,6 +1,6 @@
-#include "AtlasInitDatabase.h"
+#include "AtlasCreateDatabase.h"
 
-std::expected<bool, std::string> AtlasInitDatabase::process()
+std::expected<bool, std::string> AtlasCreateDatabase::process()
 {
     sqlite3* atlasDatabase;
 
@@ -23,7 +23,7 @@ std::expected<bool, std::string> AtlasInitDatabase::process()
     return result;
 }
 
-std::expected<bool, std::string> AtlasInitDatabase::initCatalogDirectoryTable(sqlite3* atlasDatabase)
+std::expected<bool, std::string> AtlasCreateDatabase::initCatalogDirectoryTable(sqlite3* atlasDatabase)
 {
     char* sqlErrorBuffer = nullptr;
 

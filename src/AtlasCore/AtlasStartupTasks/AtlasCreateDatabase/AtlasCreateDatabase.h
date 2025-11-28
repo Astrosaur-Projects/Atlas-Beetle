@@ -1,7 +1,7 @@
 #include "AtlasCore/AtlasStartupTasks/AtlasTask.h"
 #include "AtlasDatabaseUtilities.h"
 
-class AtlasInitDatabase : public AtlasTask
+class AtlasCreateDatabase : public AtlasTask
 {
 public:
 	virtual std::expected<bool, std::string> process();
