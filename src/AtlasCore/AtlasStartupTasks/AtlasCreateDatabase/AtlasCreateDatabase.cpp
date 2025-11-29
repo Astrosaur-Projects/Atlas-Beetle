@@ -6,7 +6,7 @@ std::expected<bool, std::string> AtlasCreateDatabase::process() const
 {
     sqlite3* atlasDatabase;
 
-    wxString atlasDatabasePath = AtlasDatabaseUtilities::getPath();
+    std::string atlasDatabasePath = AtlasDatabaseUtilities::getPath();
 
     int resultCode = sqlite3_open(atlasDatabasePath.c_str(), &atlasDatabase);
 
