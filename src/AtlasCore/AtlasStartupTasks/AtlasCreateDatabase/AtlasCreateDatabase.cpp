@@ -53,9 +53,17 @@ std::expected<bool, std::string> AtlasCreateDatabase::initDatabase(sqlite3* &dat
 
 std::expected<bool, std::string> AtlasCreateDatabase::initCatalogDirectoryTable(sqlite3* database) const
 {
-    std::string createCatalogDirectoryTableSql = "CREATE TABLE IF NOT EXISTS CatalogDirectory (name TEXT NOT NULL, source TEXT NOT NULL, type TEXT NOT NULL, isEnabled INTEGER NOT NULL, isInstalled INTEGER NOT NULL);";
+    std::string createTableSql = R"(
+        CREATE TABLE IF NOT EXISTS CatalogDirectory (
+            name        TEXT    NOT NULL,
+            source      TEXT    NOT NULL,
+            type        TEXT    NOT NULL,
+            isEnabled   INTEGER NOT NULL,
+            isInstalled INTEGER NOT NULL
+        );
+    )";
 
-    int resultCode = sqlite3_exec(database, createCatalogDirectoryTableSql.c_str(), nullptr, 0, nullptr);
+    int resultCode = sqlite3_exec(database, createTableSql.c_str(), nullptr, 0, nullptr);
 
     if (resultCode) {
         std::string errorMessage = std::format("Error creating CatalogDirectory table: {} (Code: {})", sqlite3_errmsg(database), resultCode);
