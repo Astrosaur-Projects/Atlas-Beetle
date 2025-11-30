@@ -19,5 +19,6 @@ AtlasMenuPlugins::~AtlasMenuPlugins()
 void AtlasMenuPlugins::OnPluginManager(wxCommandEvent& event)
 {
     AtlasPluginManager pluginManagerDialog;
+
     pluginManagerDialog.ShowModal();
 }

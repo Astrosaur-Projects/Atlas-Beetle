@@ -12,8 +12,8 @@ public:
     ~AtlasFrame();
 
 private:
-    AtlasMenuBar* atlasMenuBar = nullptr;
-    AtlasCanvas* atlasCanvas = nullptr;
+    AtlasMenuBar* menuBar = nullptr;
+    AtlasCanvas* canvas = nullptr;
 
 private:
     void OnExit(wxCommandEvent& event);

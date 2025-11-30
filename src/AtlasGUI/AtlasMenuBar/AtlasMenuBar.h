@@ -14,10 +14,10 @@ public:
     ~AtlasMenuBar();
     
 private:
-    AtlasMenuFile* atlasMenuFile = nullptr;
-    AtlasMenuHelp* atlasMenuHelp = nullptr;
-    AtlasMenuPlugins* atlasMenuPlugins = nullptr;
-    AtlasMenuView* atlasMenuView = nullptr;
+    AtlasMenuFile* fileMenu = nullptr;
+    AtlasMenuHelp* helpMenu = nullptr;
+    AtlasMenuPlugins* pluginsMenu = nullptr;
+    AtlasMenuView* viewMenu = nullptr;
 
 private:
     void OnAbout(wxCommandEvent& event);

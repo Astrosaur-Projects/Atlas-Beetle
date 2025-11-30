@@ -20,6 +20,7 @@ AtlasMenuFile::~AtlasMenuFile()
 
 void AtlasMenuFile::OnCatalogManager(wxCommandEvent& event)
 {
-    AtlasCatalogManager atlasCatalogManager;
-    atlasCatalogManager.ShowModal();
+    AtlasCatalogManager catalogManagerDialog;
+
+    catalogManagerDialog.ShowModal();
 }

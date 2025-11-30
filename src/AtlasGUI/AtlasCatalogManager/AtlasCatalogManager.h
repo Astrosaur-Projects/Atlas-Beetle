@@ -12,8 +12,8 @@ public:
 	~AtlasCatalogManager();
 
 private:
-	wxSearchCtrl* catalogManagerSearchControl = nullptr;
-	wxListView* catalogManagerList = nullptr;
+	wxSearchCtrl* searchControl = nullptr;
+	wxListView* listView = nullptr;
 
 private:
 	void OnSearch(wxCommandEvent& event);

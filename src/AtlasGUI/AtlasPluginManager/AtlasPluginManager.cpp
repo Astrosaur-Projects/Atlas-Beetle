@@ -2,25 +2,25 @@
 
 AtlasPluginManager::AtlasPluginManager() : wxDialog(nullptr, wxID_ANY, "Plugin Manager")
 {
-	pluginManagerSearchControl = new wxSearchCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
+	searchControl = new wxSearchCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
 	
-	pluginManagerSearchControl->ShowCancelButton(true);
+	searchControl->ShowCancelButton(true);
 
-	wxBoxSizer* pluginManagerSizer = new wxBoxSizer(wxVERTICAL);
+	wxBoxSizer* boxSizer = new wxBoxSizer(wxVERTICAL);
 
-	pluginManagerSizer->Add(pluginManagerSearchControl, 0, wxALL | wxEXPAND, 5);
+	boxSizer->Add(searchControl, 0, wxALL | wxEXPAND, 5);
 
-	pluginManagerList = new wxListView(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT | wxLC_VIRTUAL);
+	listView = new wxListView(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT | wxLC_VIRTUAL);
 
-	pluginManagerList->AppendColumn("Name");
-	pluginManagerList->AppendColumn("Description");
-	pluginManagerList->AppendColumn("Version");
-	pluginManagerList->AppendColumn("Enabled");
-	pluginManagerList->AppendColumn("Tags");
+	listView->AppendColumn("Name");
+	listView->AppendColumn("Description");
+	listView->AppendColumn("Version");
+	listView->AppendColumn("Enabled");
+	listView->AppendColumn("Tags");
 
-	pluginManagerSizer->Add(pluginManagerList, 1, wxLEFT | wxBOTTOM | wxRIGHT | wxEXPAND, 5);
+	boxSizer->Add(listView, 1, wxLEFT | wxBOTTOM | wxRIGHT | wxEXPAND, 5);
 
-	SetSizerAndFit(pluginManagerSizer);
+	SetSizerAndFit(boxSizer);
 
 	Bind(wxEVT_SEARCH, &AtlasPluginManager::OnSearch, this);
 }

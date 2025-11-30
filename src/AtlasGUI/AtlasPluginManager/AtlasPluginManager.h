@@ -12,8 +12,8 @@ public:
 	~AtlasPluginManager();
 
 private:
-	wxSearchCtrl* pluginManagerSearchControl = nullptr;
-	wxListView* pluginManagerList = nullptr;
+	wxSearchCtrl* searchControl = nullptr;
+	wxListView* listView = nullptr;
 
 private:
 	void OnSearch(wxCommandEvent& event);

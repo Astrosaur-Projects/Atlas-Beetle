@@ -7,14 +7,14 @@
 class AtlasCanvas : public wxGLCanvas
 {
 public:
-	AtlasCanvas(wxFrame* parent, const wxGLAttributes& canvasAttributes);
+	AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes);
 	~AtlasCanvas();
 
 	void OnPaint(wxPaintEvent& event);
 	void OnSize(wxSizeEvent& event);
 
 private:
-	wxGLContext* canvasContext;
+	wxGLContext* glContext;
 };
 
 #endif

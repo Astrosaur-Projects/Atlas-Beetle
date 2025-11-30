@@ -2,21 +2,21 @@
 
 AtlasMenuBar::AtlasMenuBar() : wxMenuBar()
 {
-    atlasMenuFile = new AtlasMenuFile;
+    fileMenu = new AtlasMenuFile;
 
-    atlasMenuView = new AtlasMenuView;
+    viewMenu = new AtlasMenuView;
 
-    atlasMenuPlugins = new AtlasMenuPlugins;
+    pluginsMenu = new AtlasMenuPlugins;
 
-    atlasMenuHelp = new AtlasMenuHelp;
+    helpMenu = new AtlasMenuHelp;
 
-    this->Append(atlasMenuFile, "&File");
+    this->Append(fileMenu, "&File");
 
-    this->Append(atlasMenuView, "&View");
+    this->Append(viewMenu, "&View");
 
-    this->Append(atlasMenuPlugins, "&Plugins");
+    this->Append(pluginsMenu, "&Plugins");
 
-    this->Append(atlasMenuHelp, "&Help");
+    this->Append(helpMenu, "&Help");
 }
 
 AtlasMenuBar::~AtlasMenuBar()

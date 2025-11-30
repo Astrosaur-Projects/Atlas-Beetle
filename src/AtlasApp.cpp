@@ -9,7 +9,7 @@ public:
     bool OnInit() override;
 
 private:
-    AtlasFrame* atlasFrame = nullptr;
+    AtlasFrame* frame = nullptr;
 };
 
 /*
@@ -44,18 +44,18 @@ wxIMPLEMENT_APP(AtlasApp);
 
 bool AtlasApp::OnInit()
 {
-    AtlasLoadCurl loadCurl;
-    AtlasCreateDatabase atlasCreateDatabase;
+    AtlasLoadCurl loadCurlTask;
+    AtlasCreateDatabase createDatabaseTask;
 
-    std::expected<bool, std::string> initResult = true;
+    std::expected<bool, std::string> initAppResult = true;
 
-    initResult = initResult
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return loadCurl.process(); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return atlasCreateDatabase.process(); });
+    initAppResult = initAppResult
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return loadCurlTask.process(); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return createDatabaseTask.process(); });
 
-    atlasFrame = new AtlasFrame();
+    frame = new AtlasFrame();
 
-    atlasFrame->Show(true);
+    frame->Show(true);
 
     return true;
 }

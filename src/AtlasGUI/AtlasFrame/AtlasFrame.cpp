@@ -5,20 +5,20 @@ AtlasFrame::AtlasFrame() : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur
     wxGLAttributes canvasAttributes;
     canvasAttributes.PlatformDefaults().Defaults().EndList();
 
-    wxBoxSizer* frameSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* boxSizer = new wxBoxSizer(wxVERTICAL);
 
     if (wxGLCanvas::IsDisplaySupported(canvasAttributes))
     {
-        atlasCanvas = new AtlasCanvas(this, canvasAttributes);
+        canvas = new AtlasCanvas(this, canvasAttributes);
 
-        frameSizer->Add(atlasCanvas, 1, wxEXPAND);
+        boxSizer->Add(canvas, 1, wxEXPAND);
     }
 
-    SetSizerAndFit(frameSizer);
+    SetSizerAndFit(boxSizer);
     
-    atlasMenuBar = new AtlasMenuBar();
+    menuBar = new AtlasMenuBar();
 
-    SetMenuBar(atlasMenuBar);
+    SetMenuBar(menuBar);
 
     CreateStatusBar();
 

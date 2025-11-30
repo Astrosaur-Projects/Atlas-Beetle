@@ -1,16 +1,16 @@
 #include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
 
-AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& canvasAttributes) : wxGLCanvas(parent, canvasAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
+AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : wxGLCanvas(parent, glAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
 {
-	wxGLContextAttrs canvasContextAttributes;
-	canvasContextAttributes.PlatformDefaults().CoreProfile().OGLVersion(3, 3).EndList();
+	wxGLContextAttrs glContextAttributes;
+	glContextAttributes.PlatformDefaults().CoreProfile().OGLVersion(3, 3).EndList();
 
-	canvasContext = new wxGLContext(this, nullptr, &canvasContextAttributes);
+	glContext = new wxGLContext(this, nullptr, &glContextAttributes);
 
-	if (!canvasContext->IsOK())
+	if (!glContext->IsOK())
 	{
-		delete canvasContext;
-		canvasContext = nullptr;
+		delete glContext;
+		glContext = nullptr;
 	}
 
 	Bind(wxEVT_PAINT, &AtlasCanvas::OnPaint, this);
@@ -19,14 +19,14 @@ AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& canvasAttributes
 
 AtlasCanvas::~AtlasCanvas()
 {
-	delete canvasContext;
+	delete glContext;
 }
 
 void AtlasCanvas::OnPaint(wxPaintEvent& WXUNUSED(event))
 {
 	wxPaintDC dc(this);
 
-	SetCurrent(*canvasContext);
+	SetCurrent(*glContext);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);

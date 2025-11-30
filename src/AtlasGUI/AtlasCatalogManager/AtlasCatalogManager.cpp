@@ -2,24 +2,24 @@
 
 AtlasCatalogManager::AtlasCatalogManager() : wxDialog(NULL, wxID_ANY, "Catalog Manager")
 {
-	catalogManagerSearchControl = new wxSearchCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
+	searchControl = new wxSearchCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
 
-	catalogManagerSearchControl->ShowCancelButton(true);
+	searchControl->ShowCancelButton(true);
 
-	wxBoxSizer* catalogManagerSizer = new wxBoxSizer(wxVERTICAL);
+	wxBoxSizer* boxSizer = new wxBoxSizer(wxVERTICAL);
 
-	catalogManagerSizer->Add(catalogManagerSearchControl, 0, wxALL | wxEXPAND, 5);
+	boxSizer->Add(searchControl, 0, wxALL | wxEXPAND, 5);
 
-	catalogManagerList = new wxListView(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT | wxLC_VIRTUAL);
+	listView = new wxListView(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT | wxLC_VIRTUAL);
 
-	catalogManagerList->AppendColumn("Name");
-	catalogManagerList->AppendColumn("Type");
-	catalogManagerList->AppendColumn("Enabled");
-	catalogManagerList->AppendColumn("Installed");
+	listView->AppendColumn("Name");
+	listView->AppendColumn("Type");
+	listView->AppendColumn("Enabled");
+	listView->AppendColumn("Installed");
 
-	catalogManagerSizer->Add(catalogManagerList, 1, wxLEFT | wxBOTTOM | wxRIGHT | wxEXPAND, 5);
+	boxSizer->Add(listView, 1, wxLEFT | wxBOTTOM | wxRIGHT | wxEXPAND, 5);
 
-	SetSizerAndFit(catalogManagerSizer);
+	SetSizerAndFit(boxSizer);
 
 	Bind(wxEVT_SEARCH, &AtlasCatalogManager::OnSearch, this);
 }
