@@ -2,34 +2,22 @@
 #include <wx/stdpaths.h>
 #include <wx/filename.h>
 
-std::string AtlasDatabaseUtilities::getPath()
+wxString AtlasDatabaseUtilities::getDatabasePath()
 {
 	wxStandardPaths& wxStandardPaths = wxStandardPaths::Get();
+	
+	wxString databaseDirectoryPath = AtlasDatabaseUtilities::getDirectoryPath();
 
-	wxString atlasDatabaseDirectory = wxStandardPaths.GetUserLocalDataDir() + wxFileName::GetPathSeparator() + "AtlasDatabase";
+	wxString databasePath = databaseDirectoryPath + wxFileName::GetPathSeparator() + "AtlasDatabase.db";
 
-	wxString atlasDatabasePath = atlasDatabaseDirectory + wxFileName::GetPathSeparator() + "AtlasDatabase.db";
-
-	return atlasDatabasePath.ToStdString();
+	return databasePath;
 }
 
-bool AtlasDatabaseUtilities::isInitialized()
+wxString AtlasDatabaseUtilities::getDirectoryPath()
 {
-    wxString atlasDatabasePath = AtlasDatabaseUtilities::getPath();
+    wxStandardPaths& wxStandardPaths = wxStandardPaths::Get();
+	
+	wxString databaseDirectoryPath = wxStandardPaths.GetUserLocalDataDir() + wxFileName::GetPathSeparator() + "AtlasDatabase";
 
-    wxFileName atlasDatabaseFile(atlasDatabasePath);
-
-    if (!atlasDatabaseFile.IsOk()) {
-        printf("Invalid filename: %s", (const char*)atlasDatabasePath.mb_str());
-
-        return false;
-    }
-
-    if (!atlasDatabaseFile.FileExists()) {
-        printf("File does not exist: %s", (const char*)atlasDatabasePath.mb_str());
-
-        return false;
-    }
-
-	return true;
+    return databaseDirectoryPath;
 }
