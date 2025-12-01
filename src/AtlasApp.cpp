@@ -53,8 +53,8 @@ bool AtlasApp::OnInit()
 
     initAppResult = initAppResult
         .and_then([&](bool success) -> std::expected<bool, std::string> { return createDirectoryTask.initialize(); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return loadCurlTask.load(); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return createDatabaseTask.initialize(); });
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return createDatabaseTask.initialize(); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return loadCurlTask.load(); });
 
     frame = new AtlasFrame();
 
