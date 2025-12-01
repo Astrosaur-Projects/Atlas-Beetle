@@ -1,18 +1,11 @@
 ﻿add_subdirectory(AtlasUtilities)
 
+add_subdirectory(AtlasGUI)
+
 add_executable(PlanetariumSoftware WIN32)
 
 target_sources(PlanetariumSoftware PRIVATE
 	"AtlasApp.cpp"
-	"AtlasGUI/AtlasCanvas/AtlasCanvas.cpp"
-	"AtlasGUI/AtlasFrame/AtlasFrame.cpp"
-	"AtlasGUI/AtlasMenuBar/AtlasMenuBar.cpp"
-	"AtlasGUI/AtlasMenus/AtlasMenuFile/AtlasMenuFile.cpp"
-	"AtlasGUI/AtlasMenus/AtlasMenuHelp/AtlasMenuHelp.cpp"
-	"AtlasGUI/AtlasMenus/AtlasMenuPlugins/AtlasMenuPlugins.cpp"
-	"AtlasGUI/AtlasMenus/AtlasMenuView/AtlasMenuView.cpp"
-	"AtlasGUI/AtlasPluginManager/AtlasPluginManager.cpp"
-	"AtlasGUI/AtlasCatalogManager/AtlasCatalogManager.cpp"
 	"AtlasCore/AtlasStartupTasks/AtlasLoadCurl/AtlasLoadCurl.cpp"
 	"AtlasCore/AtlasStartupTasks/AtlasCreateDatabase/AtlasCreateDatabase.cpp"
 	"AtlasCore/AtlasStartupTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.cpp"
@@ -24,6 +17,7 @@ target_include_directories(PlanetariumSoftware PRIVATE
 
 target_link_libraries(PlanetariumSoftware PRIVATE
 	AtlasUtilities
+	AtlasGUI
 	wxWidgets::wxWidgets
 	OpenGL::GL
 	CURL::libcurl
