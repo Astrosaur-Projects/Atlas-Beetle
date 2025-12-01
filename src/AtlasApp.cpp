@@ -1,5 +1,6 @@
 #include <wx/wx.h>
 #include "AtlasGUI/AtlasFrame/AtlasFrame.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasLoadCurl/AtlasLoadCurl.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasCreateDatabase/AtlasCreateDatabase.h"
 
@@ -44,14 +45,16 @@ wxIMPLEMENT_APP(AtlasApp);
 
 bool AtlasApp::OnInit()
 {
+    AtlasCreateApplicationDirectory createDirectoryTask;
     AtlasLoadCurl loadCurlTask;
     AtlasCreateDatabase createDatabaseTask;
 
     std::expected<bool, std::string> initAppResult = true;
 
     initAppResult = initAppResult
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return loadCurlTask.process(); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return createDatabaseTask.process(); });
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return createDirectoryTask.initialize(); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return loadCurlTask.load(); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return createDatabaseTask.initialize(); });
 
     frame = new AtlasFrame();
 
