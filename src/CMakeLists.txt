@@ -1,7 +1,5 @@
 ﻿add_subdirectory(AtlasUtilities)
-
 add_subdirectory(AtlasCore)
-
 add_subdirectory(AtlasGUI)
 
 add_executable(PlanetariumSoftware WIN32)
