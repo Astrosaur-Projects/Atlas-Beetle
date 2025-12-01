@@ -1,7 +1,8 @@
-#include "AtlasCore/AtlasStartupTasks/AtlasTask.h"
+#include <expected>
+#include <string>
 
-class AtlasLoadCurl : public AtlasTask
+class AtlasLoadCurl
 {
 public:
-	virtual std::expected<bool, std::string> process() const override;
+	std::expected<bool, std::string> load() const;
 };
