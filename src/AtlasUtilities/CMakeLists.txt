@@ -1,13 +1,12 @@
 ﻿add_library(AtlasUtilities STATIC)
 
 target_sources(AtlasUtilities PRIVATE
-	"AtlasDatabaseUtilities/AtlasDatabaseUtilities.cpp"
+	"AtlasDirectoryUtilities/AtlasDirectoryUtilities.cpp"
 	"AtlasDownloadUtilities/AtlasDownloadUtilities.cpp"
-)
+ )
 
 target_include_directories(AtlasUtilities PUBLIC
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasEnumUtilities
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasDatabaseUtilities
+	${CMAKE_CURRENT_SOURCE_DIR}/AtlasDirectoryUtilities
 	${CMAKE_CURRENT_SOURCE_DIR}/AtlasDownloadUtilities
 )
 

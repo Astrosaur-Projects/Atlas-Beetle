@@ -1,16 +1,15 @@
 #include "AtlasCreateDatabase.h"
-#include "AtlasDatabaseUtilities.h"
+#include "AtlasDirectoryUtilities.h"
 #include <format>
 #include <wx/filename.h>
 
-std::expected<bool, std::string> AtlasCreateDatabase::process() const
+std::expected<bool, std::string> AtlasCreateDatabase::initialize() const
 {
     sqlite3* database = nullptr;
 
     std::expected<bool, std::string> initDbResult = true;
 
     initDbResult = initDbResult
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return initDatabaseDirectory(); })
         .and_then([&](bool success) -> std::expected<bool, std::string> { return initDatabase(database); })
         .and_then([&](bool success) -> std::expected<bool, std::string> { return initCatalogDirectoryTable(database); });
 
@@ -19,24 +18,9 @@ std::expected<bool, std::string> AtlasCreateDatabase::process() const
     return initDbResult;
 }
 
-std::expected<bool, std::string> AtlasCreateDatabase::initDatabaseDirectory() const
-{
-    wxString databaseDirectoryPath = AtlasDatabaseUtilities::getDirectoryPath();
-
-    wxFileName databaseDirectory(databaseDirectoryPath);
-
-    if (!databaseDirectory.DirExists() && !wxFileName::Mkdir(databaseDirectoryPath, wxS_DIR_DEFAULT, wxPATH_MKDIR_FULL)) {
-        std::string errorMessage = std::format("Error creating AtlasDatabase directory: {}", databaseDirectoryPath.ToStdString().c_str());
-
-        return std::unexpected<std::string>(errorMessage);
-    }
-
-    return true;
-}
-
 std::expected<bool, std::string> AtlasCreateDatabase::initDatabase(sqlite3* &database) const
 {
-    std::string databasePath = AtlasDatabaseUtilities::getDatabasePath().ToStdString();
+    std::string databasePath = AtlasDirectoryUtilities::getDatabasePath().ToStdString();
 
     int resultCode = sqlite3_open(databasePath.c_str(), &database);
 
