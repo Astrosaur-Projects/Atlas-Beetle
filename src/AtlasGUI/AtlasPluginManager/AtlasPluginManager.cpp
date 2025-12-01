@@ -1,4 +1,4 @@
-#include "AtlasGUI/AtlasPluginManager/AtlasPluginManager.h"
+#include "AtlasPluginManager.h"
 
 AtlasPluginManager::AtlasPluginManager() : wxDialog(nullptr, wxID_ANY, "Plugin Manager")
 {

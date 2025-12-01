@@ -1,4 +1,4 @@
-#include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
+#include "AtlasCanvas.h"
 
 AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : wxGLCanvas(parent, glAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
 {

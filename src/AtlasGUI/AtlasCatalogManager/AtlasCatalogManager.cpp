@@ -1,4 +1,4 @@
-#include "AtlasGUI/AtlasCatalogManager/AtlasCatalogManager.h"
+#include "AtlasCatalogManager.h"
 
 AtlasCatalogManager::AtlasCatalogManager() : wxDialog(NULL, wxID_ANY, "Catalog Manager")
 {

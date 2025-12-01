@@ -2,8 +2,8 @@
 #define ATLAS_FRAME_H
 
 #include <wx/wx.h>
-#include "AtlasGUI/AtlasMenuBar/AtlasMenuBar.h"
-#include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
+#include "AtlasMenuBar.h"
+#include "AtlasCanvas.h"
 
 class AtlasFrame : public wxFrame
 {
