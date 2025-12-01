@@ -1,3 +1,6 @@
+#ifndef ATLAS_CREATE_DB_TASK_H
+#define ATLAS_CREATE_DB_TASK_H
+
 #include <expected>
 #include <string>
 #include <sqlite3.h>
@@ -11,3 +14,5 @@ private:
 	std::expected<bool, std::string> initDatabase(sqlite3* &database) const;
 	std::expected<bool, std::string> initCatalogDirectoryTable(sqlite3* database) const;
 };
+
+#endif
