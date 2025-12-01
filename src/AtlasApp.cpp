@@ -1,8 +1,8 @@
 #include <wx/wx.h>
-#include "AtlasGUI/AtlasFrame/AtlasFrame.h"
-#include "AtlasCore/AtlasStartupTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.h"
-#include "AtlasCore/AtlasStartupTasks/AtlasLoadCurl/AtlasLoadCurl.h"
-#include "AtlasCore/AtlasStartupTasks/AtlasCreateDatabase/AtlasCreateDatabase.h"
+#include "AtlasFrame.h"
+#include "AtlasCreateApplicationDirectory.h"
+#include "AtlasLoadCurl.h"
+#include "AtlasCreateDatabase.h"
 
 class AtlasApp : public wxApp
 {

@@ -7,9 +7,9 @@ target_sources(AtlasCore PRIVATE
 )
 
 target_include_directories(AtlasCore PUBLIC
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasCreateApplicationDirectory
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasCreateDatabase
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasLoadCurl
+	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasCreateApplicationDirectory
+	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasCreateDatabase
+	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasLoadCurl
 )
 
 target_link_libraries(AtlasCore PRIVATE
