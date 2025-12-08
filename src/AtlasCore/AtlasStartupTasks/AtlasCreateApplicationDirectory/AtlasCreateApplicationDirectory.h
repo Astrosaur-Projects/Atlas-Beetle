@@ -5,13 +5,10 @@
 #include <expected>
 #include <string>
 
-class AtlasCreateApplicationDirectory
+namespace AtlasCreateApplicationDirectory
 {
-public:
-	std::expected<bool, std::string> initialize() const;
-
-private:
-	std::expected<bool, std::string> initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums directory) const;
+	std::expected<bool, std::string> initialize();
+	std::expected<bool, std::string> initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums directory);
 };
 
 #endif

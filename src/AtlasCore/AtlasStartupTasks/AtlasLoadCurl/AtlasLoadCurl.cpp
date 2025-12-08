@@ -2,7 +2,7 @@
 #include <curl/curl.h>
 #include <format>
 
-std::expected<bool, std::string> AtlasLoadCurl::load() const
+std::expected<bool, std::string> AtlasLoadCurl::load()
 {
     CURLcode result = curl_global_init(CURL_GLOBAL_ALL);
 

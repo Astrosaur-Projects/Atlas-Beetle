@@ -3,19 +3,19 @@
 #include <format>
 #include <wx/filename.h>
 
-std::expected<bool, std::string> AtlasCreateApplicationDirectory::initialize() const
+std::expected<bool, std::string> AtlasCreateApplicationDirectory::initialize()
 {
     std::expected<bool, std::string> initDirectoryResult = true;
 
     initDirectoryResult = initDirectoryResult
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_DATABASE); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_PLUGINS); });
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_DATABASE); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_PLUGINS); });
 
     return initDirectoryResult;
 }
 
-std::expected<bool, std::string> AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums directory) const
+std::expected<bool, std::string> AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums directory)
 {
     wxString path = AtlasDirectoryUtilities::getDirectoryPath(directory);
 

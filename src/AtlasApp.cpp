@@ -45,16 +45,12 @@ wxIMPLEMENT_APP(AtlasApp);
 
 bool AtlasApp::OnInit()
 {
-    AtlasCreateApplicationDirectory createDirectoryTask;
-    AtlasLoadCurl loadCurlTask;
-    AtlasCreateDatabase createDatabaseTask;
-
     std::expected<bool, std::string> initAppResult = true;
 
     initAppResult = initAppResult
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return createDirectoryTask.initialize(); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return createDatabaseTask.initialize(); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return loadCurlTask.load(); });
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasLoadCurl::load(); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initialize(); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initialize(); });
 
     frame = new AtlasFrame();
 

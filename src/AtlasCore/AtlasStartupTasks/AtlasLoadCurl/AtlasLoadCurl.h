@@ -4,10 +4,9 @@
 #include <expected>
 #include <string>
 
-class AtlasLoadCurl
+namespace AtlasLoadCurl
 {
-public:
-	std::expected<bool, std::string> load() const;
+	std::expected<bool, std::string> load();
 };
 
 #endif
