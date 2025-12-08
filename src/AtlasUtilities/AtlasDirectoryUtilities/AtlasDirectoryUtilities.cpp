@@ -17,14 +17,14 @@ wxString AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryEnums directory
 {
 	wxStandardPaths& wxStandardPaths = wxStandardPaths::Get();
 
-	wxString databaseDirectoryPath = wxStandardPaths.GetUserLocalDataDir() + wxFileName::GetPathSeparator() + AtlasDirectoryUtilities::mapDirectoryEnumToString(directory);
+	wxString databaseDirectoryPath = wxStandardPaths.GetUserLocalDataDir() + wxFileName::GetPathSeparator() + AtlasDirectoryUtilities::getDirectoryEnumString(directory);
 
 	return databaseDirectoryPath;
 }
 
-std::string AtlasDirectoryUtilities::mapDirectoryEnumToString(AtlasDirectoryEnums directory)
+std::string AtlasDirectoryUtilities::getDirectoryEnumString(AtlasDirectoryEnums directory)
 {
-	auto directoryName = AtlasDirectoryUtilities::AtlasDirectoryStrings.find(directory);
+	auto directoryString = AtlasDirectoryUtilities::AtlasDirectoryStrings.find(directory);
 
-	return directoryName == AtlasDirectoryUtilities::AtlasDirectoryStrings.end() ? "" : directoryName->second;
+	return directoryString == AtlasDirectoryUtilities::AtlasDirectoryStrings.end() ? "" : directoryString->second;
 }
