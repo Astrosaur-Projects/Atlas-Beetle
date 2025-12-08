@@ -11,7 +11,7 @@ std::expected<bool, std::string> AtlasCreateDatabase::initialize()
 
     initDbResult = initDbResult
         .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initDatabase(database); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initCatalogDirectoryTable(database); });
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initCatalogDirectory(database); });
 
     sqlite3_close(database);
 
@@ -35,9 +35,9 @@ std::expected<bool, std::string> AtlasCreateDatabase::initDatabase(sqlite3* &dat
     return true;
 }
 
-std::expected<bool, std::string> AtlasCreateDatabase::initCatalogDirectoryTable(sqlite3* database)
+std::expected<bool, std::string> AtlasCreateDatabase::initCatalogDirectory(sqlite3* database)
 {
-    std::string createTableSql = R"(
+    std::string createSql = R"(
         CREATE TABLE IF NOT EXISTS CatalogDirectory (
             name        TEXT    NOT NULL,
             source      TEXT    NOT NULL,
@@ -47,10 +47,10 @@ std::expected<bool, std::string> AtlasCreateDatabase::initCatalogDirectoryTable(
         );
     )";
 
-    int resultCode = sqlite3_exec(database, createTableSql.c_str(), nullptr, 0, nullptr);
+    int resultCode = sqlite3_exec(database, createSql.c_str(), nullptr, 0, nullptr);
 
     if (resultCode) {
-        std::string errorMessage = std::format("Error creating CatalogDirectory table: {} (Code: {})", sqlite3_errmsg(database), resultCode);
+        std::string errorMessage = std::format("Error creating CatalogDirectory: {} (Code: {})", sqlite3_errmsg(database), resultCode);
 
         return std::unexpected<std::string>(errorMessage);
     }
