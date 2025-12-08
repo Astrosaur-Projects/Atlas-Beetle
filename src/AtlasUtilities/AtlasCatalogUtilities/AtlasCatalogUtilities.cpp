@@ -16,9 +16,16 @@ std::string AtlasCatalogUtilities::getCatalogDownloadPath(AtlasCatalogEnums cata
 	return path == AtlasCatalogUtilities::AtlasCatalogDownloadPaths.end() ? "" : path->second;
 }
 
+AtlasCatalogUtilities::AtlasCatalogTypeEnums AtlasCatalogUtilities::getCatalogType(AtlasCatalogEnums catalog)
+{
+	auto type = AtlasCatalogUtilities::AtlasCatalogTypes.find(catalog);
+
+	return type == AtlasCatalogUtilities::AtlasCatalogTypes.end() ? AtlasCatalogTypeEnums::STAR : type->second;
+}
+
 std::string AtlasCatalogUtilities::getCatalogTypeString(AtlasCatalogTypeEnums type)
 {
-	auto catalogTypeString = AtlasCatalogUtilities::AtlasCatalogTypeStrings.find(type);
+	auto typeString = AtlasCatalogUtilities::AtlasCatalogTypeStrings.find(type);
 
-	return catalogTypeString == AtlasCatalogUtilities::AtlasCatalogTypeStrings.end() ? "" : catalogTypeString->second;
+	return typeString == AtlasCatalogUtilities::AtlasCatalogTypeStrings.end() ? "" : typeString->second;
 }

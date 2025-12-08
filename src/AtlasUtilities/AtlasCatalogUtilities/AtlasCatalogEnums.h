@@ -1,6 +1,7 @@
 #ifndef ATLAS_CATALOG_ENUMS_H
 #define ATLAS_CATALOG_ENUMS_H
 
+#include "AtlasCatalogTypeEnums.h"
 #include <map>
 #include <string>
 
@@ -22,8 +23,14 @@ namespace AtlasCatalogUtilities
 		{ AtlasCatalogEnums::CAT_BSC5P, "https://cdsarc.cds.unistra.fr/ftp/cats/V/50/catalog.gz" }
 	};
 
+	const std::map<AtlasCatalogEnums, const AtlasCatalogTypeEnums> AtlasCatalogTypes {
+		{ AtlasCatalogEnums::CAT_SAO, AtlasCatalogTypeEnums::STAR },
+		{ AtlasCatalogEnums::CAT_BSC5P, AtlasCatalogTypeEnums::STAR }
+	};
+
 	std::string getCatalogName(AtlasCatalogEnums catalog);
 	std::string getCatalogDownloadPath(AtlasCatalogEnums catalog);
+	AtlasCatalogTypeEnums getCatalogType(AtlasCatalogEnums catalog);
 };
 
 #endif
