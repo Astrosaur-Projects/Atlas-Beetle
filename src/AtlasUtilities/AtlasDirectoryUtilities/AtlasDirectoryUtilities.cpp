@@ -26,5 +26,5 @@ std::string AtlasDirectoryUtilities::getDirectoryString(AtlasDirectoryEnums dire
 {
 	auto directoryString = AtlasDirectoryUtilities::AtlasDirectoryStrings.find(directory);
 
-	return directoryString == AtlasDirectoryUtilities::AtlasDirectoryStrings.end() ? "" : directoryString->second;
+	return directoryString == AtlasDirectoryUtilities::AtlasDirectoryStrings.end() ? "Undefined" : directoryString->second;
 }
