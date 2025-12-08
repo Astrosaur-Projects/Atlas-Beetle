@@ -21,7 +21,7 @@ namespace AtlasDirectoryUtilities
 
 	wxString getDatabasePath();
 	wxString getDirectoryPath(AtlasDirectoryEnums directory);
-	wxString mapDirectoryEnumToString(AtlasDirectoryEnums directory);
+	std::string mapDirectoryEnumToString(AtlasDirectoryEnums directory);
 };
 
 #endif

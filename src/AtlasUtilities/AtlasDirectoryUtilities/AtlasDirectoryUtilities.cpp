@@ -22,7 +22,7 @@ wxString AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryEnums directory
 	return databaseDirectoryPath;
 }
 
-wxString AtlasDirectoryUtilities::mapDirectoryEnumToString(AtlasDirectoryEnums directory)
+std::string AtlasDirectoryUtilities::mapDirectoryEnumToString(AtlasDirectoryEnums directory)
 {
 	auto directoryName = AtlasDirectoryUtilities::AtlasDirectoryStrings.find(directory);
 
