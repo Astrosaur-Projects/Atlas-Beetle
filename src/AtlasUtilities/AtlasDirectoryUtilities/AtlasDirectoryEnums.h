@@ -18,7 +18,7 @@ namespace AtlasDirectoryUtilities
 		{ AtlasDirectoryEnums::DIR_PLUGINS, "AtlasPlugins" }
 	};
 
-	std::string getDirectoryEnumString(AtlasDirectoryEnums directory);
+	std::string getDirectoryString(AtlasDirectoryEnums directory);
 };
 
 #endif

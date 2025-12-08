@@ -17,12 +17,12 @@ wxString AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryEnums directory
 {
 	wxStandardPaths& wxStandardPaths = wxStandardPaths::Get();
 
-	wxString databaseDirectoryPath = wxStandardPaths.GetUserLocalDataDir() + wxFileName::GetPathSeparator() + AtlasDirectoryUtilities::getDirectoryEnumString(directory);
+	wxString databaseDirectoryPath = wxStandardPaths.GetUserLocalDataDir() + wxFileName::GetPathSeparator() + AtlasDirectoryUtilities::getDirectoryString(directory);
 
 	return databaseDirectoryPath;
 }
 
-std::string AtlasDirectoryUtilities::getDirectoryEnumString(AtlasDirectoryEnums directory)
+std::string AtlasDirectoryUtilities::getDirectoryString(AtlasDirectoryEnums directory)
 {
 	auto directoryString = AtlasDirectoryUtilities::AtlasDirectoryStrings.find(directory);
 
