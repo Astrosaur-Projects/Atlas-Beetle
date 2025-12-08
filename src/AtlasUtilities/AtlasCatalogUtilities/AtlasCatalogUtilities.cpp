@@ -1,5 +1,6 @@
 #include "AtlasCatalogUtilities.h"
 #include "AtlasCatalogEnums.h"
+#include "AtlasCatalogTypeEnums.h"
 
 std::string AtlasCatalogUtilities::getCatalogName(AtlasCatalogEnums catalog)
 {
@@ -13,4 +14,11 @@ std::string AtlasCatalogUtilities::getCatalogDownloadPath(AtlasCatalogEnums cata
 	auto path = AtlasCatalogUtilities::AtlasCatalogDownloadPaths.find(catalog);
 
 	return path == AtlasCatalogUtilities::AtlasCatalogDownloadPaths.end() ? "" : path->second;
+}
+
+std::string AtlasCatalogUtilities::getCatalogTypeString(AtlasCatalogTypeEnums type)
+{
+	auto catalogTypeString = AtlasCatalogUtilities::AtlasCatalogTypeStrings.find(type);
+
+	return catalogTypeString == AtlasCatalogUtilities::AtlasCatalogTypeStrings.end() ? "" : catalogTypeString->second;
 }
