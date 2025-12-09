@@ -1,7 +1,6 @@
 #include "AtlasCreateDatabase.h"
-#include "AtlasDirectoryUtilities.h"
+#include "AtlasOpenDatabase.h"
 #include <format>
-#include <wx/filename.h>
 
 std::expected<bool, std::string> AtlasCreateDatabase::initialize()
 {
@@ -10,29 +9,12 @@ std::expected<bool, std::string> AtlasCreateDatabase::initialize()
     std::expected<bool, std::string> initDbResult = true;
 
     initDbResult = initDbResult
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initDatabase(database); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasOpenDatabase::open(database); })
         .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initCatalogDirectory(database); });
 
     sqlite3_close(database);
 
     return initDbResult;
-}
-
-std::expected<bool, std::string> AtlasCreateDatabase::initDatabase(sqlite3* &database)
-{
-    std::string databasePath = AtlasDirectoryUtilities::getDatabasePath().ToStdString();
-
-    int resultCode = sqlite3_open(databasePath.c_str(), &database);
-
-    if (resultCode) {
-        std::string errorMessage = std::format("Error opening database: {} (Code: {})", sqlite3_errmsg(database), resultCode);
-
-        sqlite3_close(database);
-
-        return std::unexpected<std::string>(errorMessage);
-    }
-
-    return true;
 }
 
 std::expected<bool, std::string> AtlasCreateDatabase::initCatalogDirectory(sqlite3* database)

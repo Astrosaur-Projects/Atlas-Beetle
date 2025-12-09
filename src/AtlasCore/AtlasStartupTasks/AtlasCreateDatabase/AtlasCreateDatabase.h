@@ -8,7 +8,6 @@
 namespace AtlasCreateDatabase
 {
 	std::expected<bool, std::string> initialize();
-	std::expected<bool, std::string> initDatabase(sqlite3* &database);
 	std::expected<bool, std::string> initCatalogDirectory(sqlite3* database);
 };
 
