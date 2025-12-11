@@ -8,9 +8,7 @@ std::expected<bool, std::string> AtlasCreateCatalogDirectoryTable::create(sqlite
 
     initDbResult = initDbResult
         .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateCatalogDirectoryTable::initCatalogDirectory(database); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateCatalogDirectoryTable::resetCatalogDirectory(database); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateCatalogDirectoryTable::insertCatalogRecord(database, AtlasCatalogUtilities::AtlasCatalogEnums::CAT_SAO); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateCatalogDirectoryTable::insertCatalogRecord(database, AtlasCatalogUtilities::AtlasCatalogEnums::CAT_BSC5P); });
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateCatalogDirectoryTable::resetCatalogDirectory(database); });
     
     return initDbResult;
 }
@@ -39,6 +37,18 @@ std::expected<bool, std::string> AtlasCreateCatalogDirectoryTable::initCatalogDi
 }
 
 std::expected<bool, std::string> AtlasCreateCatalogDirectoryTable::resetCatalogDirectory(sqlite3* database)
+{
+    std::expected<bool, std::string> resetDbResult = true;
+
+    resetDbResult = resetDbResult
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateCatalogDirectoryTable::truncateCatalogDirectory(database); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateCatalogDirectoryTable::insertCatalogRecord(database, AtlasCatalogUtilities::AtlasCatalogEnums::CAT_SAO); })
+        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateCatalogDirectoryTable::insertCatalogRecord(database, AtlasCatalogUtilities::AtlasCatalogEnums::CAT_BSC5P); });
+
+    return resetDbResult;
+}
+
+std::expected<bool, std::string> AtlasCreateCatalogDirectoryTable::truncateCatalogDirectory(sqlite3* database)
 {
     std::string sql = "DELETE FROM CatalogDirectory;";
 
