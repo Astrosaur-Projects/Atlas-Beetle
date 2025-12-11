@@ -1,7 +1,6 @@
 #include "AtlasCreateDatabase.h"
 #include "AtlasOpenDatabase.h"
 #include "AtlasCreateCatalogDirectoryTable.h"
-#include <format>
 
 std::expected<bool, std::string> AtlasCreateDatabase::initialize()
 {
