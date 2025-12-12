@@ -1,4 +1,11 @@
 #include "AtlasCanvas.h"
+#include <GL/gl.h>
+#include <wx/dcclient.h>
+#include <wx/defs.h>
+#include <wx/event.h>
+#include <wx/frame.h>
+#include <wx/gdicmn.h>
+#include <wx/glcanvas.h>
 
 AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : wxGLCanvas(parent, glAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
 {
@@ -7,8 +14,7 @@ AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : 
 
 	glContext = new wxGLContext(this, nullptr, &glContextAttributes);
 
-	if (!glContext->IsOK())
-	{
+	if (!glContext->IsOK()) {
 		delete glContext;
 		glContext = nullptr;
 	}

@@ -2,6 +2,7 @@
 #define ATLAS_DIRECTORY_ENUMS_H
 
 #include <map>
+#include <string>
 
 namespace AtlasDirectoryUtilities
 {

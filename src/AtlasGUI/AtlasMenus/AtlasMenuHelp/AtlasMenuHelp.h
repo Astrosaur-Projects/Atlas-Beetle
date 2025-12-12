@@ -1,16 +1,17 @@
 #ifndef ATLAS_MENU_HELP_H
 #define ATLAS_MENU_HELP_H
 
-#include <wx/wx.h>
+#include <wx/event.h>
+#include <wx/menu.h>
 
 class AtlasMenuHelp : public wxMenu
 {
 public:
-    AtlasMenuHelp();
-    ~AtlasMenuHelp();
+	AtlasMenuHelp();
+	~AtlasMenuHelp();
 
 private:
-    void OnAbout(wxCommandEvent& event);
+	void OnAbout(wxCommandEvent& event);
 };
 
 #endif

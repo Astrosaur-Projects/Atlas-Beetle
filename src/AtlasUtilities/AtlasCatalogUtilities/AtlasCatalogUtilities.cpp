@@ -1,6 +1,7 @@
-#include "AtlasCatalogUtilities.h"
 #include "AtlasCatalogEnums.h"
 #include "AtlasCatalogTypeEnums.h"
+#include "AtlasCatalogUtilities.h"
+#include <string>
 
 std::string AtlasCatalogUtilities::getCatalogName(AtlasCatalogEnums catalog)
 {

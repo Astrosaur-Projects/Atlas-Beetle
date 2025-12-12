@@ -1,22 +1,27 @@
 #include "AtlasMenuBar.h"
+#include <AtlasMenuFile.h>
+#include <AtlasMenuHelp.h>
+#include <AtlasMenuPlugins.h>
+#include <AtlasMenuView.h>
+#include <wx/menu.h>
 
 AtlasMenuBar::AtlasMenuBar() : wxMenuBar()
 {
-    fileMenu = new AtlasMenuFile;
+	fileMenu = new AtlasMenuFile;
 
-    viewMenu = new AtlasMenuView;
+	viewMenu = new AtlasMenuView;
 
-    pluginsMenu = new AtlasMenuPlugins;
+	pluginsMenu = new AtlasMenuPlugins;
 
-    helpMenu = new AtlasMenuHelp;
+	helpMenu = new AtlasMenuHelp;
 
-    this->Append(fileMenu, "&File");
+	this->Append(fileMenu, "&File");
 
-    this->Append(viewMenu, "&View");
+	this->Append(viewMenu, "&View");
 
-    this->Append(pluginsMenu, "&Plugins");
+	this->Append(pluginsMenu, "&Plugins");
 
-    this->Append(helpMenu, "&Help");
+	this->Append(helpMenu, "&Help");
 }
 
 AtlasMenuBar::~AtlasMenuBar()

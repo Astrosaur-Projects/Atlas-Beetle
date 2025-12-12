@@ -1,5 +1,5 @@
 #include "AtlasMenuView.h"
-#include "AtlasMenuOptionEnums.h"
+#include <wx/menu.h>
 
 AtlasMenuView::AtlasMenuView() : wxMenu()
 {

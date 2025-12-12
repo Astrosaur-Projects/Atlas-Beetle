@@ -3,7 +3,6 @@
 
 #include <expected>
 #include <string>
-#include <sqlite3.h>
 
 namespace AtlasCreateDatabase
 {

@@ -2,8 +2,8 @@
 #define ATLAS_OPEN_DB_TASK_H
 
 #include <expected>
-#include <string>
 #include <sqlite3.h>
+#include <string>
 
 namespace AtlasOpenDatabase
 {

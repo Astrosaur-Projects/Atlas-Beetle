@@ -1,4 +1,13 @@
 #include "AtlasCatalogManager.h"
+#include <wx/defs.h>
+#include <wx/dialog.h>
+#include <wx/event.h>
+#include <wx/gdicmn.h>
+#include <wx/listbase.h>
+#include <wx/listctrl.h>
+#include <wx/sizer.h>
+#include <wx/srchctrl.h>
+#include <wx/string.h>
 
 AtlasCatalogManager::AtlasCatalogManager() : wxDialog(NULL, wxID_ANY, "Catalog Manager")
 {

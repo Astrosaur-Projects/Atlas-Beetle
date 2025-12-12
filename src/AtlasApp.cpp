@@ -1,16 +1,18 @@
-#include <wx/wx.h>
-#include "AtlasFrame.h"
 #include "AtlasCreateApplicationDirectory.h"
-#include "AtlasLoadCurl.h"
 #include "AtlasCreateDatabase.h"
+#include "AtlasFrame.h"
+#include "AtlasLoadCurl.h"
+#include <expected>
+#include <string>
+#include <wx/app.h>
 
 class AtlasApp : public wxApp
 {
 public:
-    bool OnInit() override;
+	bool OnInit() override;
 
 private:
-    AtlasFrame* frame = nullptr;
+	AtlasFrame* frame = nullptr;
 };
 
 /*
@@ -45,16 +47,16 @@ wxIMPLEMENT_APP(AtlasApp);
 
 bool AtlasApp::OnInit()
 {
-    std::expected<bool, std::string> initAppResult = true;
+	std::expected<bool, std::string> initAppResult = true;
 
-    initAppResult = initAppResult
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasLoadCurl::load(); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initialize(); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initialize(); });
+	initAppResult = initAppResult
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasLoadCurl::load(); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initialize(); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initialize(); });
 
-    frame = new AtlasFrame();
+	frame = new AtlasFrame();
 
-    frame->Show(true);
+	frame->Show(true);
 
-    return true;
+	return true;
 }

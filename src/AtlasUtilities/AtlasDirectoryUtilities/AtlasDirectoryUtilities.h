@@ -1,8 +1,8 @@
 #ifndef ATLAS_DIRECTORY_UTILS_H
 #define ATLAS_DIRECTORY_UTILS_H
 
-#include <wx/string.h>
 #include "AtlasDirectoryEnums.h"
+#include <wx/string.h>
 
 namespace AtlasDirectoryUtilities
 {

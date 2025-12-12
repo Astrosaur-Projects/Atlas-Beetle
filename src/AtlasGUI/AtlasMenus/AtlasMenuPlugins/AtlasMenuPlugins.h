@@ -1,16 +1,17 @@
 #ifndef ATLAS_MENU_PLUGINS_H
 #define ATLAS_MENU_PLUGINS_H
 
-#include <wx/wx.h>
+#include <wx/event.h>
+#include <wx/menu.h>
 
 class AtlasMenuPlugins : public wxMenu
 {
 public:
-    AtlasMenuPlugins();
-    ~AtlasMenuPlugins();
+	AtlasMenuPlugins();
+	~AtlasMenuPlugins();
 
 private:
-    void OnPluginManager(wxCommandEvent& event);
+	void OnPluginManager(wxCommandEvent& event);
 };
 
 #endif

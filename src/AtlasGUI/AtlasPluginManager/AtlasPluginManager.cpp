@@ -1,9 +1,18 @@
 #include "AtlasPluginManager.h"
+#include <wx/defs.h>
+#include <wx/dialog.h>
+#include <wx/event.h>
+#include <wx/gdicmn.h>
+#include <wx/listbase.h>
+#include <wx/listctrl.h>
+#include <wx/sizer.h>
+#include <wx/srchctrl.h>
+#include <wx/string.h>
 
 AtlasPluginManager::AtlasPluginManager() : wxDialog(nullptr, wxID_ANY, "Plugin Manager")
 {
 	searchControl = new wxSearchCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
-	
+
 	searchControl->ShowCancelButton(true);
 
 	wxBoxSizer* boxSizer = new wxBoxSizer(wxVERTICAL);

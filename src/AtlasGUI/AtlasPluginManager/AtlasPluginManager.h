@@ -1,9 +1,10 @@
 #ifndef ATLAS_PLUGIN_MANAGER_H
 #define ATLAS_PLUGIN_MANAGER_H
 
-#include <wx/wx.h>
-#include <wx/listctrl.h>
+#include <wx/event.h>
 #include <wx/srchctrl.h>
+#include <wx/listctrl.h>
+#include <wx/dialog.h>
 
 class AtlasPluginManager : public wxDialog
 {

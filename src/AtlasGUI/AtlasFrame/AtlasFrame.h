@@ -1,22 +1,23 @@
 #ifndef ATLAS_FRAME_H
 #define ATLAS_FRAME_H
 
-#include <wx/wx.h>
-#include "AtlasMenuBar.h"
 #include "AtlasCanvas.h"
+#include "AtlasMenuBar.h"
+#include <wx/event.h>
+#include <wx/frame.h>
 
 class AtlasFrame : public wxFrame
 {
 public:
-    AtlasFrame();
-    ~AtlasFrame();
+	AtlasFrame();
+	~AtlasFrame();
 
 private:
-    AtlasMenuBar* menuBar = nullptr;
-    AtlasCanvas* canvas = nullptr;
+	AtlasMenuBar* menuBar = nullptr;
+	AtlasCanvas* canvas = nullptr;
 
 private:
-    void OnExit(wxCommandEvent& event);
+	void OnExit(wxCommandEvent& event);
 };
 
 #endif

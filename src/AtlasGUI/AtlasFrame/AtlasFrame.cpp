@@ -1,28 +1,34 @@
 #include "AtlasFrame.h"
+#include <AtlasCanvas.h>
+#include <AtlasMenuBar.h>
+#include <wx/defs.h>
+#include <wx/event.h>
+#include <wx/glcanvas.h>
+#include <wx/frame.h>
+#include <wx/sizer.h>
 
 AtlasFrame::AtlasFrame() : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur Projects™")
 {
-    wxGLAttributes canvasAttributes;
-    canvasAttributes.PlatformDefaults().Defaults().EndList();
+	wxGLAttributes canvasAttributes;
+	canvasAttributes.PlatformDefaults().Defaults().EndList();
 
-    wxBoxSizer* boxSizer = new wxBoxSizer(wxVERTICAL);
+	wxBoxSizer* boxSizer = new wxBoxSizer(wxVERTICAL);
 
-    if (wxGLCanvas::IsDisplaySupported(canvasAttributes))
-    {
-        canvas = new AtlasCanvas(this, canvasAttributes);
+	if (wxGLCanvas::IsDisplaySupported(canvasAttributes)) {
+		canvas = new AtlasCanvas(this, canvasAttributes);
 
-        boxSizer->Add(canvas, 1, wxEXPAND);
-    }
+		boxSizer->Add(canvas, 1, wxEXPAND);
+	}
 
-    SetSizerAndFit(boxSizer);
-    
-    menuBar = new AtlasMenuBar();
+	SetSizerAndFit(boxSizer);
 
-    SetMenuBar(menuBar);
+	menuBar = new AtlasMenuBar();
 
-    CreateStatusBar();
+	SetMenuBar(menuBar);
 
-    Bind(wxEVT_MENU, &AtlasFrame::OnExit, this, wxID_EXIT);
+	CreateStatusBar();
+
+	Bind(wxEVT_MENU, &AtlasFrame::OnExit, this, wxID_EXIT);
 }
 
 AtlasFrame::~AtlasFrame()
@@ -31,5 +37,5 @@ AtlasFrame::~AtlasFrame()
 
 void AtlasFrame::OnExit(wxCommandEvent& event)
 {
-    Close(true);
+	Close(true);
 }

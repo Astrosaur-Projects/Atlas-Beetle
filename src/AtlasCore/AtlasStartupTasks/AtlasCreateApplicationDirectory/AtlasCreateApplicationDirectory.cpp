@@ -1,31 +1,36 @@
 #include "AtlasCreateApplicationDirectory.h"
 #include "AtlasDirectoryUtilities.h"
+#include "AtlasDirectoryEnums.h"
+#include <expected>
 #include <format>
+#include <string>
+#include <wx/filefn.h>
 #include <wx/filename.h>
+#include <wx/string.h>
 
 std::expected<bool, std::string> AtlasCreateApplicationDirectory::initialize()
 {
-    std::expected<bool, std::string> initDirectoryResult = true;
+	std::expected<bool, std::string> initDirectoryResult = true;
 
-    initDirectoryResult = initDirectoryResult
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_DATABASE); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS); })
-        .and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_PLUGINS); });
+	initDirectoryResult = initDirectoryResult
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_DATABASE); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_PLUGINS); });
 
-    return initDirectoryResult;
+	return initDirectoryResult;
 }
 
 std::expected<bool, std::string> AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums directory)
 {
-    wxString path = AtlasDirectoryUtilities::getDirectoryPath(directory);
+	wxString path = AtlasDirectoryUtilities::getDirectoryPath(directory);
 
-    wxFileName fileName(path);
+	wxFileName fileName(path);
 
-    if (!fileName.DirExists() && !wxFileName::Mkdir(path, wxS_DIR_DEFAULT, wxPATH_MKDIR_FULL)) {
-        std::string errorMessage = std::format("Error creating directory: {}",path.ToStdString().c_str());
+	if (!fileName.DirExists() && !wxFileName::Mkdir(path, wxS_DIR_DEFAULT, wxPATH_MKDIR_FULL)) {
+		std::string errorMessage = std::format("Error creating directory: {}", path.ToStdString().c_str());
 
-        return std::unexpected<std::string>(errorMessage);
-    }
+		return std::unexpected<std::string>(errorMessage);
+	}
 
-    return true;
+	return true;
 }

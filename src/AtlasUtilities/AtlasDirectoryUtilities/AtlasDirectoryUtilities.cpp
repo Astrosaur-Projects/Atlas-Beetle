@@ -1,11 +1,14 @@
+#include "AtlasDirectoryEnums.h"
 #include "AtlasDirectoryUtilities.h"
-#include <wx/stdpaths.h>
+#include <string>
 #include <wx/filename.h>
+#include <wx/stdpaths.h>
+#include <wx/string.h>
 
 wxString AtlasDirectoryUtilities::getDatabasePath()
 {
 	wxStandardPaths& wxStandardPaths = wxStandardPaths::Get();
-	
+
 	wxString databaseDirectoryPath = AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryEnums::DIR_DATABASE);
 
 	wxString databasePath = databaseDirectoryPath + wxFileName::GetPathSeparator() + "AtlasDatabase.db";
