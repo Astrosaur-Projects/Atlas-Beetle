@@ -6,6 +6,7 @@ target_sources(AtlasCore PRIVATE
 	"AtlasStartupTasks/AtlasLoadCurl/AtlasLoadCurl.cpp"
 	"AtlasStartupTasks/AtlasOpenDatabase/AtlasOpenDatabase.cpp"
 	"AtlasStartupTasks/AtlasCreateCatalogDirectoryTable/AtlasCreateCatalogDirectoryTable.cpp"
+	"AtlasStartupTasks/AtlasFetchCatalogs/AtlasFetchCatalogs.cpp"
 	"AtlasConfig/AtlasConfig.cpp"
 )
 
@@ -15,6 +16,7 @@ target_include_directories(AtlasCore PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasLoadCurl
 	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasOpenDatabase
 	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasCreateCatalogDirectoryTable
+	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasFetchCatalogs
 	${CMAKE_CURRENT_SOURCE_DIR}/AtlasConfig
 )
 
