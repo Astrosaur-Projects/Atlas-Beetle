@@ -1,3 +1,4 @@
+#include "AtlasConfig.h"
 #include "AtlasCreateApplicationDirectory.h"
 #include "AtlasCreateDatabase.h"
 #include "AtlasFrame.h"
@@ -5,14 +6,18 @@
 #include <expected>
 #include <string>
 #include <wx/app.h>
+#include <wx/cmdline.h>
 
 class AtlasApp : public wxApp
 {
 public:
-	bool OnInit() override;
+	virtual bool OnInit();
+	virtual void OnInitCmdLine(wxCmdLineParser& parser);
+	virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
 
 private:
 	AtlasFrame* frame = nullptr;
+	AtlasConfig& config = AtlasConfig::getInstance();
 };
 
 /*
@@ -47,6 +52,10 @@ wxIMPLEMENT_APP(AtlasApp);
 
 bool AtlasApp::OnInit()
 {
+	if (!wxApp::OnInit()) {
+		return false;
+	}
+
 	std::expected<bool, std::string> initAppResult = true;
 
 	initAppResult = initAppResult
@@ -57,6 +66,40 @@ bool AtlasApp::OnInit()
 	frame = new AtlasFrame();
 
 	frame->Show(true);
+
+	return true;
+}
+
+void AtlasApp::OnInitCmdLine(wxCmdLineParser& parser)
+{
+	wxApp::OnInitCmdLine(parser);
+
+	static const wxCmdLineEntryDesc description[] = {
+		{ wxCMD_LINE_SWITCH, "V", "version", "display software version and exit" },
+		{ wxCMD_LINE_SWITCH, nullptr, "reset-catalogs", "reset astronomical catalogs to default" },
+		{ wxCMD_LINE_SWITCH, nullptr, "reset-gui", "reset window layout to default" },
+		{ wxCMD_LINE_SWITCH, nullptr, "reset-plugins", "reset plugins to default" },
+		{ wxCMD_LINE_SWITCH, nullptr, "reset-settings", "reset application settings to default" },
+		{ wxCMD_LINE_NONE }
+	};
+
+	parser.SetDesc(description);
+}
+
+bool AtlasApp::OnCmdLineParsed(wxCmdLineParser& parser)
+{
+	if (!wxApp::OnCmdLineParsed(parser)) {
+		return false;
+	}
+
+	if (parser.Found("V")) {
+		return false;
+	}
+
+	config.resetCatalogs = parser.Found("reset-catalogs");
+	config.resetGui = parser.Found("reset-gui");
+	config.resetPlugins = parser.Found("reset-plugins");
+	config.resetSettings = parser.Found("reset-settings");
 
 	return true;
 }
