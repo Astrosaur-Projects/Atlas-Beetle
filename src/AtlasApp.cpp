@@ -79,7 +79,7 @@ void AtlasApp::OnInitCmdLine(wxCmdLineParser& parser)
 		{ wxCMD_LINE_SWITCH, nullptr, "reset-catalogs", "reset astronomical catalogs to default" },
 		{ wxCMD_LINE_SWITCH, nullptr, "reset-gui", "reset window layout to default" },
 		{ wxCMD_LINE_SWITCH, nullptr, "reset-plugins", "reset plugins to default" },
-		{ wxCMD_LINE_SWITCH, nullptr, "reset-settings", "reset application settings to default" },
+		{ wxCMD_LINE_SWITCH, nullptr, "reset-settings", "reset settings to default" },
 		{ wxCMD_LINE_NONE }
 	};
 
@@ -92,7 +92,7 @@ bool AtlasApp::OnCmdLineParsed(wxCmdLineParser& parser)
 		return false;
 	}
 
-	if (parser.Found("V")) {
+	if (parser.Found("version")) {
 		return false;
 	}
 
