@@ -1,6 +1,6 @@
 #include "AtlasCreateApplicationDirectory.h"
-#include "AtlasDirectoryUtilities.h"
 #include "AtlasDirectoryEnums.h"
+#include "AtlasDirectoryUtilities.h"
 #include <expected>
 #include <format>
 #include <string>

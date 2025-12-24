@@ -1,6 +1,6 @@
-#include "AtlasCreateCatalogDirectoryTable.h"
 #include "AtlasCatalogEnums.h"
 #include "AtlasCatalogTypeEnums.h"
+#include "AtlasCreateCatalogDirectoryTable.h"
 #include <expected>
 #include <format>
 #include <sqlite3.h>
