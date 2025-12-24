@@ -14,7 +14,7 @@ std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std:
 	CURLcode result = CURLE_FAILED_INIT;
 
 	if (!curl) {
-		std::string errorMessage = std::format("Error initializing curl: %s (Code: %d)", curl_easy_strerror(result), static_cast<int>(result));
+		std::string errorMessage = std::format("Error initializing curl: {} (Code: {})", curl_easy_strerror(result), static_cast<int>(result));
 
 		return std::unexpected<std::string>(errorMessage);
 	}
@@ -25,12 +25,14 @@ std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std:
 
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, AtlasDownloadUtilities::writeDataCallback);
 
+	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+
 	FILE* file = fopen(filename.c_str(), "wb");
 
 	if (!file) {
 		result = CURLE_WRITE_ERROR;
 
-		std::string errorMessage = std::format("Error opening file %s: %s (Code: %d)", filename.c_str(), curl_easy_strerror(result), static_cast<int>(result));
+		std::string errorMessage = std::format("Error opening file {}: {} (Code: {})", filename.c_str(), curl_easy_strerror(result), static_cast<int>(result));
 
 		return std::unexpected<std::string>(errorMessage);
 	}
@@ -42,6 +44,12 @@ std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std:
 	fclose(file);
 
 	curl_easy_cleanup(curl);
+
+	if (result) {
+		std::string errorMessage = std::format("Error downloading url with curl {}: {} (Code: {})", url.c_str(), curl_easy_strerror(result), static_cast<int>(result));
+
+		return std::unexpected<std::string>(errorMessage);
+	}
 
 	return result;
 }
