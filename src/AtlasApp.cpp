@@ -1,6 +1,7 @@
 #include "AtlasConfig.h"
 #include "AtlasCreateApplicationDirectory.h"
 #include "AtlasCreateDatabase.h"
+#include "AtlasDownloadCatalogs.h"
 #include "AtlasFrame.h"
 #include "AtlasLoadCurl.h"
 #include <expected>
@@ -61,7 +62,8 @@ bool AtlasApp::OnInit()
 	initAppResult = initAppResult
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasLoadCurl::load(); })
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initialize(); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initialize(); });
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initialize(); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasDownloadCatalogs::download(); });
 
 	frame = new AtlasFrame();
 
