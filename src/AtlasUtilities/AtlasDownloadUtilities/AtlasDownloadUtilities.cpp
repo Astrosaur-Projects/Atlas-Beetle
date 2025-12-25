@@ -1,11 +1,12 @@
 #include "AtlasDownloadUtilities.h"
 #include <cstdio>
+#include <cstdlib>
 #include <curl/curl.h>
 #include <curl/easy.h>
 #include <expected>
 #include <filesystem>
-#include <string>
 #include <format>
+#include <string>
 
 std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std::string url, const std::string filename)
 {
@@ -30,9 +31,9 @@ std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std:
 	FILE* file = fopen(filename.c_str(), "wb");
 
 	if (!file) {
-		result = CURLE_WRITE_ERROR;
+		curl_easy_cleanup(curl);
 
-		std::string errorMessage = std::format("Error opening file {}: {} (Code: {})", filename.c_str(), curl_easy_strerror(result), static_cast<int>(result));
+		std::string errorMessage = std::format("Error opening file {}: {}", filename.c_str(), strerror(errno));
 
 		return std::unexpected<std::string>(errorMessage);
 	}
@@ -46,7 +47,7 @@ std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std:
 	curl_easy_cleanup(curl);
 
 	if (result) {
-		std::string errorMessage = std::format("Error downloading url with curl {}: {} (Code: {})", url.c_str(), curl_easy_strerror(result), static_cast<int>(result));
+		std::string errorMessage = std::format("Error downloading {}: {} (Code: {})", url.c_str(), curl_easy_strerror(result), static_cast<int>(result));
 
 		return std::unexpected<std::string>(errorMessage);
 	}
@@ -65,5 +66,5 @@ std::string AtlasDownloadUtilities::getFilenameFromSource(const std::string url)
 {
 	std::filesystem::path path(url);
 
-	return  path.filename().string();
+	return path.filename().string();
 }
