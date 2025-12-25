@@ -8,6 +8,8 @@
 #include <string>
 #include <wx/app.h>
 #include <wx/cmdline.h>
+#include <wx/defs.h>
+#include <wx/msgdlg.h>
 
 class AtlasApp : public wxApp
 {
@@ -64,6 +66,11 @@ bool AtlasApp::OnInit()
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initialize(); })
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initialize(); })
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasDownloadCatalogs::download(); });
+
+	if (!initAppResult.has_value()) {
+		wxMessageBox(initAppResult.error(), "Error", wxOK | wxICON_ERROR);
+		return false;
+	}
 
 	frame = new AtlasFrame();
 
