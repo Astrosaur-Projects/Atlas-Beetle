@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <format>
 #include <string>
+#include <string.h>
 
 std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std::string url, const std::string filename)
 {
