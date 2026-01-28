@@ -9,7 +9,6 @@ namespace AtlasDownloadUtilities
 {
 	std::expected<CURLcode, std::string> download(const std::string url, const std::string filename);
 	size_t writeDataCallback(void* buffer, size_t size, size_t count, void* stream);
-	std::string getFilenameFromSource(const std::string url);
 };
 
 #endif

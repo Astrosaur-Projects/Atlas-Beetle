@@ -62,10 +62,3 @@ size_t AtlasDownloadUtilities::writeDataCallback(void* buffer, size_t size, size
 
 	return dataWritten;
 }
-
-std::string AtlasDownloadUtilities::getFilenameFromSource(const std::string url)
-{
-	std::filesystem::path path(url);
-
-	return path.filename().string();
-}
