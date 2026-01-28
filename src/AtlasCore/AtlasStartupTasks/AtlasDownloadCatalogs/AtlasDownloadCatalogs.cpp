@@ -43,14 +43,10 @@ std::expected<bool, std::string> AtlasDownloadCatalogs::downloadCatalogs(std::ve
 
 std::expected<bool, std::string> AtlasDownloadCatalogs::downloadCatalog(const AtlasCatalogUtilities::CatalogRecord catalog)
 {
-	wxString path = AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS)
-		+ wxFileName::GetPathSeparator()
-		+ AtlasDownloadUtilities::getFilenameFromSource(catalog.source);
-
-	wxFileName fileName(path);
+	wxFileName fileName(catalog.path);
 
 	if (fileName.FileExists()) { return true; }
 
-	return AtlasDownloadUtilities::download(catalog.source, path.ToStdString())
+	return AtlasDownloadUtilities::download(catalog.source, catalog.path)
 		.transform([](CURLcode code) { return code == SQLITE_OK; });
 }

@@ -18,6 +18,11 @@ namespace AtlasCatalogUtilities
 		{ AtlasCatalogEnums::CAT_BSC5P, "Bright Star Catalog" }
 	};
 
+	const std::map<AtlasCatalogEnums, const std::string> AtlasCatalogFileNames {
+		{ AtlasCatalogEnums::CAT_SAO, "SAO" },
+		{ AtlasCatalogEnums::CAT_BSC5P, "BSC" }
+	};
+
 	const std::map<AtlasCatalogEnums, const std::string> AtlasCatalogSources {
 		{ AtlasCatalogEnums::CAT_SAO, "https://vizier.cds.unistra.fr/viz-bin/asu-fits?-source=I/131A" },
 		{ AtlasCatalogEnums::CAT_BSC5P, "https://vizier.cds.unistra.fr/viz-bin/asu-fits?-source=V/50" }
@@ -30,6 +35,8 @@ namespace AtlasCatalogUtilities
 
 	std::string getCatalogName(AtlasCatalogEnums catalog);
 	std::string getCatalogSource(AtlasCatalogEnums catalog);
+	std::string getCatalogFileName(AtlasCatalogEnums catalog);
+	std::string getCatalogFilePath(AtlasCatalogEnums catalog);
 	AtlasCatalogTypeEnums getCatalogType(AtlasCatalogEnums catalog);
 };
 
