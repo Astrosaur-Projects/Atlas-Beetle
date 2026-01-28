@@ -9,8 +9,10 @@ namespace AtlasCatalogUtilities
 	{
 		std::string name;
 		std::string source;
+		std::string path;
 		std::string type;
 		bool isEnabled;
+		bool isInstalled;
 	};
 };
 

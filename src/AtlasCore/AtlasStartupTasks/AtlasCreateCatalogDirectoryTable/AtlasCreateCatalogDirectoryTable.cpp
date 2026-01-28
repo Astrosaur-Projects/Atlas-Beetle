@@ -23,6 +23,7 @@ std::expected<bool, std::string> AtlasCreateCatalogDirectoryTable::initCatalogDi
         CREATE TABLE IF NOT EXISTS CatalogDirectory (
             name        TEXT    NOT NULL,
             source      TEXT    NOT NULL,
+			path		TEXT    NOT NULL,
             type        TEXT    NOT NULL,
             isEnabled   INTEGER NOT NULL DEFAULT 0,
             isInstalled INTEGER NOT NULL DEFAULT 0
@@ -71,11 +72,14 @@ std::expected<bool, std::string> AtlasCreateCatalogDirectoryTable::insertCatalog
 {
 	std::expected<sqlite3_stmt*, std::string> insertRecordResult = nullptr;
 
+	std::string filePath = "";
+
 	insertRecordResult = insertRecordResult
 		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::prepareStatement(statement, database); })
 		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::bindParameter(statement, 1, AtlasCatalogUtilities::getCatalogName(catalog)); })
 		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::bindParameter(statement, 2, AtlasCatalogUtilities::getCatalogSource(catalog)); })
-		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::bindParameter(statement, 3, AtlasCatalogUtilities::getCatalogTypeString(AtlasCatalogUtilities::getCatalogType(catalog))); })
+		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::bindParameter(statement, 3, filePath); })
+		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::bindParameter(statement, 4, AtlasCatalogUtilities::getCatalogTypeString(AtlasCatalogUtilities::getCatalogType(catalog))); })
 		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::executeStatement(statement, database); });
 
 	return insertRecordResult
@@ -85,8 +89,8 @@ std::expected<bool, std::string> AtlasCreateCatalogDirectoryTable::insertCatalog
 std::expected<sqlite3_stmt*, std::string> AtlasCreateCatalogDirectoryTable::prepareStatement(sqlite3_stmt* statement, sqlite3* database)
 {
 	std::string sql = R"(
-        INSERT INTO CatalogDirectory (name, source, type)
-        VALUES (?, ?, ?);
+        INSERT INTO CatalogDirectory (name, source, path, type)
+        VALUES (?, ?, ?, ?);
     )";
 
 	int resultCode = sqlite3_prepare_v2(database, sql.c_str(), -1, &statement, nullptr);

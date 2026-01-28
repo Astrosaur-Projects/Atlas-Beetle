@@ -45,8 +45,10 @@ std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> At
 
 		catalog.name = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 0)));
 		catalog.source = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 1)));
-		catalog.type = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 2)));
-		catalog.isEnabled = sqlite3_column_int(statement, 3);
+		catalog.path = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 2)));
+		catalog.type = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 3)));
+		catalog.isEnabled = sqlite3_column_int(statement, 4);
+		catalog.isInstalled = sqlite3_column_int(statement, 5);
 
 		catalogs.push_back(catalog);
 	}
