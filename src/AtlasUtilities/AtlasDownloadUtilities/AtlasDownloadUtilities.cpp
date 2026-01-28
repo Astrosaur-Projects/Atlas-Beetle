@@ -21,7 +21,7 @@ std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std:
 		return std::unexpected<std::string>(errorMessage);
 	}
 
-	curl_easy_setopt(curl, CURLOPT_URL, url);
+	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 
 	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 
