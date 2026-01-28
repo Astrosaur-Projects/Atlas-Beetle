@@ -10,11 +10,11 @@ std::string AtlasCatalogUtilities::getCatalogName(AtlasCatalogEnums catalog)
 	return name == AtlasCatalogUtilities::AtlasCatalogNames.end() ? "Undefined" : name->second;
 }
 
-std::string AtlasCatalogUtilities::getCatalogDownloadPath(AtlasCatalogEnums catalog)
+std::string AtlasCatalogUtilities::getCatalogSource(AtlasCatalogEnums catalog)
 {
-	auto path = AtlasCatalogUtilities::AtlasCatalogDownloadPaths.find(catalog);
+	auto path = AtlasCatalogUtilities::AtlasCatalogSources.find(catalog);
 
-	return path == AtlasCatalogUtilities::AtlasCatalogDownloadPaths.end() ? "Undefined" : path->second;
+	return path == AtlasCatalogUtilities::AtlasCatalogSources.end() ? "Undefined" : path->second;
 }
 
 AtlasCatalogUtilities::AtlasCatalogTypeEnums AtlasCatalogUtilities::getCatalogType(AtlasCatalogEnums catalog)

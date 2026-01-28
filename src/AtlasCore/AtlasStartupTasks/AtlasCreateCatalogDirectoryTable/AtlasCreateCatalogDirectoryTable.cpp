@@ -74,7 +74,7 @@ std::expected<bool, std::string> AtlasCreateCatalogDirectoryTable::insertCatalog
 	insertRecordResult = insertRecordResult
 		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::prepareStatement(statement, database); })
 		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::bindParameter(statement, 1, AtlasCatalogUtilities::getCatalogName(catalog)); })
-		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::bindParameter(statement, 2, AtlasCatalogUtilities::getCatalogDownloadPath(catalog)); })
+		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::bindParameter(statement, 2, AtlasCatalogUtilities::getCatalogSource(catalog)); })
 		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::bindParameter(statement, 3, AtlasCatalogUtilities::getCatalogTypeString(AtlasCatalogUtilities::getCatalogType(catalog))); })
 		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasCreateCatalogDirectoryTable::executeStatement(statement, database); });
 
