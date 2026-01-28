@@ -1,6 +1,4 @@
 #include "AtlasCatalogRecord.h"
-#include "AtlasDirectoryEnums.h"
-#include "AtlasDirectoryUtilities.h"
 #include "AtlasDownloadCatalogs.h"
 #include "AtlasDownloadUtilities.h"
 #include "AtlasFetchCatalogs.h"
@@ -11,7 +9,6 @@
 #include <string>
 #include <vector>
 #include <wx/filename.h>
-#include <wx/string.h>
 
 std::expected<bool, std::string> AtlasDownloadCatalogs::download()
 {
