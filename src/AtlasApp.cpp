@@ -50,6 +50,7 @@ private:
 *	 - https://curl.se/
 *	 - https://cmake.org/
 *	 - https://sqlite.org/
+*	 - https://heasarc.gsfc.nasa.gov/docs/software/fitsio/fitsio.html
 */
 wxIMPLEMENT_APP(AtlasApp);
 
