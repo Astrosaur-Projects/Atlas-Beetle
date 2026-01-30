@@ -15,5 +15,6 @@ find_package(OpenGL REQUIRED)
 find_package(wxWidgets REQUIRED COMPONENTS gl core base)
 find_package(CURL REQUIRED)
 find_package(SQLite3 REQUIRED)
+find_package(cfitsio NAMES cfitsio unofficial-cfitsio CONFIG REQUIRED)
 
 add_subdirectory(src)
