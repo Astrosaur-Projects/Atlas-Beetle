@@ -5,7 +5,7 @@ add_subdirectory(AtlasGUI)
 add_executable(PlanetariumSoftware WIN32)
 
 target_sources(PlanetariumSoftware PRIVATE
-	"AtlasApp.cpp"
+	AtlasApp.cpp
 )
 
 target_include_directories(PlanetariumSoftware PRIVATE

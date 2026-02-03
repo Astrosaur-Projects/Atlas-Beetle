@@ -1,4 +1,4 @@
-#include "AtlasPluginManager.h"
+#include "AtlasGUI/AtlasPluginManager/AtlasPluginManager.h"
 #include <wx/defs.h>
 #include <wx/dialog.h>
 #include <wx/event.h>

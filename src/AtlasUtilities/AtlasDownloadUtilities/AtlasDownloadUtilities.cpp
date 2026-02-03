@@ -1,10 +1,9 @@
-#include "AtlasDownloadUtilities.h"
+#include "AtlasUtilities/AtlasDownloadUtilities/AtlasDownloadUtilities.h"
 #include <cstdio>
 #include <cstdlib>
 #include <curl/curl.h>
 #include <curl/easy.h>
 #include <expected>
-#include <filesystem>
 #include <format>
 #include <string>
 #include <string.h>

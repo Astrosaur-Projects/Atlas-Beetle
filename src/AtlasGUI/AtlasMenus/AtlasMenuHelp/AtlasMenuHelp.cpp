@@ -1,4 +1,4 @@
-#include "AtlasMenuHelp.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuHelp/AtlasMenuHelp.h"
 #include <wx/defs.h>
 #include <wx/event.h>
 #include <wx/menu.h>

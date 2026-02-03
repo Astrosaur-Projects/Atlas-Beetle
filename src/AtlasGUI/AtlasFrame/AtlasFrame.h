@@ -1,8 +1,8 @@
 #ifndef ATLAS_FRAME_H
 #define ATLAS_FRAME_H
 
-#include "AtlasCanvas.h"
-#include "AtlasMenuBar.h"
+#include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
+#include "AtlasGUI/AtlasMenuBar/AtlasMenuBar.h"
 #include <wx/event.h>
 #include <wx/frame.h>
 

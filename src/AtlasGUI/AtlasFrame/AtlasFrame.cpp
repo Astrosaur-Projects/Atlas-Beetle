@@ -1,13 +1,13 @@
-#include "AtlasFrame.h"
-#include <AtlasCanvas.h>
-#include <AtlasMenuBar.h>
+#include "AtlasGUI/AtlasFrame/AtlasFrame.h"
+#include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
+#include "AtlasGUI/AtlasMenuBar/AtlasMenuBar.h"
 #include <wx/defs.h>
 #include <wx/event.h>
 #include <wx/glcanvas.h>
 #include <wx/frame.h>
 #include <wx/sizer.h>
 
-AtlasFrame::AtlasFrame() : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur Projects™")
+AtlasFrame::AtlasFrame() : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur Projects")
 {
 	wxGLAttributes canvasAttributes;
 	canvasAttributes.PlatformDefaults().Defaults().EndList();

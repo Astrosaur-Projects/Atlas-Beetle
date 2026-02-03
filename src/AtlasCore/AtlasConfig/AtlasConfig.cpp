@@ -1,4 +1,4 @@
-#include "AtlasConfig.h"
+#include "AtlasCore/AtlasConfig/AtlasConfig.h"
 
 AtlasConfig& AtlasConfig::getInstance()
 {

@@ -1,5 +1,5 @@
-#include "AtlasCatalogRecord.h"
-#include "AtlasFetchCatalogs.h"
+#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogRecord.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchCatalogs/AtlasFetchCatalogs.h"
 #include <expected>
 #include <format>
 #include <sqlite3.h>

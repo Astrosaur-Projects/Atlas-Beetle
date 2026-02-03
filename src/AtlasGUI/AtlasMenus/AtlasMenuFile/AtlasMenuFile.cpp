@@ -1,6 +1,6 @@
-#include "AtlasCatalogManager.h"
-#include "AtlasMenuFile.h"
-#include "AtlasMenuOptionEnums.h"
+#include "AtlasGUI/AtlasCatalogManager/AtlasCatalogManager.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuFile/AtlasMenuFile.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuOptionEnums.h"
 #include <utility>
 #include <wx/defs.h>
 #include <wx/event.h>

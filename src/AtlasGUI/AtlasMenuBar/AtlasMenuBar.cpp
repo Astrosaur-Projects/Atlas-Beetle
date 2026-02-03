@@ -1,8 +1,8 @@
-#include "AtlasMenuBar.h"
-#include <AtlasMenuFile.h>
-#include <AtlasMenuHelp.h>
-#include <AtlasMenuPlugins.h>
-#include <AtlasMenuView.h>
+#include "AtlasGUI/AtlasMenuBar/AtlasMenuBar.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuFile/AtlasMenuFile.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuHelp/AtlasMenuHelp.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuPlugins/AtlasMenuPlugins.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuView/AtlasMenuView.h"
 #include <wx/menu.h>
 
 AtlasMenuBar::AtlasMenuBar() : wxMenuBar()

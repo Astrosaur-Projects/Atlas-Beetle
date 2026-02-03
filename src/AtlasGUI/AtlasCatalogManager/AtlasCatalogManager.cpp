@@ -1,4 +1,4 @@
-#include "AtlasCatalogManager.h"
+#include "AtlasGUI/AtlasCatalogManager/AtlasCatalogManager.h"
 #include <wx/defs.h>
 #include <wx/dialog.h>
 #include <wx/event.h>

@@ -1,25 +1,18 @@
 add_library(AtlasCore STATIC)
 
 target_sources(AtlasCore PRIVATE
-	"AtlasStartupTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.cpp"
-	"AtlasStartupTasks/AtlasCreateDatabase/AtlasCreateDatabase.cpp"
-	"AtlasStartupTasks/AtlasLoadCurl/AtlasLoadCurl.cpp"
-	"AtlasStartupTasks/AtlasOpenDatabase/AtlasOpenDatabase.cpp"
-	"AtlasStartupTasks/AtlasCreateCatalogDirectoryTable/AtlasCreateCatalogDirectoryTable.cpp"
-	"AtlasStartupTasks/AtlasFetchCatalogs/AtlasFetchCatalogs.cpp"
-	"AtlasStartupTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp"
-	"AtlasConfig/AtlasConfig.cpp"
+	AtlasStartupTasks/AtlasConfigTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.cpp
+	AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateCatalogDirectoryTable/AtlasCreateCatalogDirectoryTable.cpp
+	AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateDatabase/AtlasCreateDatabase.cpp
+	AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchCatalogs/AtlasFetchCatalogs.cpp
+	AtlasStartupTasks/AtlasDatabaseTasks/AtlasOpenDatabase/AtlasOpenDatabase.cpp
+	AtlasStartupTasks/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
+	AtlasStartupTasks/AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.cpp
+	AtlasConfig/AtlasConfig.cpp
 )
 
 target_include_directories(AtlasCore PUBLIC
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasCreateApplicationDirectory
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasCreateDatabase
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasLoadCurl
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasOpenDatabase
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasCreateCatalogDirectoryTable
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasFetchCatalogs
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasStartupTasks/AtlasDownloadCatalogs
-	${CMAKE_CURRENT_SOURCE_DIR}/AtlasConfig
+	${CMAKE_SOURCE_DIR}/src
 )
 
 target_link_libraries(AtlasCore PRIVATE

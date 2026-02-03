@@ -1,6 +1,6 @@
-#include "AtlasCreateCatalogDirectoryTable.h"
-#include "AtlasCreateDatabase.h"
-#include "AtlasOpenDatabase.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateCatalogDirectoryTable/AtlasCreateCatalogDirectoryTable.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateDatabase/AtlasCreateDatabase.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasOpenDatabase/AtlasOpenDatabase.h"
 #include <expected>
 #include <sqlite3.h>
 #include <string>

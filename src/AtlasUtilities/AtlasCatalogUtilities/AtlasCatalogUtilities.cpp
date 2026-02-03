@@ -1,8 +1,8 @@
-#include "AtlasCatalogEnums.h"
-#include "AtlasCatalogTypeEnums.h"
-#include "AtlasCatalogUtilities.h"
-#include "AtlasDirectoryEnums.h"
-#include "AtlasDirectoryUtilities.h"
+#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogEnums.h"
+#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogTypeEnums.h"
+#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
+#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryEnums.h"
+#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
 #include <string>
 #include <wx/filename.h>
 #include <wx/string.h>

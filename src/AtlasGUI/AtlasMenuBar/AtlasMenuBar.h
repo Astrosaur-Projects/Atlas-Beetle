@@ -1,10 +1,10 @@
 #ifndef ATLAS_MENU_BAR_H
 #define ATLAS_MENU_BAR_H
 
-#include "AtlasMenuFile.h"
-#include "AtlasMenuHelp.h"
-#include "AtlasMenuPlugins.h"
-#include "AtlasMenuView.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuFile/AtlasMenuFile.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuHelp/AtlasMenuHelp.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuPlugins/AtlasMenuPlugins.h"
+#include "AtlasGUI/AtlasMenus/AtlasMenuView/AtlasMenuView.h"
 #include <wx/event.h>
 #include <wx/menu.h>
 

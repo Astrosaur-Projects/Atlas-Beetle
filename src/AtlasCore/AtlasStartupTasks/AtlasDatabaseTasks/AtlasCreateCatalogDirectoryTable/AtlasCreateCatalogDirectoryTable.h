@@ -1,7 +1,7 @@
 #ifndef ATLAS_CREATE_CATALOG_DIRECTORY_DB_TASK_H
 #define ATLAS_CREATE_CATALOG_DIRECTORY_DB_TASK_H
 
-#include "AtlasCatalogEnums.h"
+#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogEnums.h"
 #include <expected>
 #include <string>
 #include <sqlite3.h>

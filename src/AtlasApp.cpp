@@ -1,9 +1,9 @@
-#include "AtlasConfig.h"
-#include "AtlasCreateApplicationDirectory.h"
-#include "AtlasCreateDatabase.h"
-#include "AtlasDownloadCatalogs.h"
-#include "AtlasFrame.h"
-#include "AtlasLoadCurl.h"
+#include "AtlasCore/AtlasConfig/AtlasConfig.h"
+#include "AtlasGUI/AtlasFrame/AtlasFrame.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasConfigTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateDatabase/AtlasCreateDatabase.h"
 #include <expected>
 #include <string>
 #include <wx/app.h>
@@ -35,7 +35,7 @@ private:
 *
 *   Project: Atlas Beetle
 *
-*   Author: Sean Maloney (Astrosaur Projects™)
+*   Author: Sean Maloney (Astrosaur Projects)
 *
 *	Date: October 18, 2025
 *

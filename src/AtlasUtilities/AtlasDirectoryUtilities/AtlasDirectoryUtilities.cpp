@@ -1,5 +1,5 @@
-#include "AtlasDirectoryEnums.h"
-#include "AtlasDirectoryUtilities.h"
+#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryEnums.h"
+#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
 #include <string>
 #include <wx/filename.h>
 #include <wx/stdpaths.h>

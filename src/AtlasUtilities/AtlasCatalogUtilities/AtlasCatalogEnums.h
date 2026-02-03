@@ -1,7 +1,7 @@
 #ifndef ATLAS_CATALOG_ENUMS_H
 #define ATLAS_CATALOG_ENUMS_H
 
-#include "AtlasCatalogTypeEnums.h"
+#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogTypeEnums.h"
 #include <map>
 #include <string>
 

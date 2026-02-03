@@ -1,4 +1,4 @@
-#include "AtlasCanvas.h"
+#include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
 #include <GL/gl.h>
 #include <wx/dcclient.h>
 #include <wx/defs.h>

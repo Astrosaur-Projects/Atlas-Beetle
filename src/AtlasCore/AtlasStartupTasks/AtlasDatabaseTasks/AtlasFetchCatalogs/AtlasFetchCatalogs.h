@@ -1,7 +1,7 @@
 #ifndef ATLAS_FETCH_CATALOGS_TASK_H
 #define ATLAS_FETCH_CATALOGS_TASK_H
 
-#include <AtlasCatalogRecord.h>
+#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogRecord.h"
 #include <expected>
 #include <sqlite3.h>
 #include <string>
