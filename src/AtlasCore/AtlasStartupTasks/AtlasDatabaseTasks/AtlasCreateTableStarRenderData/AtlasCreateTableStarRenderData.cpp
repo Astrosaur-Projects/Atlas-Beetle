@@ -18,15 +18,16 @@ std::expected<bool, std::string> AtlasCreateTableStarRenderData::initStarRenderD
 {
 	std::string sql = R"(
         CREATE TABLE IF NOT EXISTS StarRenderData (
-		   id			INTEGER	PRIMARY	KEY,
-		   ra_rad		REAL	NOT NULL,
-		   dec_rad		REAL	NOT NULL,
-		   pm_ra		REAL	NOT NULL,
-		   pm_dec		REAL	NOT NULL,
-		   mag			REAL	NOT NULL,
-		   color_index	REAL,
-		   object_type	INTEGER	NOT NULL,
-		   angular_size	REAL
+			id					INTEGER	PRIMARY	KEY,
+			ra_rad				REAL	NOT NULL,
+			dec_rad				REAL	NOT NULL,
+			pm_ra				REAL	NOT NULL,
+			pm_dec				REAL	NOT NULL,
+			mag					REAL	NOT NULL,
+			color_index			REAL	NOT NULL	DEFAULT 0,
+			object_type			INTEGER	NOT NULL	DEFAULT 0,
+			angular_size		REAL	NOT NULL	DEFAULT 0
+			orientation_angle	REAL
 		);
 	)";
 

@@ -20,10 +20,10 @@ std::expected<bool, std::string> AtlasCreateTableStarIndex::initStarIndex(sqlite
 {
 	std::string sql = R"(
         CREATE VIRTUAL TABLE StarIndex USING rtree(
-		   id,
-		   minX, maxX,
-		   minY, maxY,
-		   minZ, maxZ
+			id,
+			minX, maxX,
+			minY, maxY,
+			minZ, maxZ
 		);
 	)";
 
