@@ -1,4 +1,5 @@
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateStarIndexTable/AtlasCreateStarIndexTable.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchTableExists/AtlasFetchTableExists.h"
 #include <expected>
 #include <format>
 #include <sqlite3.h>
@@ -9,7 +10,8 @@ std::expected<bool, std::string> AtlasCreateStarIndexTable::create(sqlite3* data
 	std::expected<bool, std::string> initDbResult = true;
 
 	initDbResult = initDbResult
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateStarIndexTable::initStarIndex(database); });
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFetchTableExists::fetch(database, "StarIndex"); })
+		.and_then([&](bool tableExists) -> std::expected<bool, std::string> { return tableExists ? tableExists : AtlasCreateStarIndexTable::initStarIndex(database); });
 
 	return initDbResult;
 }
