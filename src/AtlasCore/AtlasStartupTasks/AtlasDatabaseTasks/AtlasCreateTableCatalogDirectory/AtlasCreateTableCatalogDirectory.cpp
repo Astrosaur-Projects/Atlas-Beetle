@@ -1,20 +1,20 @@
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateCatalogDirectoryTable/AtlasCreateCatalogDirectoryTable.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateTableCatalogDirectory/AtlasCreateTableCatalogDirectory.h"
 #include <expected>
 #include <format>
 #include <sqlite3.h>
 #include <string>
 
-std::expected<bool, std::string> AtlasCreateCatalogDirectoryTable::create(sqlite3* database)
+std::expected<bool, std::string> AtlasCreateTableCatalogDirectory::create(sqlite3* database)
 {
 	std::expected<bool, std::string> initDbResult = true;
 
 	initDbResult = initDbResult
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateCatalogDirectoryTable::initCatalogDirectory(database); });
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateTableCatalogDirectory::initCatalogDirectory(database); });
 
 	return initDbResult;
 }
 
-std::expected<bool, std::string> AtlasCreateCatalogDirectoryTable::initCatalogDirectory(sqlite3* database)
+std::expected<bool, std::string> AtlasCreateTableCatalogDirectory::initCatalogDirectory(sqlite3* database)
 {
 	std::string sql = R"(
         CREATE TABLE IF NOT EXISTS CatalogDirectory (

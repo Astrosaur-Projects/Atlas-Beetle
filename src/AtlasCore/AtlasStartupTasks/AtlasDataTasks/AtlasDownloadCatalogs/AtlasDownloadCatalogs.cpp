@@ -1,7 +1,7 @@
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogRecord.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
 #include "AtlasUtilities/AtlasDownloadUtilities/AtlasDownloadUtilities.h"
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchCatalogs/AtlasFetchCatalogs.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasOpenDatabase/AtlasOpenDatabase.h"
 #include <curl/curl.h>
 #include <expected>
@@ -18,7 +18,7 @@ std::expected<bool, std::string> AtlasDownloadCatalogs::download()
 
 	downloadCatalogsResult = downloadCatalogsResult
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasOpenDatabase::open(database); })
-		.and_then([&](bool success) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasFetchCatalogs::fetch(database); })
+		.and_then([&](bool success) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasFetchTableCatalogDirectory::fetch(database); })
 		.and_then([&](std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs) -> std::expected<bool, std::string> { return AtlasDownloadCatalogs::downloadCatalogs(catalogs); });
 
 	sqlite3_close(database);

@@ -6,7 +6,7 @@
 #include <string>
 #include <sqlite3.h>
 
-namespace AtlasResetCatalogDirectoryTable
+namespace AtlasResetTableCatalogDirectory
 {
 	std::expected<bool, std::string> reset(sqlite3* database);
 	std::expected<bool, std::string> truncateCatalogDirectory(sqlite3* database);

@@ -5,7 +5,7 @@
 #include <string>
 #include <sqlite3.h>
 
-namespace AtlasCreateStarIndexTable
+namespace AtlasCreateTableStarIndex
 {
 	std::expected<bool, std::string> create(sqlite3* database);
 	std::expected<bool, std::string> initStarIndex(sqlite3* database);

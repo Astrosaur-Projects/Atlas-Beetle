@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace AtlasFetchCatalogs
+namespace AtlasFetchTableCatalogDirectory
 {
 	std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> fetch(sqlite3* database);
 	std::expected<sqlite3_stmt*, std::string> prepareStatement(sqlite3_stmt* statement, sqlite3* database);

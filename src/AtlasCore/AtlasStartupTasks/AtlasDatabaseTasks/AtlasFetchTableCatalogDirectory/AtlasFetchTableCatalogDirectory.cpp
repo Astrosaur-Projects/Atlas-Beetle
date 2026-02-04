@@ -1,23 +1,23 @@
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogRecord.h"
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchCatalogs/AtlasFetchCatalogs.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.h"
 #include <expected>
 #include <format>
 #include <sqlite3.h>
 #include <string>
 #include <vector>
 
-std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> AtlasFetchCatalogs::fetch(sqlite3* database)
+std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> AtlasFetchTableCatalogDirectory::fetch(sqlite3* database)
 {
 	std::expected<sqlite3_stmt*, std::string> fetchCatalogsResult = nullptr;
 
 	fetchCatalogsResult = fetchCatalogsResult
-		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasFetchCatalogs::prepareStatement(statement, database); });
+		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasFetchTableCatalogDirectory::prepareStatement(statement, database); });
 
 	return fetchCatalogsResult
-		.and_then([&](sqlite3_stmt* statement) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasFetchCatalogs::executeStatement(statement, database); });
+		.and_then([&](sqlite3_stmt* statement) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasFetchTableCatalogDirectory::executeStatement(statement, database); });
 }
 
-std::expected<sqlite3_stmt*, std::string> AtlasFetchCatalogs::prepareStatement(sqlite3_stmt* statement, sqlite3* database)
+std::expected<sqlite3_stmt*, std::string> AtlasFetchTableCatalogDirectory::prepareStatement(sqlite3_stmt* statement, sqlite3* database)
 {
 	std::string sql = "SELECT * FROM CatalogDirectory;";
 
@@ -34,7 +34,7 @@ std::expected<sqlite3_stmt*, std::string> AtlasFetchCatalogs::prepareStatement(s
 	return statement;
 }
 
-std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> AtlasFetchCatalogs::executeStatement(sqlite3_stmt* statement, sqlite3* database)
+std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> AtlasFetchTableCatalogDirectory::executeStatement(sqlite3_stmt* statement, sqlite3* database)
 {
 	std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs;
 

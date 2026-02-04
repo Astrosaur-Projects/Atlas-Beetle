@@ -5,7 +5,7 @@
 #include <string>
 #include <sqlite3.h>
 
-namespace AtlasCreateStarRenderDataTable
+namespace AtlasCreateTableStarRenderData
 {
 	std::expected<bool, std::string> create(sqlite3* database);
 	std::expected<bool, std::string> initStarRenderData(sqlite3* database);

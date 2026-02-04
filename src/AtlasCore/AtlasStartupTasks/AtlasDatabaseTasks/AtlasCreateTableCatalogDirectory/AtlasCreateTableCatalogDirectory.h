@@ -5,7 +5,7 @@
 #include <string>
 #include <sqlite3.h>
 
-namespace AtlasCreateCatalogDirectoryTable
+namespace AtlasCreateTableCatalogDirectory
 {
 	std::expected<bool, std::string> create(sqlite3* database);
 	std::expected<bool, std::string> initCatalogDirectory(sqlite3* database);
