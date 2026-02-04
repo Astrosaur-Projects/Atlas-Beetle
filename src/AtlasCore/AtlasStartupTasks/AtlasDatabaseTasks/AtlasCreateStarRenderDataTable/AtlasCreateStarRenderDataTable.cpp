@@ -17,7 +17,7 @@ std::expected<bool, std::string> AtlasCreateStarRenderDataTable::create(sqlite3*
 std::expected<bool, std::string> AtlasCreateStarRenderDataTable::initStarRenderData(sqlite3* database)
 {
 	std::string sql = R"(
-        CREATE TABLE StarRenderData (
+        CREATE TABLE IF NOT EXISTS StarRenderData (
 		   id			INTEGER	PRIMARY	KEY,
 		   ra_rad		REAL	NOT NULL,
 		   dec_rad		REAL	NOT NULL,
@@ -26,7 +26,7 @@ std::expected<bool, std::string> AtlasCreateStarRenderDataTable::initStarRenderD
 		   mag			REAL	NOT NULL,
 		   color_index	REAL,
 		   object_type	INTEGER	NOT NULL,
-		   angular_size	REAL,
+		   angular_size	REAL
 		);
 	)";
 
