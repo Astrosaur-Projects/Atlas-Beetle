@@ -1,6 +1,7 @@
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateCatalogDirectoryTable/AtlasCreateCatalogDirectoryTable.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateDatabase/AtlasCreateDatabase.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasOpenDatabase/AtlasOpenDatabase.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasResetCatalogDirectoryTable/AtlasResetCatalogDirectoryTable.h"
 #include <expected>
 #include <sqlite3.h>
 #include <string>
@@ -13,7 +14,8 @@ std::expected<bool, std::string> AtlasCreateDatabase::initialize()
 
 	initDbResult = initDbResult
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasOpenDatabase::open(database); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateCatalogDirectoryTable::create(database); });
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateCatalogDirectoryTable::create(database); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasResetCatalogDirectoryTable::reset(database); });
 
 	sqlite3_close(database);
 
