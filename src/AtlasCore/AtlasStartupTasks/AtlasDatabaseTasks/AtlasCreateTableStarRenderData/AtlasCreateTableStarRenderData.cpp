@@ -26,7 +26,7 @@ std::expected<bool, std::string> AtlasCreateTableStarRenderData::initStarRenderD
 			mag					REAL	NOT NULL,
 			color_index			REAL	NOT NULL	DEFAULT 0,
 			object_type			INTEGER	NOT NULL	DEFAULT 0,
-			angular_size		REAL	NOT NULL	DEFAULT 0
+			angular_size		REAL	NOT NULL	DEFAULT 0,
 			orientation_angle	REAL
 		);
 	)";
