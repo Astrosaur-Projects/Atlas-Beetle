@@ -1,17 +1,8 @@
 add_library(AtlasCore STATIC)
 
+add_subdirectory(AtlasStartupTasks)
+
 target_sources(AtlasCore PRIVATE
-	AtlasStartupTasks/AtlasConfigTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.cpp
-	AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateDatabase/AtlasCreateDatabase.cpp
-	AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateTableCatalogDirectory/AtlasCreateTableCatalogDirectory.cpp
-	AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateTableStarIndex/AtlasCreateTableStarIndex.cpp
-	AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateTableStarRenderData/AtlasCreateTableStarRenderData.cpp
-	AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.cpp
-	AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchTableExists/AtlasFetchTableExists.cpp
-	AtlasStartupTasks/AtlasDatabaseTasks/AtlasOpenDatabase/AtlasOpenDatabase.cpp
-	AtlasStartupTasks/AtlasDatabaseTasks/AtlasResetTableCatalogDirectory/AtlasResetTableCatalogDirectory.cpp
-	AtlasStartupTasks/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
-	AtlasStartupTasks/AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.cpp
 	AtlasConfig/AtlasConfig.cpp
 )
 
@@ -21,6 +12,7 @@ target_include_directories(AtlasCore PUBLIC
 
 target_link_libraries(AtlasCore PRIVATE
 	AtlasUtilities
+	AtlasStartupTasks
 	wxWidgets::wxWidgets
 	CURL::libcurl
 	SQLite::SQLite3

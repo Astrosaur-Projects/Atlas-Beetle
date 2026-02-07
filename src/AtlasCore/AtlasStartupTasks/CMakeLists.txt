@@ -1,0 +1,26 @@
+add_library(AtlasStartupTasks STATIC)
+
+target_sources(AtlasStartupTasks PRIVATE
+	AtlasConfigTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.cpp
+	AtlasDatabaseTasks/AtlasCreateDatabase/AtlasCreateDatabase.cpp
+	AtlasDatabaseTasks/AtlasCreateTableCatalogDirectory/AtlasCreateTableCatalogDirectory.cpp
+	AtlasDatabaseTasks/AtlasCreateTableStarIndex/AtlasCreateTableStarIndex.cpp
+	AtlasDatabaseTasks/AtlasCreateTableStarRenderData/AtlasCreateTableStarRenderData.cpp
+	AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.cpp
+	AtlasDatabaseTasks/AtlasFetchTableExists/AtlasFetchTableExists.cpp
+	AtlasDatabaseTasks/AtlasOpenDatabase/AtlasOpenDatabase.cpp
+	AtlasDatabaseTasks/AtlasResetTableCatalogDirectory/AtlasResetTableCatalogDirectory.cpp
+	AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
+	AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.cpp
+)
+
+target_include_directories(AtlasStartupTasks PUBLIC
+	${CMAKE_SOURCE_DIR}/src
+)
+
+target_link_libraries(AtlasStartupTasks PRIVATE
+	AtlasUtilities
+	wxWidgets::wxWidgets
+	CURL::libcurl
+	SQLite::SQLite3
+)
