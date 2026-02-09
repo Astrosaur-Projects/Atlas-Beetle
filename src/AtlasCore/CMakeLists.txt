@@ -4,6 +4,7 @@ add_subdirectory(AtlasStartupTasks)
 
 target_sources(AtlasCore PRIVATE
 	AtlasConfig/AtlasConfig.cpp
+	AtlasMath/AtlasProjectionMath/AtlasProjectionMath.cpp
 )
 
 target_include_directories(AtlasCore PUBLIC
@@ -16,4 +17,5 @@ target_link_libraries(AtlasCore PRIVATE
 	wxWidgets::wxWidgets
 	CURL::libcurl
 	SQLite::SQLite3
+	cfitsio
 )
