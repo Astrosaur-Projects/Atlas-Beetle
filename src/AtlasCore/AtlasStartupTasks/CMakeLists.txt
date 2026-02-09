@@ -12,7 +12,7 @@ target_sources(AtlasStartupTasks PRIVATE
 	AtlasDatabaseTasks/AtlasOpenDatabase/AtlasOpenDatabase.cpp
 	AtlasDatabaseTasks/AtlasResetTableCatalogDirectory/AtlasResetTableCatalogDirectory.cpp
 	AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
-	AtlasDataTasks/AtlasLoadCatalog/AtlasLoadCatalog.cpp
+	AtlasDataTasks/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.cpp
 	AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.cpp
 )
 

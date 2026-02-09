@@ -1,5 +1,5 @@
-#ifndef ATLAS_LOAD_CATALOGS_TASK_H
-#define ATLAS_LOAD_CATALOGS_TASK_H
+#ifndef ATLAS_IMPORT_DEFAULT_CATALOG_TASK_H
+#define ATLAS_IMPORT_DEFAULT_CATALOG_TASK_H
 
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include <expected>
@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace AtlasLoadCatalog
+namespace AtlasImportDefaultCatalog
 {
 	const long STAR_IMPORT_BATCH_SIZE = 10000;
 
