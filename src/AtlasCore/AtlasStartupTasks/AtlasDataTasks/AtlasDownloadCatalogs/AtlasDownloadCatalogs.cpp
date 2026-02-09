@@ -44,6 +44,8 @@ std::expected<bool, std::string> AtlasDownloadCatalogs::downloadCatalog(const At
 
 	if (fileName.FileExists()) { return true; }
 
-	return AtlasDownloadUtilities::download(catalog.source, catalog.path)
+	std::string querySourceUrl = catalog.source + "&-out.all" + "&-out.max=unlimited";
+
+	return AtlasDownloadUtilities::download(querySourceUrl, catalog.path)
 		.transform([](CURLcode code) { return code == SQLITE_OK; });
 }
