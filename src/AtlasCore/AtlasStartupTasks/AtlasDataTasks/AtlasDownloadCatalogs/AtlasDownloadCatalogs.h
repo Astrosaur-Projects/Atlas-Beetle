@@ -1,7 +1,7 @@
 #ifndef ATLAS_DOWNLOAD_CATALOGS_TASK_H
 #define ATLAS_DOWNLOAD_CATALOGS_TASK_H
 
-#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogRecord.h"
+#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include <expected>
 #include <string>
 #include <vector>

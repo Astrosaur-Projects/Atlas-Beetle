@@ -1,7 +1,7 @@
 #ifndef ATLAS_CREATE_APP_DIR_TASK_H
 #define ATLAS_CREATE_APP_DIR_TASK_H
 
-#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryEnums.h"
+#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
 #include <expected>
 #include <string>
 

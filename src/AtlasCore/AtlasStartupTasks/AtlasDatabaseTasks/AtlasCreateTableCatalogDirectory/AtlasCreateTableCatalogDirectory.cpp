@@ -18,10 +18,11 @@ std::expected<bool, std::string> AtlasCreateTableCatalogDirectory::initCatalogDi
 {
 	std::string sql = R"(
         CREATE TABLE IF NOT EXISTS CatalogDirectory (
+			id			INTEGER PRIMARY KEY
             name        TEXT    NOT NULL,
             source      TEXT    NOT NULL,
 			path		TEXT    NOT NULL,
-            type        TEXT    NOT NULL,
+            type        INTEGER NOT NULL DEFAULT 0,
             isEnabled   INTEGER NOT NULL DEFAULT 0,
             isInstalled INTEGER NOT NULL DEFAULT 0
         );

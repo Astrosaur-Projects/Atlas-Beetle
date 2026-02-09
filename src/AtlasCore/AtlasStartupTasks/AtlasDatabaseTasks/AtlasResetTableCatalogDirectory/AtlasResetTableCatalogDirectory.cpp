@@ -1,6 +1,5 @@
-#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogEnums.h"
-#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogTypeEnums.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasResetTableCatalogDirectory/AtlasResetTableCatalogDirectory.h"
+#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include <expected>
 #include <format>
 #include <sqlite3.h>
@@ -12,8 +11,7 @@ std::expected<bool, std::string> AtlasResetTableCatalogDirectory::reset(sqlite3*
 
 	resetDbResult = resetDbResult
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasResetTableCatalogDirectory::truncateCatalogDirectory(database); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasResetTableCatalogDirectory::insertCatalogRecord(database, AtlasCatalogUtilities::AtlasCatalogEnums::CAT_SAO); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasResetTableCatalogDirectory::insertCatalogRecord(database, AtlasCatalogUtilities::AtlasCatalogEnums::CAT_BSC5P); });
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasResetTableCatalogDirectory::insertDefaultCatalogRecord(database); });
 
 	return resetDbResult;
 }
@@ -33,16 +31,17 @@ std::expected<bool, std::string> AtlasResetTableCatalogDirectory::truncateCatalo
 	return true;
 }
 
-std::expected<bool, std::string> AtlasResetTableCatalogDirectory::insertCatalogRecord(sqlite3* database, AtlasCatalogUtilities::AtlasCatalogEnums catalog)
+std::expected<bool, std::string> AtlasResetTableCatalogDirectory::insertDefaultCatalogRecord(sqlite3* database)
 {
+	AtlasCatalogUtilities::AtlasCatalogObject catalog = AtlasCatalogUtilities::getDefaultCatalogObject();
+
 	std::expected<sqlite3_stmt*, std::string> insertRecordResult = nullptr;
 
 	insertRecordResult = insertRecordResult
 		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasResetTableCatalogDirectory::prepareStatement(statement, database); })
-		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasResetTableCatalogDirectory::bindParameter(statement, 1, AtlasCatalogUtilities::getCatalogName(catalog)); })
-		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasResetTableCatalogDirectory::bindParameter(statement, 2, AtlasCatalogUtilities::getCatalogSource(catalog)); })
+		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasResetTableCatalogDirectory::bindParameter(statement, 1, catalog.name); })
+		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasResetTableCatalogDirectory::bindParameter(statement, 2, catalog.source); })
 		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasResetTableCatalogDirectory::bindParameter(statement, 3, AtlasCatalogUtilities::getCatalogFilePath(catalog)); })
-		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasResetTableCatalogDirectory::bindParameter(statement, 4, AtlasCatalogUtilities::getCatalogTypeString(AtlasCatalogUtilities::getCatalogType(catalog))); })
 		.and_then([&](sqlite3_stmt* statement) -> std::expected<sqlite3_stmt*, std::string> { return AtlasResetTableCatalogDirectory::executeStatement(statement, database); });
 
 	return insertRecordResult
@@ -53,7 +52,7 @@ std::expected<sqlite3_stmt*, std::string> AtlasResetTableCatalogDirectory::prepa
 {
 	std::string sql = R"(
         INSERT INTO CatalogDirectory (name, source, path, type)
-        VALUES (?, ?, ?, ?);
+        VALUES (?, ?, ?);
     )";
 
 	int resultCode = sqlite3_prepare_v2(database, sql.c_str(), -1, &statement, nullptr);

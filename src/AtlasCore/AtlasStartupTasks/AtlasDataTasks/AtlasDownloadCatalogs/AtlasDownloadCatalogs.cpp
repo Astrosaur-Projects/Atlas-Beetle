@@ -1,4 +1,3 @@
-#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogRecord.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
 #include "AtlasUtilities/AtlasDownloadUtilities/AtlasDownloadUtilities.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.h"
