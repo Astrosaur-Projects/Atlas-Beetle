@@ -1,5 +1,5 @@
-#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasOpenDatabase/AtlasOpenDatabase.h"
+#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
 #include <expected>
 #include <format>
 #include <sqlite3.h>

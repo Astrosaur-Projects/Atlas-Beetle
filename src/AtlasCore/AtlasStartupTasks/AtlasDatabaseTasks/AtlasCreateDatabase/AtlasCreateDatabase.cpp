@@ -1,5 +1,5 @@
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateTableCatalogDirectory/AtlasCreateTableCatalogDirectory.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateDatabase/AtlasCreateDatabase.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateTableCatalogDirectory/AtlasCreateTableCatalogDirectory.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateTableStarIndex/AtlasCreateTableStarIndex.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateTableStarRenderData/AtlasCreateTableStarRenderData.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasOpenDatabase/AtlasOpenDatabase.h"

@@ -19,7 +19,7 @@ std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> At
 
 std::expected<sqlite3_stmt*, std::string> AtlasFetchTableCatalogDirectory::prepareStatement(sqlite3_stmt* statement, sqlite3* database)
 {
-	std::string sql = "SELECT * FROM CatalogDirectory;";
+	std::string sql = "SELECT name, source, path, type FROM CatalogDirectory;";
 
 	int resultCode = sqlite3_prepare_v2(database, sql.c_str(), -1, &statement, nullptr);
 

@@ -5,6 +5,16 @@
 
 namespace AtlasCatalogUtilities
 {
+	enum class AtlasCatalogEnums : int
+	{
+		CAT_BSC5P,
+	};
+
+	enum class AtlasCatalogTypeEnums : int
+	{
+		STAR,
+	};
+
 	struct AtlasCatalogObject
 	{
 		AtlasCatalogEnums id;
@@ -29,16 +39,6 @@ namespace AtlasCatalogUtilities
 		bool isEnabled;
 
 		bool isInstalled;
-	};
-
-	enum class AtlasCatalogEnums : int
-	{
-		CAT_BSC5P,
-	};
-
-	enum class AtlasCatalogTypeEnums : int
-	{
-		STAR,
 	};
 
 	AtlasCatalogObject getDefaultCatalogObject();

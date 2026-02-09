@@ -1,7 +1,8 @@
 #include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
-#include "AtlasUtilities/AtlasDownloadUtilities/AtlasDownloadUtilities.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasOpenDatabase/AtlasOpenDatabase.h"
+#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
+#include "AtlasUtilities/AtlasDownloadUtilities/AtlasDownloadUtilities.h"
 #include <curl/curl.h>
 #include <expected>
 #include <sqlite3.h>

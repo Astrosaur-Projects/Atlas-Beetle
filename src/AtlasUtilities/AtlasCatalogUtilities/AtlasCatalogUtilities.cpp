@@ -7,7 +7,7 @@
 
 AtlasCatalogUtilities::AtlasCatalogObject AtlasCatalogUtilities::getDefaultCatalogObject()
 {
-	return AtlasCatalogObject {
+	return AtlasCatalogUtilities::AtlasCatalogObject {
 		AtlasCatalogEnums::CAT_BSC5P,
 		AtlasCatalogTypeEnums::STAR,
 		"Bright Star Catalogue, 5th Revised Ed. (Hoffleit+, 1991)",
@@ -15,7 +15,7 @@ AtlasCatalogUtilities::AtlasCatalogObject AtlasCatalogUtilities::getDefaultCatal
 	};
 }
 
-std::string AtlasCatalogUtilities::getCatalogFilePath(AtlasCatalogObject catalog)
+std::string AtlasCatalogUtilities::getCatalogFilePath(AtlasCatalogUtilities::AtlasCatalogObject catalog)
 {
 	std::string fileName = std::regex_replace(catalog.name, std::regex("[^a-zA-Z0-9._-]"), "");
 
@@ -23,4 +23,6 @@ std::string AtlasCatalogUtilities::getCatalogFilePath(AtlasCatalogObject catalog
 		+ wxFileName::GetPathSeparator()
 		+ fileName
 		+ ".fits";
+
+	return path.ToStdString();
 }

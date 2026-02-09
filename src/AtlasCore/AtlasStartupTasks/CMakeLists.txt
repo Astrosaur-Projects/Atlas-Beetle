@@ -25,4 +25,5 @@ target_link_libraries(AtlasStartupTasks PRIVATE
 	wxWidgets::wxWidgets
 	CURL::libcurl
 	SQLite::SQLite3
+	cfitsio
 )

@@ -12,7 +12,6 @@ namespace AtlasLoadCatalog
 	const long STAR_IMPORT_BATCH_SIZE = 10000;
 
 	std::expected<bool, std::string> load();
-	std::expected<bool, std::string> loadCatalogs(std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs);
 	std::expected<bool, std::string> loadCatalog(const AtlasCatalogUtilities::CatalogRecord catalog);
 	std::expected<bool, std::string> fitsOpenFile(fitsfile* filePointer, std::string filePath, long* totalRows);
 	std::expected<bool, std::string> fitsCloseFile(fitsfile* filePointer, std::string filePath);
