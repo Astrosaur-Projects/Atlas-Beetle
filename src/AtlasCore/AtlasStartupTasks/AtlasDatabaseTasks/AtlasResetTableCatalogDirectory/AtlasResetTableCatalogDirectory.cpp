@@ -51,8 +51,8 @@ std::expected<bool, std::string> AtlasResetTableCatalogDirectory::insertDefaultC
 std::expected<sqlite3_stmt*, std::string> AtlasResetTableCatalogDirectory::prepareStatement(sqlite3_stmt* statement, sqlite3* database)
 {
 	std::string sql = R"(
-        INSERT INTO CatalogDirectory (name, source, path)
-        VALUES (?, ?, ?);
+        INSERT INTO CatalogDirectory (id, name, source, path)
+        VALUES (1, ?, ?, ?);
     )";
 
 	int resultCode = sqlite3_prepare_v2(database, sql.c_str(), -1, &statement, nullptr);
