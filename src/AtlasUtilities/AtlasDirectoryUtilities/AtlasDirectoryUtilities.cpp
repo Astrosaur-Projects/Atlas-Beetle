@@ -1,4 +1,3 @@
-#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryEnums.h"
 #include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
 #include <string>
 #include <wx/filename.h>
@@ -27,7 +26,10 @@ wxString AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryEnums directory
 
 std::string AtlasDirectoryUtilities::getDirectoryString(AtlasDirectoryEnums directory)
 {
-	auto directoryString = AtlasDirectoryUtilities::AtlasDirectoryStrings.find(directory);
-
-	return directoryString == AtlasDirectoryUtilities::AtlasDirectoryStrings.end() ? "Undefined" : directoryString->second;
+	switch (directory) {
+		case AtlasDirectoryEnums::DIR_CATALOGS: return "AtlasCatalogs";
+		case AtlasDirectoryEnums::DIR_DATABASE: return "AtlasDatabase";
+		case AtlasDirectoryEnums::DIR_PLUGINS: return "AtlasPlugins";
+		default: return "";
+	}
 }
