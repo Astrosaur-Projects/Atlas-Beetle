@@ -1,53 +1,26 @@
-#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogEnums.h"
-#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogTypeEnums.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
-#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryEnums.h"
 #include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
+#include <regex>
 #include <string>
 #include <wx/filename.h>
 #include <wx/string.h>
 
-std::string AtlasCatalogUtilities::getCatalogName(AtlasCatalogEnums catalog)
+AtlasCatalogUtilities::AtlasCatalogObject AtlasCatalogUtilities::getDefaultCatalogObject()
 {
-	auto name = AtlasCatalogUtilities::AtlasCatalogNames.find(catalog);
-
-	return name == AtlasCatalogUtilities::AtlasCatalogNames.end() ? "Undefined" : name->second;
+	return AtlasCatalogObject {
+		AtlasCatalogEnums::CAT_BSC5P,
+		AtlasCatalogTypeEnums::STAR,
+		"Bright Star Catalogue, 5th Revised Ed. (Hoffleit+, 1991)",
+		"https://vizier.cds.unistra.fr/viz-bin/asu-fits?-source=V/50/catalog"
+	};
 }
 
-std::string AtlasCatalogUtilities::getCatalogSource(AtlasCatalogEnums catalog)
+std::string AtlasCatalogUtilities::getCatalogFilePath(AtlasCatalogObject catalog)
 {
-	auto path = AtlasCatalogUtilities::AtlasCatalogSources.find(catalog);
+	std::string fileName = std::regex_replace(catalog.name, std::regex("[^a-zA-Z0-9._-]"), "");
 
-	return path == AtlasCatalogUtilities::AtlasCatalogSources.end() ? "Undefined" : path->second;
-}
-
-std::string AtlasCatalogUtilities::getCatalogFileName(AtlasCatalogEnums catalog)
-{
-	auto path = AtlasCatalogUtilities::AtlasCatalogFileNames.find(catalog);
-
-	return path == AtlasCatalogUtilities::AtlasCatalogFileNames.end() ? "Undefined" : path->second;
-}
-
-std::string AtlasCatalogUtilities::getCatalogFilePath(AtlasCatalogEnums catalog)
-{
 	wxString path = AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS)
 		+ wxFileName::GetPathSeparator()
-		+ AtlasCatalogUtilities::getCatalogFileName(catalog)
+		+ fileName
 		+ ".fits";
-
-	return path.ToStdString();
-}
-
-AtlasCatalogUtilities::AtlasCatalogTypeEnums AtlasCatalogUtilities::getCatalogType(AtlasCatalogEnums catalog)
-{
-	auto type = AtlasCatalogUtilities::AtlasCatalogTypes.find(catalog);
-
-	return type == AtlasCatalogUtilities::AtlasCatalogTypes.end() ? AtlasCatalogTypeEnums::STAR : type->second;
-}
-
-std::string AtlasCatalogUtilities::getCatalogTypeString(AtlasCatalogTypeEnums type)
-{
-	auto typeString = AtlasCatalogUtilities::AtlasCatalogTypeStrings.find(type);
-
-	return typeString == AtlasCatalogUtilities::AtlasCatalogTypeStrings.end() ? "Undefined" : typeString->second;
 }
