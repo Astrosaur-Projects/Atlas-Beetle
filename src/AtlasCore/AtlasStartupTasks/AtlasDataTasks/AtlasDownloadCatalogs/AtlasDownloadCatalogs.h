@@ -9,7 +9,9 @@
 namespace AtlasDownloadCatalogs
 {
 	std::expected<bool, std::string> download();
+
 	std::expected<bool, std::string> downloadCatalogs(std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs);
+
 	std::expected<bool, std::string> downloadCatalog(const AtlasCatalogUtilities::CatalogRecord catalog);
 };
 

@@ -5,7 +5,6 @@
 #include "AtlasGUI/AtlasMenus/AtlasMenuHelp/AtlasMenuHelp.h"
 #include "AtlasGUI/AtlasMenus/AtlasMenuPlugins/AtlasMenuPlugins.h"
 #include "AtlasGUI/AtlasMenus/AtlasMenuView/AtlasMenuView.h"
-#include <wx/event.h>
 #include <wx/menu.h>
 
 class AtlasMenuBar : public wxMenuBar
@@ -19,9 +18,6 @@ private:
 	AtlasMenuHelp* helpMenu = nullptr;
 	AtlasMenuPlugins* pluginsMenu = nullptr;
 	AtlasMenuView* viewMenu = nullptr;
-
-private:
-	void OnAbout(wxCommandEvent& event);
 };
 
 #endif

@@ -5,7 +5,6 @@
 #include <string>
 #include <wx/filefn.h>
 #include <wx/filename.h>
-#include <wx/string.h>
 
 std::expected<bool, std::string> AtlasCreateApplicationDirectory::initialize()
 {
@@ -21,14 +20,14 @@ std::expected<bool, std::string> AtlasCreateApplicationDirectory::initialize()
 
 std::expected<bool, std::string> AtlasCreateApplicationDirectory::initDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums directory)
 {
-	wxString path = AtlasDirectoryUtilities::getDirectoryPath(directory);
+	std::string path = AtlasDirectoryUtilities::getDirectoryPath(directory);
 
 	wxFileName fileName = wxFileName::DirName(path);
 
 	if (!fileName.DirExists() && !wxFileName::Mkdir(path, wxS_DIR_DEFAULT, wxPATH_MKDIR_FULL)) {
-		std::string errorMessage = std::format("Error creating directory: {}", path.ToStdString().c_str());
+		std::string error = std::format("Error creating directory: {}", path.c_str());
 
-		return std::unexpected<std::string>(errorMessage);
+		return std::unexpected<std::string>(error);
 	}
 
 	return true;

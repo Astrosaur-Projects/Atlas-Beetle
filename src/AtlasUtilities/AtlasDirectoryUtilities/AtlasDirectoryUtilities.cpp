@@ -4,7 +4,7 @@
 #include <wx/stdpaths.h>
 #include <wx/string.h>
 
-wxString AtlasDirectoryUtilities::getDatabasePath()
+std::string AtlasDirectoryUtilities::getDatabasePath()
 {
 	wxStandardPaths& wxStandardPaths = wxStandardPaths::Get();
 
@@ -12,24 +12,24 @@ wxString AtlasDirectoryUtilities::getDatabasePath()
 
 	wxString databasePath = databaseDirectoryPath + wxFileName::GetPathSeparator() + "AtlasDatabase.db";
 
-	return databasePath;
+	return databasePath.ToStdString();
 }
 
-wxString AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryEnums directory)
+std::string AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryEnums directory)
 {
 	wxStandardPaths& wxStandardPaths = wxStandardPaths::Get();
 
-	wxString databaseDirectoryPath = wxStandardPaths.GetUserLocalDataDir() + wxFileName::GetPathSeparator() + AtlasDirectoryUtilities::getDirectoryString(directory);
+	wxString databaseDirectoryPath = wxStandardPaths.GetUserLocalDataDir() + wxFileName::GetPathSeparator() + AtlasDirectoryUtilities::getDirectoryName(directory);
 
-	return databaseDirectoryPath;
+	return databaseDirectoryPath.ToStdString();
 }
 
-std::string AtlasDirectoryUtilities::getDirectoryString(AtlasDirectoryEnums directory)
+std::string AtlasDirectoryUtilities::getDirectoryName(AtlasDirectoryEnums directory)
 {
 	switch (directory) {
 		case AtlasDirectoryEnums::DIR_CATALOGS: return "AtlasCatalogs";
 		case AtlasDirectoryEnums::DIR_DATABASE: return "AtlasDatabase";
-		case AtlasDirectoryEnums::DIR_PLUGINS: return "AtlasPlugins";
+		case AtlasDirectoryEnums::DIR_PLUGINS:	return "AtlasPlugins";
 		default: return "";
 	}
 }

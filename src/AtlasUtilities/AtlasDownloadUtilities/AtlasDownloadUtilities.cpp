@@ -15,9 +15,9 @@ std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std:
 	CURLcode result = CURLE_FAILED_INIT;
 
 	if (!curl) {
-		std::string errorMessage = std::format("Error initializing curl: {} (Code: {})", curl_easy_strerror(result), static_cast<int>(result));
+		std::string error = std::format("Error initializing curl: {} (Code: {})", curl_easy_strerror(result), static_cast<int>(result));
 
-		return std::unexpected<std::string>(errorMessage);
+		return std::unexpected<std::string>(error);
 	}
 
 	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
@@ -33,9 +33,9 @@ std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std:
 	if (!file) {
 		curl_easy_cleanup(curl);
 
-		std::string errorMessage = std::format("Error opening file {}: {}", filename.c_str(), strerror(errno));
+		std::string error = std::format("Error opening file {}: {}", filename.c_str(), strerror(errno));
 
-		return std::unexpected<std::string>(errorMessage);
+		return std::unexpected<std::string>(error);
 	}
 
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, file);
@@ -47,9 +47,9 @@ std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std:
 	curl_easy_cleanup(curl);
 
 	if (result) {
-		std::string errorMessage = std::format("Error downloading {}: {} (Code: {})", url.c_str(), curl_easy_strerror(result), static_cast<int>(result));
+		std::string error = std::format("Error downloading {}: {} (Code: {})", url.c_str(), curl_easy_strerror(result), static_cast<int>(result));
 
-		return std::unexpected<std::string>(errorMessage);
+		return std::unexpected<std::string>(error);
 	}
 
 	return result;

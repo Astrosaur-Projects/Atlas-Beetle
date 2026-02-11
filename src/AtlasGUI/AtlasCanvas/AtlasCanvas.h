@@ -2,8 +2,8 @@
 #define ATLAS_CANVAS_H
 
 #include <wx/event.h>
-#include <wx/glcanvas.h>
 #include <wx/frame.h>
+#include <wx/glcanvas.h>
 
 class AtlasCanvas : public wxGLCanvas
 {

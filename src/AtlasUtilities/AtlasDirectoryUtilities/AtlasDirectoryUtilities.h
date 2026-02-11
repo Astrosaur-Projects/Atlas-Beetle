@@ -1,8 +1,7 @@
-#ifndef ATLAS_DIRECTORY_UTILS_H
-#define ATLAS_DIRECTORY_UTILS_H
+#ifndef ATLAS_DIRECTORY_UTILITIES_H
+#define ATLAS_DIRECTORY_UTILITIES_H
 
 #include <string>
-#include <wx/string.h>
 
 namespace AtlasDirectoryUtilities
 {
@@ -13,9 +12,11 @@ namespace AtlasDirectoryUtilities
 		DIR_DATABASE
 	};
 
-	wxString getDatabasePath();
-	wxString getDirectoryPath(AtlasDirectoryEnums directory);
-	std::string getDirectoryString(AtlasDirectoryEnums directory);
+	std::string getDatabasePath();
+
+	std::string getDirectoryPath(AtlasDirectoryEnums directory);
+
+	std::string getDirectoryName(AtlasDirectoryEnums directory);
 };
 
 #endif
