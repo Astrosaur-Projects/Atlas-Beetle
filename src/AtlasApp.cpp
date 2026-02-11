@@ -1,9 +1,9 @@
 #include "AtlasCore/AtlasConfig/AtlasConfig.h"
-#include "AtlasGUI/AtlasFrame/AtlasFrame.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasConfigTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.h"
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasCreateDatabase/AtlasCreateDatabase.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasExecuteDatabaseSchema/AtlasExecuteDatabaseSchema.h"
+#include "AtlasGUI/AtlasFrame/AtlasFrame.h"
 #include <expected>
 #include <string>
 #include <wx/app.h>
@@ -65,7 +65,7 @@ bool AtlasApp::OnInit()
 	initAppResult = initAppResult
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasLoadCurl::load(); })
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initialize(); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateDatabase::initialize(); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasExecuteDatabaseSchema::initialize(); })
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasDownloadCatalogs::download(); });
 
 	if (!initAppResult.has_value()) {
