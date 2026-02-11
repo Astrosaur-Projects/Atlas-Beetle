@@ -19,7 +19,7 @@ std::string AtlasCatalogUtilities::getCatalogFilePath(AtlasCatalogUtilities::Atl
 {
 	std::string fileName = std::regex_replace(catalog.name, std::regex("[^a-zA-Z0-9._-]"), "");
 
-	wxString path = AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS)
+	wxString path = wxString(AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS))
 		+ wxFileName::GetPathSeparator()
 		+ fileName
 		+ ".fits";
