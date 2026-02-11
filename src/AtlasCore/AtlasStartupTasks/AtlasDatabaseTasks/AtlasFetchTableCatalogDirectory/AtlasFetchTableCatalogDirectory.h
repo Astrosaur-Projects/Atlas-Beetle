@@ -1,5 +1,5 @@
-#ifndef ATLAS_FETCH_CATALOGS_TASK_H
-#define ATLAS_FETCH_CATALOGS_TASK_H
+#ifndef ATLAS_FETCH_TABLE_CATALOG_DIRECTORY_TASK_H
+#define ATLAS_FETCH_TABLE_CATALOG_DIRECTORY_TASK_H
 
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include <expected>
@@ -10,8 +10,6 @@
 namespace AtlasFetchTableCatalogDirectory
 {
 	std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> fetch(sqlite3* database);
-	std::expected<sqlite3_stmt*, std::string> prepareStatement(sqlite3_stmt* statement, sqlite3* database);
-	std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> executeStatement(sqlite3_stmt* statement, sqlite3* database);
 };
 
 #endif
