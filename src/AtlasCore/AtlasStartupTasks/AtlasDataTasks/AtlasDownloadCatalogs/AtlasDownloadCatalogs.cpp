@@ -7,6 +7,7 @@
 #include <expected>
 #include <sqlite3.h>
 #include <string>
+#include <tuple>
 #include <vector>
 #include <wx/filename.h>
 
@@ -21,7 +22,7 @@ std::expected<bool, std::string> AtlasDownloadCatalogs::download()
 		.and_then([&](bool success) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasFetchTableCatalogDirectory::fetch(database); })
 		.and_then([&](std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs) -> std::expected<bool, std::string> { return AtlasDownloadCatalogs::downloadCatalogs(catalogs); });
 
-	AtlasDatabaseUtilities::close(database);
+	std::ignore = AtlasDatabaseUtilities::close(database);
 
 	return downloadCatalogsResult;
 }
