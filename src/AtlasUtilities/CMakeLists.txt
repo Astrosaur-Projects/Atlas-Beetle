@@ -5,6 +5,7 @@ target_sources(AtlasUtilities PRIVATE
 	AtlasDatabaseUtilities/AtlasDatabaseUtilities.cpp
 	AtlasDownloadUtilities/AtlasDownloadUtilities.cpp
 	AtlasCatalogUtilities/AtlasCatalogUtilities.cpp
+	AtlasFitsDataUtilities/AtlasFitsDataUtilities.cpp
  )
 
 target_include_directories(AtlasUtilities PUBLIC 
@@ -13,4 +14,5 @@ target_include_directories(AtlasUtilities PUBLIC
 
 target_link_libraries(AtlasUtilities PRIVATE
 	CURL::libcurl
+	cfitsio
 )
