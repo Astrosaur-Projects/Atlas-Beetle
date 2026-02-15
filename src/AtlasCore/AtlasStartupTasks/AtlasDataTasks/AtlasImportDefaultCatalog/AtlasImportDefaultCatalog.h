@@ -3,9 +3,7 @@
 
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include <expected>
-#include <fitsio.h>
 #include <string>
-#include <vector>
 
 namespace AtlasImportDefaultCatalog
 {
