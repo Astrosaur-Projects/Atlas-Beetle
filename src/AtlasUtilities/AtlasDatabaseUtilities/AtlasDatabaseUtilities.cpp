@@ -5,32 +5,21 @@
 #include <sqlite3.h>
 #include <string>
 
-std::expected<bool, std::string> AtlasDatabaseUtilities::open(sqlite3** database)
+std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> AtlasDatabaseUtilities::open()
 {
+	sqlite3* database = nullptr;
+
 	std::string path = AtlasDirectoryUtilities::getDatabasePath();
 
-	int resultCode = sqlite3_open(path.c_str(), database);
+	int resultCode = sqlite3_open(path.c_str(), &database);
 
 	if (resultCode) {
-		std::string error = std::format("Error opening database: {} (Code: {})", sqlite3_errmsg(*database), resultCode);
+		std::string error = std::format("Error opening database: {} (Code: {})", sqlite3_errmsg(database), resultCode);
 
 		return std::unexpected<std::string>(error);
 	}
 
-	return true;
-}
-
-std::expected<bool, std::string> AtlasDatabaseUtilities::close(sqlite3* database)
-{
-	int resultCode = sqlite3_close(database);
-
-	if (resultCode) {
-		std::string error = std::format("Error closing database: {} (Code: {})", sqlite3_errmsg(database), resultCode);
-
-		return std::unexpected<std::string>(error);
-	}
-
-	return true;
+	return AtlasDatabaseUtilities::MemorySafeDatabase(database);
 }
 
 std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> AtlasDatabaseUtilities::prepareStatement(sqlite3* database, std::string sql)
@@ -63,9 +52,4 @@ std::expected<bool, std::string> AtlasDatabaseUtilities::execute(sqlite3_stmt* s
 	}
 
 	return true;
-}
-
-std::expected<bool, std::string> AtlasDatabaseUtilities::execute(const AtlasDatabaseUtilities::MemorySafeStatement& statement, sqlite3* database)
-{
-	return AtlasDatabaseUtilities::execute(statement.get(), database);
 }

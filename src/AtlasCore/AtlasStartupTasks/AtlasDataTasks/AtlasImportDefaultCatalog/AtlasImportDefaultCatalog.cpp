@@ -14,12 +14,17 @@
 
 std::expected<bool, std::string> AtlasImportDefaultCatalog::load()
 {
-	sqlite3* database = nullptr;
+	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
+
+	if (!openDatabaseResult.has_value()) {
+		return std::unexpected<std::string>(openDatabaseResult.error());
+	}
+
+	sqlite3* database = openDatabaseResult.value().get();
 
 	std::expected<bool, std::string> importDefaultCatalogResult = true;
 
 	importDefaultCatalogResult = importDefaultCatalogResult
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasDatabaseUtilities::open(&database); })
 		.and_then([&](bool success) -> std::expected<AtlasCatalogUtilities::CatalogRecord, std::string> { return AtlasFetchDefaultCatalogRecord::fetch(database); })
 		.and_then([&](AtlasCatalogUtilities::CatalogRecord catalog) -> std::expected<bool, std::string> { return AtlasImportDefaultCatalog::loadCatalog(catalog); });
 

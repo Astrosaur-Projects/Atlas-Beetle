@@ -22,9 +22,17 @@ namespace AtlasDatabaseUtilities
 
 	using MemorySafeStatement = std::unique_ptr<sqlite3_stmt, DestroyStatement>;
 
-	std::expected<bool, std::string> open(sqlite3** database);
+	struct DestroyDatabase
+	{
+		void operator()(sqlite3* database) const
+		{
+			sqlite3_close_v2(database);
+		}
+	};
 
-	std::expected<bool, std::string> close(sqlite3* database);
+	using MemorySafeDatabase = std::unique_ptr<sqlite3, DestroyDatabase>;
+
+	std::expected<MemorySafeDatabase, std::string> open();
 
 	std::expected<MemorySafeStatement, std::string> prepareStatement(sqlite3* database, std::string sql);
 
@@ -87,12 +95,6 @@ namespace AtlasDatabaseUtilities
 		return true;
 	}
 
-	template <typename T>
-	std::expected<bool, std::string> bindStatementParameter(const MemorySafeStatement& statement, int index, const T& parameter)
-	{
-		return bindStatementParameter(statement.get(), index, parameter);
-	}
-
 	template <typename... Args>
 	std::expected<bool, std::string> bindStatementParameters(sqlite3_stmt* statement, Args&&... args)
 	{
@@ -111,15 +113,7 @@ namespace AtlasDatabaseUtilities
 		return bindStatementParametersResult;
 	}
 
-	template <typename... Args>
-	std::expected<bool, std::string> bindStatementParameters(const MemorySafeStatement& statement, Args&&... args)
-	{
-		return bindStatementParameters(statement.get(), std::forward<Args>(args)...);
-	}
-
 	std::expected<bool, std::string> execute(sqlite3_stmt* statement, sqlite3* database);
-
-	std::expected<bool, std::string> execute(const MemorySafeStatement& statement, sqlite3* database);
 
 	template <typename T>
 	std::expected <std::vector<T>, std::string> query(sqlite3_stmt* statement, sqlite3* database, std::function<T(sqlite3_stmt*)> initializeTypeFromStatement)
@@ -141,12 +135,6 @@ namespace AtlasDatabaseUtilities
 		}
 
 		return data;
-	}
-
-	template <typename T>
-	std::expected<std::vector<T>, std::string> query(const MemorySafeStatement& statement, sqlite3* database, std::function<T(sqlite3_stmt*)> initializeTypeFromStatement)
-	{
-		return query(statement.get(), database, initializeTypeFromStatement);
 	}
 };
 

@@ -13,16 +13,19 @@
 
 std::expected<bool, std::string> AtlasDownloadCatalogs::download()
 {
-	sqlite3* database = nullptr;
+	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
+
+	if (!openDatabaseResult.has_value()) {
+		return std::unexpected<std::string>(openDatabaseResult.error());
+	}
+
+	sqlite3* database = openDatabaseResult.value().get();
 
 	std::expected<bool, std::string> downloadCatalogsResult = true;
 
 	downloadCatalogsResult = downloadCatalogsResult
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasDatabaseUtilities::open(&database); })
 		.and_then([&](bool success) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasFetchTableCatalogDirectory::fetch(database); })
 		.and_then([&](std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs) -> std::expected<bool, std::string> { return AtlasDownloadCatalogs::downloadCatalogs(catalogs); });
-
-	std::ignore = AtlasDatabaseUtilities::close(database);
 
 	return downloadCatalogsResult;
 }

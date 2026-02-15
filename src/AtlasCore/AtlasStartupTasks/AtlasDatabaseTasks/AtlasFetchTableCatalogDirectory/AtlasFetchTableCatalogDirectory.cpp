@@ -12,5 +12,11 @@ std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> At
 
 	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::prepareStatement(database, SELECT_FROM_CATALOG_DIRECTORY);
 
-	return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(prepareStatementResult.value(), database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement);
+	if (!prepareStatementResult.has_value()) {
+		return std::unexpected<std::string>(prepareStatementResult.error());
+	}
+
+	sqlite3_stmt* statement = prepareStatementResult.value().get();
+
+	return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement, database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement);
 }
