@@ -74,7 +74,7 @@ namespace AtlasDatabaseUtilities
 	}
 
 	template <typename T>
-	static std::expected<bool, std::string> bindStatementParameter(sqlite3_stmt* statement, int index, const T& parameter)
+	std::expected<bool, std::string> bindStatementParameter(sqlite3_stmt* statement, int index, const T& parameter)
 	{
 		int resultCode = bind(statement, index, parameter);
 
@@ -94,7 +94,7 @@ namespace AtlasDatabaseUtilities
 	}
 
 	template <typename... Args>
-	static std::expected<bool, std::string> bindStatementParameters(sqlite3_stmt* statement, Args&&... args)
+	std::expected<bool, std::string> bindStatementParameters(sqlite3_stmt* statement, Args&&... args)
 	{
 		std::expected<bool, std::string> bindStatementParametersResult = true;
 
@@ -104,7 +104,7 @@ namespace AtlasDatabaseUtilities
 			bindStatementParametersResult = bindStatementParameter(statement, index++, parameter);
 
 			return bindStatementParametersResult.has_value();
-		};
+			};
 
 		(tryBind(args) && ...);
 
@@ -117,27 +117,12 @@ namespace AtlasDatabaseUtilities
 		return bindStatementParameters(statement.get(), std::forward<Args>(args)...);
 	}
 
-	static std::expected<bool, std::string> execute(sqlite3_stmt* statement, sqlite3* database)
-	{
-		int resultCode;
-
-		while ((resultCode = sqlite3_step(statement)) == SQLITE_ROW) { }
-
-		sqlite3_reset(statement);
-
-		if (resultCode != SQLITE_DONE) {
-			std::string error = std::format("Error executing statement: {} (Code: {})", sqlite3_errmsg(database), resultCode);
-
-			return std::unexpected<std::string>(error);
-		}
-
-		return true;
-	}
+	std::expected<bool, std::string> execute(sqlite3_stmt* statement, sqlite3* database);
 
 	std::expected<bool, std::string> execute(const MemorySafeStatement& statement, sqlite3* database);
 
 	template <typename T>
-	static std::expected <std::vector<T>, std::string> query(sqlite3_stmt* statement, sqlite3* database, std::function<T(sqlite3_stmt*)> initializeTypeFromStatement)
+	std::expected <std::vector<T>, std::string> query(sqlite3_stmt* statement, sqlite3* database, std::function<T(sqlite3_stmt*)> initializeTypeFromStatement)
 	{
 		std::vector<T> data;
 

@@ -48,6 +48,23 @@ std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> AtlasDat
 	return AtlasDatabaseUtilities::MemorySafeStatement(statement);
 }
 
+std::expected<bool, std::string> AtlasDatabaseUtilities::execute(sqlite3_stmt* statement, sqlite3* database)
+{
+	int resultCode;
+
+	while ((resultCode = sqlite3_step(statement)) == SQLITE_ROW) { }
+
+	sqlite3_reset(statement);
+
+	if (resultCode != SQLITE_DONE) {
+		std::string error = std::format("Error executing statement: {} (Code: {})", sqlite3_errmsg(database), resultCode);
+
+		return std::unexpected<std::string>(error);
+	}
+
+	return true;
+}
+
 std::expected<bool, std::string> AtlasDatabaseUtilities::execute(const AtlasDatabaseUtilities::MemorySafeStatement& statement, sqlite3* database)
 {
 	return AtlasDatabaseUtilities::execute(statement.get(), database);
