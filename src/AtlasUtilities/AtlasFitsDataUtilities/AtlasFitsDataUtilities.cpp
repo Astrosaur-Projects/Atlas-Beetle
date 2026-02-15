@@ -15,11 +15,11 @@ std::expected<AtlasFitsDataUtilities::MemorySafeFitsFile, std::string> AtlasFits
 	fits_open_file(&filePointer, path.c_str(), READONLY, &resultCode);
 
 	if (resultCode) {
-		char fitsErrorMessage[FLEN_ERRMSG];
+		char description[FLEN_ERRMSG];
 
-		fits_read_errmsg(fitsErrorMessage);
+		fits_read_errmsg(description);
 
-		std::string error = std::format("Error opening file {}: {} (Code: {})", path, fitsErrorMessage, resultCode);
+		std::string error = std::format("Error opening fits file {}: {} (Code: {})", path, description, resultCode);
 
 		return std::unexpected<std::string>(error);
 	}
