@@ -35,13 +35,11 @@ std::expected<bool, std::string> AtlasExecuteDatabaseSchema::create(sqlite3* dat
 		return createTableIfNotExistsResult;
 	}
 
-	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::prepareStatement(database, query);
+	std::expected<bool, std::string> createTableResult = true;
 
-	if (!prepareStatementResult.has_value()) {
-		return std::unexpected<std::string>(prepareStatementResult.error());
-	}
+	createTableResult = createTableResult
+		.and_then([&](bool success) -> std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> { return AtlasDatabaseUtilities::prepareStatement(database, query); })
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) -> std::expected<bool, std::string> { return AtlasDatabaseUtilities::execute(statement.get(), database); });
 
-	sqlite3_stmt* statement = prepareStatementResult.value().get();
-
-	return AtlasDatabaseUtilities::execute(statement, database);
+	return createTableResult;
 }

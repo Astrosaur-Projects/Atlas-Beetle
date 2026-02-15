@@ -8,25 +8,17 @@
 #include <algorithm>
 #include <expected>
 #include <fitsio.h>
-#include <sqlite3.h>
 #include <sstream>
 #include <string>
 #include <vector>
 
 std::expected<bool, std::string> AtlasImportDefaultCatalog::load()
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
-
-	if (!openDatabaseResult.has_value()) {
-		return std::unexpected<std::string>(openDatabaseResult.error());
-	}
-
-	sqlite3* database = openDatabaseResult.value().get();
-
 	std::expected<bool, std::string> importDefaultCatalogResult = true;
 
 	importDefaultCatalogResult = importDefaultCatalogResult
-		.and_then([&](bool success) -> std::expected<AtlasCatalogUtilities::CatalogRecord, std::string> { return AtlasFetchDefaultCatalogRecord::fetch(database); })
+		.and_then([&](bool success) -> std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> { return AtlasDatabaseUtilities::open(); })
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeDatabase database) -> std::expected<AtlasCatalogUtilities::CatalogRecord, std::string> { return AtlasFetchDefaultCatalogRecord::fetch(database.get()); })
 		.and_then([&](AtlasCatalogUtilities::CatalogRecord catalog) -> std::expected<bool, std::string> { return AtlasImportDefaultCatalog::loadCatalog(catalog); });
 
 	return importDefaultCatalogResult;

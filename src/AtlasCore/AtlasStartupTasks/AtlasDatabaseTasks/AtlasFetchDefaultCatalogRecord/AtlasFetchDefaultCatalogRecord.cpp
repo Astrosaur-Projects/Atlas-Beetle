@@ -10,14 +10,7 @@ std::expected<AtlasCatalogUtilities::CatalogRecord, std::string> AtlasFetchDefau
 {
 	const std::string FETCH_DEFAULT_CATALOG = "SELECT * FROM CatalogDirectory WHERE id = 0";
 
-	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::prepareStatement(database, FETCH_DEFAULT_CATALOG);
-
-	if (!prepareStatementResult.has_value()) {
-		return std::unexpected<std::string>(prepareStatementResult.error());
-	}
-
-	sqlite3_stmt* statement = prepareStatementResult.value().get();
-
-	return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement, database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement)
+	return AtlasDatabaseUtilities::prepareStatement(database, FETCH_DEFAULT_CATALOG)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
 		.transform([](std::vector<AtlasCatalogUtilities::CatalogRecord> records) { return records.front(); });
 }

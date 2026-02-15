@@ -1,8 +1,8 @@
 #ifndef ATLAS_CATALOG_UTILITIES_H
 #define ATLAS_CATALOG_UTILITIES_H
 
-#include <string>
 #include <sqlite3.h>
+#include <string>
 
 namespace AtlasCatalogUtilities
 {
@@ -51,7 +51,7 @@ namespace AtlasCatalogUtilities
 			.isEnabled = (bool)sqlite3_column_int(statement, 4),
 			.isInstalled = (bool)sqlite3_column_int(statement, 5),
 		};
-	};
+		};
 
 	AtlasCatalogObject getDefaultCatalogObject();
 

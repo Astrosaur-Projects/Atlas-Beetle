@@ -20,15 +20,13 @@ std::expected<bool, std::string> AtlasResetTableCatalogDirectory::truncateCatalo
 {
 	const std::string TRUNCATE_CATALOG_DIRECTORY = "DELETE FROM CatalogDirectory;";
 
-	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::prepareStatement(database, TRUNCATE_CATALOG_DIRECTORY);
+	std::expected<bool, std::string> truncateCatalogDirectoryResult = true;
 
-	if (!prepareStatementResult.has_value()) {
-		return std::unexpected<std::string>(prepareStatementResult.error());
-	}
+	truncateCatalogDirectoryResult = truncateCatalogDirectoryResult
+		.and_then([&](bool success) -> std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> { return AtlasDatabaseUtilities::prepareStatement(database, TRUNCATE_CATALOG_DIRECTORY); })
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) -> std::expected<bool, std::string> { return AtlasDatabaseUtilities::execute(statement.get(), database); });
 
-	sqlite3_stmt* statement = prepareStatementResult.value().get();
-
-	return AtlasDatabaseUtilities::execute(statement, database);
+	return truncateCatalogDirectoryResult;
 }
 
 std::expected<bool, std::string> AtlasResetTableCatalogDirectory::insertDefaultCatalogRecord(sqlite3* database)
@@ -51,8 +49,8 @@ std::expected<bool, std::string> AtlasResetTableCatalogDirectory::insertDefaultC
 	std::expected<bool, std::string> insertDefaultCatalogRecordResult = true;
 
 	insertDefaultCatalogRecordResult = insertDefaultCatalogRecordResult
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasDatabaseUtilities::bindStatementParameters(statment, 0, catalog.name, catalog.source, AtlasCatalogUtilities::getCatalogFilePath(catalog)); })
-		.and_then([&](bool success) -> std::expected<int, std::string> { return AtlasDatabaseUtilities::execute(statment, database); });
+		.and_then([&](bool success) -> std::expected<bool, std::string>{ return AtlasDatabaseUtilities::bindStatementParameters(statment, 0, catalog.name, catalog.source, AtlasCatalogUtilities::getCatalogFilePath(catalog)); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasDatabaseUtilities::execute(statment, database); });
 
 	return insertDefaultCatalogRecordResult;
 }

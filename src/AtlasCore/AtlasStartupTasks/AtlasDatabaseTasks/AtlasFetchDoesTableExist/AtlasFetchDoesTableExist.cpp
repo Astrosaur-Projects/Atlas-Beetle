@@ -19,12 +19,12 @@ std::expected<bool, std::string> AtlasFetchDoesTableExist::fetch(sqlite3* databa
 
 	const auto initializeIntFromSQLStatement = [](sqlite3_stmt* statement) -> int { return sqlite3_column_int(statement, 0); };
 
-	std::expected<bool, std::string> fetchTableExistResult = true;
+	std::expected<bool, std::string> fetchTableExistsResult = true;
 
-	fetchTableExistResult = fetchTableExistResult
+	fetchTableExistsResult = fetchTableExistsResult
 		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasDatabaseUtilities::bindStatementParameters(statement, table); })
 		.and_then([&](bool success) -> std::expected<std::vector<int>, std::string> { return AtlasDatabaseUtilities::query<int>(statement, database, initializeIntFromSQLStatement); })
 		.transform([](std::vector<int> records) { return records.front() > 0; });
 
-	return fetchTableExistResult;
+	return fetchTableExistsResult;
 }

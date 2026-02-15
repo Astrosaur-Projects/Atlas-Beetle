@@ -10,13 +10,6 @@ std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> At
 {
 	const std::string SELECT_FROM_CATALOG_DIRECTORY = "SELECT name, source, path, type FROM CatalogDirectory;";
 
-	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::prepareStatement(database, SELECT_FROM_CATALOG_DIRECTORY);
-
-	if (!prepareStatementResult.has_value()) {
-		return std::unexpected<std::string>(prepareStatementResult.error());
-	}
-
-	sqlite3_stmt* statement = prepareStatementResult.value().get();
-
-	return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement, database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement);
+	return AtlasDatabaseUtilities::prepareStatement(database, SELECT_FROM_CATALOG_DIRECTORY)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); });
 }

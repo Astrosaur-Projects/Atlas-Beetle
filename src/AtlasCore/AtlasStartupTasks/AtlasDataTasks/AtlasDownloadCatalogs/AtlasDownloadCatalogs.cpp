@@ -7,24 +7,16 @@
 #include <expected>
 #include <sqlite3.h>
 #include <string>
-#include <tuple>
 #include <vector>
 #include <wx/filename.h>
 
 std::expected<bool, std::string> AtlasDownloadCatalogs::download()
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
-
-	if (!openDatabaseResult.has_value()) {
-		return std::unexpected<std::string>(openDatabaseResult.error());
-	}
-
-	sqlite3* database = openDatabaseResult.value().get();
-
 	std::expected<bool, std::string> downloadCatalogsResult = true;
 
 	downloadCatalogsResult = downloadCatalogsResult
-		.and_then([&](bool success) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasFetchTableCatalogDirectory::fetch(database); })
+		.and_then([&](bool success) -> std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> { return AtlasDatabaseUtilities::open(); })
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeDatabase database) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasFetchTableCatalogDirectory::fetch(database.get()); })
 		.and_then([&](std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs) -> std::expected<bool, std::string> { return AtlasDownloadCatalogs::downloadCatalogs(catalogs); });
 
 	return downloadCatalogsResult;
@@ -52,6 +44,11 @@ std::expected<bool, std::string> AtlasDownloadCatalogs::downloadCatalog(const At
 
 	std::string querySourceUrl = catalog.source + "&-out.all" + "&-out.max=unlimited";
 
-	return AtlasDownloadUtilities::download(querySourceUrl, catalog.path)
+	std::expected<bool, std::string> downloadCatalogResult = true;
+
+	downloadCatalogResult = downloadCatalogResult
+		.and_then([&](bool success) -> std::expected<CURLcode, std::string>{ return AtlasDownloadUtilities::download(querySourceUrl, catalog.path); })
 		.transform([](CURLcode code) { return code == SQLITE_OK; });
+
+	return downloadCatalogResult;
 }
