@@ -47,7 +47,7 @@ std::expected<bool, std::string> AtlasDownloadCatalogs::downloadCatalog(const At
 	std::expected<bool, std::string> downloadCatalogResult = true;
 
 	downloadCatalogResult = downloadCatalogResult
-		.and_then([&](bool success) -> std::expected<CURLcode, std::string>{ return AtlasDownloadUtilities::download(querySourceUrl, catalog.path); })
+		.and_then([&](bool success) -> std::expected<CURLcode, std::string> { return AtlasDownloadUtilities::download(querySourceUrl, catalog.path); })
 		.transform([](CURLcode code) { return code == SQLITE_OK; });
 
 	return downloadCatalogResult;
