@@ -7,6 +7,7 @@
 #include "AtlasUtilities/AtlasFitsDataUtilities/AtlasFitsDataUtilities.h"
 #include <algorithm>
 #include <expected>
+#include <fitsio.h>
 #include <sqlite3.h>
 #include <sstream>
 #include <string>
@@ -43,18 +44,20 @@ std::expected<bool, std::string> AtlasImportDefaultCatalog::loadCatalog(const At
 		return std::unexpected<std::string>(fitsFileResult.error());
 	}
 
+	fitsfile* file = fitsFileResult.value().get();
+
 	int raIndex = 0;
 	int deIndex = 0;
 	int raProperMotionIndex = 0, decProperMotionIndex = 0;
 	int vMagIndex = 0, bvIndex = 0;
 
 	loadCatalogResult = loadCatalogResult
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(fitsFileResult.value(), "RAJ2000", raIndex); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(fitsFileResult.value(), "DEJ2000", deIndex); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(fitsFileResult.value(), "pmRA", raProperMotionIndex); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(fitsFileResult.value(), "pmDE", decProperMotionIndex); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(fitsFileResult.value(), "Vmag", vMagIndex); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(fitsFileResult.value(), "B-V", bvIndex); });
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(file, "RAJ2000", raIndex); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(file, "DEJ2000", deIndex); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(file, "pmRA", raProperMotionIndex); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(file, "pmDE", decProperMotionIndex); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(file, "Vmag", vMagIndex); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::getColumnIndex(file, "B-V", bvIndex); });
 
 	if (!loadCatalogResult.has_value()) {
 		return loadCatalogResult;
@@ -75,12 +78,12 @@ std::expected<bool, std::string> AtlasImportDefaultCatalog::loadCatalog(const At
 		long importBatchSize = std::min(AtlasImportDefaultCatalog::STAR_IMPORT_BATCH_SIZE, totalCatalogRows - importBatchIndex + 1);
 
 		loadCatalogResult = loadCatalogResult
-			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer(fitsFileResult.value(), raIndex, importBatchIndex, raBuffer); })
-			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer(fitsFileResult.value(), deIndex, importBatchIndex, deBuffer); })
-			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer<double>(fitsFileResult.value(), raProperMotionIndex, importBatchIndex, raProperMotionBuffer); })
-			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer<double>(fitsFileResult.value(), decProperMotionIndex, importBatchIndex, decProperMotionBuffer); })
-			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer<float>(fitsFileResult.value(), vMagIndex, importBatchIndex, vMagBuffer); })
-			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer<float>(fitsFileResult.value(), bvIndex, importBatchIndex, bvBuffer); });
+			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer(file, raIndex, importBatchIndex, raBuffer); })
+			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer(file, deIndex, importBatchIndex, deBuffer); })
+			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer<double>(file, raProperMotionIndex, importBatchIndex, raProperMotionBuffer); })
+			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer<double>(file, decProperMotionIndex, importBatchIndex, decProperMotionBuffer); })
+			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer<float>(file, vMagIndex, importBatchIndex, vMagBuffer); })
+			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasFitsDataUtilities::loadColumnIntoBuffer<float>(file, bvIndex, importBatchIndex, bvBuffer); });
 
 		starObjectBuffer.clear();
 		for (long i = 0; i < importBatchSize; ++i) {

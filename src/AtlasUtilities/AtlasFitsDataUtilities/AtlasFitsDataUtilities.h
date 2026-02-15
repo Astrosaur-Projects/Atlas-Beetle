@@ -57,23 +57,13 @@ namespace AtlasFitsDataUtilities
 
 	std::expected<bool, std::string> moveToHeaderDataUnit(fitsfile* file, int index);
 
-	std::expected<bool, std::string> moveToHeaderDataUnit(MemorySafeFitsFile& file, int index);
-
 	std::expected<bool, std::string> getRowCount(fitsfile* file, long& count);
-
-	std::expected<bool, std::string> getRowCount(MemorySafeFitsFile& file, long& count);
 
 	std::expected<bool, std::string> getColumnCount(fitsfile* file, int& count);
 
-	std::expected<bool, std::string> getColumnCount(MemorySafeFitsFile& file, int& count);
-
 	std::expected<bool, std::string> getColumnIndex(fitsfile* file, std::string column, int& index);
 
-	std::expected<bool, std::string> getColumnIndex(MemorySafeFitsFile& file, std::string column, int& index);
-
 	std::expected<bool, std::string> getColumnWidth(fitsfile* file, int column, int& width);
-
-	std::expected<bool, std::string> getColumnWidth(MemorySafeFitsFile& file, int column, int& width);
 
 	template <typename T>
 	std::expected<bool, std::string> loadColumnIntoBuffer(fitsfile* file, int column, long start, std::vector<T>& buffer, T defaultValue = 0)
@@ -97,15 +87,7 @@ namespace AtlasFitsDataUtilities
 		return true;
 	}
 
-	template <typename T>
-	std::expected<bool, std::string> loadColumnIntoBuffer(MemorySafeFitsFile& file, int column, long start, std::vector<T>& buffer, T defaultValue = 0)
-	{
-		return loadColumnIntoBuffer(file.get(), column, start, buffer, defaultValue);
-	}
-
 	std::expected<bool, std::string> loadColumnIntoBuffer(fitsfile* file, int column, long start, std::vector<std::string>& buffer, std::string defaultValue = "");
-
-	std::expected<bool, std::string> loadColumnIntoBuffer(MemorySafeFitsFile& file, int column, long start, std::vector<std::string>& buffer, std::string defaultValue = "");
 };
 
 #endif
