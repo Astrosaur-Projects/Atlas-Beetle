@@ -35,7 +35,7 @@ namespace AtlasCatalogUtilities
 
 		std::string path;
 
-		std::string type;
+		int type;
 
 		bool isEnabled = false;
 
@@ -44,12 +44,12 @@ namespace AtlasCatalogUtilities
 
 	const auto initializeCatalogRecordFromSQLStatement = [](sqlite3_stmt* statement) -> CatalogRecord {
 		return CatalogRecord {
-			.name = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 0))),
-			.source = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 1))),
-			.path = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 2))),
-			.type = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 3))),
-			.isEnabled = (bool)sqlite3_column_int(statement, 4),
-			.isInstalled = (bool)sqlite3_column_int(statement, 5),
+			.name = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 1))),
+			.source = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 2))),
+			.path = std::string(reinterpret_cast<const char*>(sqlite3_column_text(statement, 3))),
+			.type = sqlite3_column_int(statement, 4),
+			.isEnabled = (bool)sqlite3_column_int(statement, 5),
+			.isInstalled = (bool)sqlite3_column_int(statement, 6),
 		};
 		};
 

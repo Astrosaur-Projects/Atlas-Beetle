@@ -8,7 +8,7 @@
 
 std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> AtlasFetchTableCatalogDirectory::fetch(sqlite3* database)
 {
-	const std::string SELECT_FROM_CATALOG_DIRECTORY = "SELECT name, source, path, type FROM CatalogDirectory;";
+	const std::string SELECT_FROM_CATALOG_DIRECTORY = "SELECT id, name, source, path, type, isEnabled, isInstalled FROM CatalogDirectory;";
 
 	return AtlasDatabaseUtilities::prepareStatement(database, SELECT_FROM_CATALOG_DIRECTORY)
 		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); });
