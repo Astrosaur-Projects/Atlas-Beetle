@@ -18,4 +18,5 @@ target_link_libraries(AtlasCore PRIVATE
 	CURL::libcurl
 	SQLite::SQLite3
 	cfitsio
+	glm::glm
 )
