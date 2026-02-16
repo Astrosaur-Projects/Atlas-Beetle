@@ -24,8 +24,6 @@ std::expected<bool, std::string> AtlasImportDefaultCatalog::load()
 
 	sqlite3* database = openDatabaseResult.value().get();
 
-	std::expected<bool, std::string> importDefaultCatalogResult = true;
-
 	return AtlasFetchDefaultCatalogRecord::fetch(database)
 		.and_then([&](AtlasCatalogUtilities::CatalogRecord catalog) { return AtlasImportDefaultCatalog::loadCatalog(catalog, database); });
 }
