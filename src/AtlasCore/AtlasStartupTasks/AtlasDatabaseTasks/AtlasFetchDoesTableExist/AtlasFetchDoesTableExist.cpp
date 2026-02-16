@@ -22,8 +22,8 @@ std::expected<bool, std::string> AtlasFetchDoesTableExist::fetch(sqlite3* databa
 	std::expected<bool, std::string> fetchTableExistsResult = true;
 
 	fetchTableExistsResult = fetchTableExistsResult
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasDatabaseUtilities::bindStatementParameters(statement, table); })
-		.and_then([&](bool success) -> std::expected<std::vector<int>, std::string> { return AtlasDatabaseUtilities::query<int>(statement, database, initializeIntFromSQLStatement); })
+		.and_then([&](bool) { return AtlasDatabaseUtilities::bindStatementParameters(statement, table); })
+		.and_then([&](bool) { return AtlasDatabaseUtilities::query<int>(statement, database, initializeIntFromSQLStatement); })
 		.transform([](std::vector<int> records) { return records.front() > 0; });
 
 	return fetchTableExistsResult;

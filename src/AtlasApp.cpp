@@ -63,10 +63,10 @@ bool AtlasApp::OnInit()
 	std::expected<bool, std::string> initAppResult = true;
 
 	initAppResult = initAppResult
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasLoadCurl::load(); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasCreateApplicationDirectory::initialize(); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasExecuteDatabaseSchema::initialize(); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasDownloadCatalogs::download(); });
+		.and_then([](bool) { return AtlasLoadCurl::load(); })
+		.and_then([](bool) { return AtlasCreateApplicationDirectory::initialize(); })
+		.and_then([](bool) { return AtlasExecuteDatabaseSchema::initialize(); })
+		.and_then([](bool) { return AtlasDownloadCatalogs::download(); });
 
 	if (!initAppResult.has_value()) {
 		wxMessageBox(initAppResult.error(), "Error", wxOK | wxICON_ERROR);

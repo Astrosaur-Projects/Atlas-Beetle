@@ -12,14 +12,9 @@
 
 std::expected<bool, std::string> AtlasDownloadCatalogs::download()
 {
-	std::expected<bool, std::string> downloadCatalogsResult = true;
-
-	downloadCatalogsResult = downloadCatalogsResult
-		.and_then([&](bool success) -> std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> { return AtlasDatabaseUtilities::open(); })
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeDatabase database) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasFetchTableCatalogDirectory::fetch(database.get()); })
-		.and_then([&](std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs) -> std::expected<bool, std::string> { return AtlasDownloadCatalogs::downloadCatalogs(catalogs); });
-
-	return downloadCatalogsResult;
+	return AtlasDatabaseUtilities::open()
+		.and_then([](AtlasDatabaseUtilities::MemorySafeDatabase database) { return AtlasFetchTableCatalogDirectory::fetch(database.get()); })
+		.and_then([](std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs) { return AtlasDownloadCatalogs::downloadCatalogs(catalogs); });
 }
 
 std::expected<bool, std::string> AtlasDownloadCatalogs::downloadCatalogs(std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs)
@@ -28,7 +23,7 @@ std::expected<bool, std::string> AtlasDownloadCatalogs::downloadCatalogs(std::ve
 
 	for (const AtlasCatalogUtilities::CatalogRecord& catalog : catalogs) {
 		downloadCatalogsResult = downloadCatalogsResult
-			.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasDownloadCatalogs::downloadCatalog(catalog); });
+			.and_then([&](bool) { return AtlasDownloadCatalogs::downloadCatalog(catalog); });
 
 		if (!downloadCatalogsResult.has_value()) { break; }
 	}
@@ -46,9 +41,6 @@ std::expected<bool, std::string> AtlasDownloadCatalogs::downloadCatalog(const At
 
 	std::expected<bool, std::string> downloadCatalogResult = true;
 
-	downloadCatalogResult = downloadCatalogResult
-		.and_then([&](bool success) -> std::expected<CURLcode, std::string> { return AtlasDownloadUtilities::download(querySourceUrl, catalog.path); })
+	return AtlasDownloadUtilities::download(querySourceUrl, catalog.path)
 		.transform([](CURLcode code) { return code == SQLITE_OK; });
-
-	return downloadCatalogResult;
 }

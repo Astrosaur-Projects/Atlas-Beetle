@@ -11,5 +11,5 @@ std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> At
 	const std::string SELECT_FROM_CATALOG_DIRECTORY = "SELECT id, name, source, path, type, isEnabled, isInstalled FROM CatalogDirectory;";
 
 	return AtlasDatabaseUtilities::prepareStatement(database, SELECT_FROM_CATALOG_DIRECTORY)
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) -> std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); });
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); });
 }
