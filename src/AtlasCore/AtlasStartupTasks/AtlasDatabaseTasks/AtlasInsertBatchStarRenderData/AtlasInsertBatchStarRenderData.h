@@ -1,7 +1,7 @@
 #ifndef ATLAS_INSERT_BATCH_STAR_RENDER_DATA_TASK_H
 #define ATLAS_INSERT_BATCH_STAR_RENDER_DATA_TASK_H
 
-#include "AtlasCore/AtlasStarObjects/AtlasStar.h"
+#include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include <expected>
 #include <sqlite3.h>
 #include <string>

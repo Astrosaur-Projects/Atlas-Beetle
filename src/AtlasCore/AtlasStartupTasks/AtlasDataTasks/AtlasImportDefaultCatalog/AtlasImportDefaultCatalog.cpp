@@ -1,5 +1,5 @@
 #include "AtlasCore/AtlasMath/AtlasProjectionMath/AtlasProjectionMath.h"
-#include "AtlasCore/AtlasStarObjects/AtlasStar.h"
+#include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchDefaultCatalogRecord/AtlasFetchDefaultCatalogRecord.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasInsertBatchStarRenderData/AtlasInsertBatchStarRenderData.h"
