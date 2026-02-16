@@ -34,7 +34,8 @@ namespace AtlasExecuteDatabaseSchema
 			color_index			REAL	NOT NULL	DEFAULT 0,
 			object_type			INTEGER	NOT NULL	DEFAULT 0,
 			angular_size		REAL	NOT NULL	DEFAULT 0,
-			orientation_angle	REAL
+			orientation_angle	REAL	NOT NULL	DEFAULT 0,
+			UNIQUE (ra_rad, dec_rad, pm_ra, pm_dec, mag, color_index, object_type, angular_size, orientation_angle)
 		);
 	)";
 

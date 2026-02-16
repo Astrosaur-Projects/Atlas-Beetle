@@ -39,7 +39,7 @@ std::expected<bool, std::string> AtlasInsertBatchStarRenderData::insert(sqlite3*
 
 std::expected<bool, std::string> AtlasInsertBatchStarRenderData::insertStarRenderData(sqlite3* database, std::vector<AtlasStar> buffer)
 {
-	std::string INSERT_STAR_RENDER_DATA_STATEMENT = "INSERT INTO StarRenderData (ra_rad, dec_rad, pm_ra, pm_dec, mag, color_index, object_type) VALUES (?, ?, ?, ?, ?, ?, ?);";
+	std::string INSERT_STAR_RENDER_DATA_STATEMENT = "INSERT OR IGNORE INTO StarRenderData (ra_rad, dec_rad, pm_ra, pm_dec, mag, color_index, object_type) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
 	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareInsertStatementResult = AtlasDatabaseUtilities::prepareStatement(database, INSERT_STAR_RENDER_DATA_STATEMENT);
 
