@@ -11,6 +11,8 @@ namespace AtlasExecuteDatabaseSchema
 
 	std::expected<bool, std::string> create(sqlite3* database, std::string table, std::string query);
 
+	std::expected<bool, std::string> execute(sqlite3* database, std::string query);
+
 	const std::string CREATE_TABLE_CATALOG_DIRECTORY = R"(
 		CREATE TABLE IF NOT EXISTS CatalogDirectory (
 			id			INTEGER PRIMARY KEY,
@@ -46,6 +48,28 @@ namespace AtlasExecuteDatabaseSchema
 			minY, maxY,
 			minZ, maxZ
 		);
+	)";
+
+	const std::string CREATE_TRIGGER_INSERT_STAR_INDEX = R"(
+		CREATE TRIGGER IF NOT EXISTS TriggerInsertStarIndex
+		AFTER INSERT ON StarRenderData
+		BEGIN
+			INSERT INTO StarIndex (id, minX, maxX, minY, maxY, minZ, maxZ)
+			VALUES (
+				NEW.id,
+				COS(NEW.dec_rad) * COS(NEW.ra_rad), COS(NEW.dec_rad) * COS(NEW.ra_rad),
+				COS(NEW.dec_rad) * SIN(NEW.ra_rad), COS(NEW.dec_rad) * SIN(NEW.ra_rad),
+				SIN(NEW.dec_rad), SIN(NEW.dec_rad)
+			);
+		END;
+	)";
+
+	const std::string CREATE_TRIGGER_DELETE_STAR_INDEX = R"(
+		CREATE TRIGGER IF NOT EXISTS TriggerDeleteStarIndex
+		AFTER DELETE ON StarRenderData
+		BEGIN
+			DELETE FROM StarIndex WHERE id = OLD.id;
+		END;
 	)";
 };
 

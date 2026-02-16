@@ -22,6 +22,8 @@ std::expected<bool, std::string> AtlasExecuteDatabaseSchema::initialize()
 		.and_then([&](bool) { return AtlasExecuteDatabaseSchema::create(database, "CatalogDirectory", AtlasExecuteDatabaseSchema::CREATE_TABLE_CATALOG_DIRECTORY); })
 		.and_then([&](bool) { return AtlasExecuteDatabaseSchema::create(database, "StarRenderData", AtlasExecuteDatabaseSchema::CREATE_TABLE_STAR_RENDER_DATA); })
 		.and_then([&](bool) { return AtlasExecuteDatabaseSchema::create(database, "StarIndex", AtlasExecuteDatabaseSchema::CREATE_TABLE_STAR_INDEX); })
+		.and_then([&](bool) { return AtlasExecuteDatabaseSchema::execute(database, AtlasExecuteDatabaseSchema::CREATE_TRIGGER_INSERT_STAR_INDEX); })
+		.and_then([&](bool) { return AtlasExecuteDatabaseSchema::execute(database, AtlasExecuteDatabaseSchema::CREATE_TRIGGER_DELETE_STAR_INDEX); })
 		.and_then([&](bool) { return AtlasResetTableCatalogDirectory::reset(database); });
 
 	return executeDatabaseSchemaResult;
@@ -43,3 +45,15 @@ std::expected<bool, std::string> AtlasExecuteDatabaseSchema::create(sqlite3* dat
 
 	return createTableResult;
 }
+
+std::expected<bool, std::string> AtlasExecuteDatabaseSchema::execute(sqlite3* database, std::string query)
+{
+	std::expected<bool, std::string> executeQueryResult = true;
+
+	executeQueryResult = executeQueryResult
+		.and_then([&](bool) { return AtlasDatabaseUtilities::prepareStatement(database, query); })
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database); });
+
+	return executeQueryResult;
+}
+
