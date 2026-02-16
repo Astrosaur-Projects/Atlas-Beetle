@@ -15,7 +15,9 @@ namespace AtlasFitsDataUtilities
 	{
 		void operator()(fitsfile* file) const
 		{
-			fits_close_file(file, nullptr);
+			int status = 0;
+
+			fits_close_file(file, &status);
 		}
 	};
 
@@ -66,11 +68,9 @@ namespace AtlasFitsDataUtilities
 	std::expected<bool, std::string> getColumnWidth(fitsfile* file, int column, int& width);
 
 	template <typename T>
-	std::expected<bool, std::string> loadColumnIntoBuffer(fitsfile* file, int column, long start, std::vector<T>& buffer, T defaultValue = 0)
+	std::expected<bool, std::string> loadColumnIntoBuffer(fitsfile* file, int column, long start, long size, std::vector<T>& buffer, T defaultValue = 0)
 	{
 		int status = 0;
-
-		long size = static_cast<long>(buffer.size());
 
 		fits_read_col(file, FitsType<T>::typeCode, column, start, 1, size, &defaultValue, buffer.data(), nullptr, &status);
 
@@ -87,7 +87,7 @@ namespace AtlasFitsDataUtilities
 		return true;
 	}
 
-	std::expected<bool, std::string> loadColumnIntoBuffer(fitsfile* file, int column, long start, std::vector<std::string>& buffer, std::string defaultValue = "");
+	std::expected<bool, std::string> loadColumnIntoBuffer(fitsfile* file, int column, long start, long size, std::vector<std::string>& buffer, std::string defaultValue = "");
 };
 
 #endif

@@ -124,7 +124,7 @@ std::expected<bool, std::string> AtlasFitsDataUtilities::getColumnWidth(fitsfile
 	return true;
 }
 
-std::expected<bool, std::string> AtlasFitsDataUtilities::loadColumnIntoBuffer(fitsfile* file, int column, long start, std::vector<std::string>& buffer, std::string defaultValue)
+std::expected<bool, std::string> AtlasFitsDataUtilities::loadColumnIntoBuffer(fitsfile* file, int column, long start, long size, std::vector<std::string>& buffer, std::string defaultValue)
 {
 	int status = 0;
 
@@ -135,8 +135,6 @@ std::expected<bool, std::string> AtlasFitsDataUtilities::loadColumnIntoBuffer(fi
 	if (!widthResult.has_value()) {
 		return widthResult;
 	}
-
-	long size = static_cast<long>(buffer.size());
 
 	std::vector<char> dataBlock(size * (width + 1));
 
