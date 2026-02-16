@@ -3,9 +3,9 @@
 #include <wx/dcclient.h>
 #include <wx/defs.h>
 #include <wx/event.h>
-#include <wx/frame.h>
 #include <wx/gdicmn.h>
 #include <wx/glcanvas.h>
+#include <wx/timer.h>
 
 AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : wxGLCanvas(parent, glAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
 {
@@ -21,6 +21,9 @@ AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : 
 
 	Bind(wxEVT_PAINT, &AtlasCanvas::OnPaint, this);
 	Bind(wxEVT_SIZE, &AtlasCanvas::OnSize, this);
+	Bind(wxEVT_TIMER, &AtlasCanvas::OnTimer, this);
+
+	timer.Start(10);
 }
 
 AtlasCanvas::~AtlasCanvas()
@@ -47,4 +50,9 @@ void AtlasCanvas::OnSize(wxSizeEvent& event)
 	glViewport(0, 0, viewPortSize.x, viewPortSize.y);
 
 	event.Skip();
+}
+
+void AtlasCanvas::OnTimer(wxTimerEvent& event)
+{
+	Refresh();
 }
