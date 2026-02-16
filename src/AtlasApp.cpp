@@ -1,6 +1,7 @@
 #include "AtlasCore/AtlasConfig/AtlasConfig.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasConfigTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
+#include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasExecuteDatabaseSchema/AtlasExecuteDatabaseSchema.h"
 #include "AtlasGUI/AtlasFrame/AtlasFrame.h"
@@ -66,7 +67,8 @@ bool AtlasApp::OnInit()
 		.and_then([](bool) { return AtlasLoadCurl::load(); })
 		.and_then([](bool) { return AtlasCreateApplicationDirectory::initialize(); })
 		.and_then([](bool) { return AtlasExecuteDatabaseSchema::initialize(); })
-		.and_then([](bool) { return AtlasDownloadCatalogs::download(); });
+		.and_then([](bool) { return AtlasDownloadCatalogs::download(); })
+		.and_then([](bool) { return AtlasImportDefaultCatalog::load(); });
 
 	if (!initAppResult.has_value()) {
 		wxMessageBox(initAppResult.error(), "Error", wxOK | wxICON_ERROR);
