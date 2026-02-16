@@ -3,6 +3,7 @@
 
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include <expected>
+#include <sqlite3.h>
 #include <string>
 
 namespace AtlasImportDefaultCatalog
@@ -11,7 +12,7 @@ namespace AtlasImportDefaultCatalog
 
 	std::expected<bool, std::string> load();
 
-	std::expected<bool, std::string> loadCatalog(const AtlasCatalogUtilities::CatalogRecord catalog);
+	std::expected<bool, std::string> loadCatalog(const AtlasCatalogUtilities::CatalogRecord catalog, sqlite3* database);
 
 	bool getSexagesimalUnitsRA(std::string ra, double& raHours, double& raMinutes, double& raSeconds);
 
