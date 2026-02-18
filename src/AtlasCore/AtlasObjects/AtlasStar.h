@@ -17,14 +17,7 @@ struct AtlasStar
 
 	float color = 0.0f;
 
-	struct BoundingBox
-	{
-		float minX = 0.0f, maxX = 0.0f;
-
-		float minY = 0.0f, maxY = 0.0f;
-
-		float minZ = 0.0f, maxZ = 0.0f;
-	} bounds;
+	float x = 0.0f, y = 0.0f, z = 0.0f;
 };
 
 #endif

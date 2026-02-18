@@ -106,9 +106,6 @@ std::expected<bool, std::string> AtlasImportDefaultCatalog::loadCatalog(const At
 			star.pmDe = decProperMotionBuffer[i];
 			star.mag = vMagBuffer[i];
 			star.color = bvBuffer[i];
-			star.bounds.minX = star.bounds.maxX = AtlasProjectionMath::getCartesianX(star.ra, star.de);
-			star.bounds.minY = star.bounds.maxY = AtlasProjectionMath::getCartesianY(star.ra, star.de);
-			star.bounds.minZ = star.bounds.maxZ = AtlasProjectionMath::getCartesianZ(star.de);
 
 			starObjectBuffer.push_back(star);
 		}
