@@ -5,6 +5,7 @@
 #include <expected>
 #include <sqlite3.h>
 #include <string>
+#include <tuple>
 #include <vector>
 
 std::expected<bool, std::string> AtlasInsertBatchStarRenderData::insert(sqlite3* database, std::vector<AtlasStar> buffer)
@@ -25,7 +26,7 @@ std::expected<bool, std::string> AtlasInsertBatchStarRenderData::insert(sqlite3*
 	if (!insertBatchDataResult.has_value()) {
 		std::string ROLLBACK_TRANSACTION = "ROLLBACK;";
 
-		AtlasDatabaseUtilities::prepareStatement(database, ROLLBACK_TRANSACTION)
+		std::ignore = AtlasDatabaseUtilities::prepareStatement(database, ROLLBACK_TRANSACTION)
 			.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database); });
 
 		return std::unexpected<std::string>(insertBatchDataResult.error());
