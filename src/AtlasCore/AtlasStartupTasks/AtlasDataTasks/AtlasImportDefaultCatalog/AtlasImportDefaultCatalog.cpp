@@ -95,6 +95,8 @@ std::expected<bool, std::string> AtlasImportDefaultCatalog::loadCatalog(const At
 		for (long i = 0; i < importBatchSize; ++i) {
 			AtlasStar star;
 
+			if (raProperMotionBuffer[i] == 0.0 && decProperMotionBuffer[i] == 0.0) { continue; }
+
 			double raHours = 0.0, raMinutes = 0.0, raSeconds = 0.0;
 			double deDegrees = 0.0, deMinutes = 0.0, deSeconds = 0.0;
 			int deSign = 1;
