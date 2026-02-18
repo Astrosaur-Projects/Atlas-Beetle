@@ -12,6 +12,7 @@
 #include <wx/event.h>
 #include <wx/gdicmn.h>
 #include <wx/glcanvas.h>
+#include <glm/trigonometric.hpp>
 
 AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : wxGLCanvas(parent, glAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
 {
@@ -31,6 +32,9 @@ AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : 
 	Bind(wxEVT_PAINT, &AtlasCanvas::OnPaint, this);
 	Bind(wxEVT_SIZE, &AtlasCanvas::OnSize, this);
 	Bind(wxEVT_MOUSEWHEEL, &AtlasCanvas::OnMouseWheel, this);
+	Bind(wxEVT_LEFT_DOWN, &AtlasCanvas::OnMouseDown, this);
+	Bind(wxEVT_LEFT_UP, &AtlasCanvas::OnMouseUp, this);
+	Bind(wxEVT_MOTION, &AtlasCanvas::OnMouseMove, this);
 }
 
 AtlasCanvas::~AtlasCanvas()
@@ -99,6 +103,52 @@ void AtlasCanvas::OnMouseWheel(wxMouseEvent& event)
 	camera->SetZoom(fov);
 
 	Refresh();
+
+	event.Skip();
+}
+
+void AtlasCanvas::OnMouseDown(wxMouseEvent& event)
+{
+	isDragging = true;
+	lastMousePosition = event.GetPosition();
+
+	if (!HasCapture()) {
+		CaptureMouse();
+	}
+
+	event.Skip();
+}
+
+void AtlasCanvas::OnMouseUp(wxMouseEvent& event)
+{
+	isDragging = false;
+
+	if (HasCapture()) {
+		ReleaseMouse();
+	}
+
+	event.Skip();
+}
+
+void AtlasCanvas::OnMouseMove(wxMouseEvent& event)
+{
+	if (isDragging && camera)
+	{
+		wxPoint currentPos = event.GetPosition();
+
+		int dX = currentPos.x - lastMousePosition.x;
+		int dY = currentPos.y - lastMousePosition.y;
+
+		lastMousePosition = currentPos;
+
+		float fovRadians = glm::radians(camera->GetFOV());
+
+		float sensitivity = fovRadians / GetSize().x;
+
+		camera->Pan(-dX * sensitivity, dY * sensitivity);
+
+		Refresh();
+	}
 
 	event.Skip();
 }

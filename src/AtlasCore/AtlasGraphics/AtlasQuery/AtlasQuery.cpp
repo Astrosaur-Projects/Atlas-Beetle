@@ -25,7 +25,7 @@ AtlasQuery::AtlasQuery() : database(nullptr), statement(nullptr)
 
 std::vector<AtlasStar> AtlasQuery::Query(const glm::vec3& forward, float fovDegrees)
 {
-	float searchRadius = glm::radians(fovDegrees) / 1.5f;
+	float searchRadius = glm::radians(fovDegrees);
 
 	float minX = forward.x - searchRadius;
 	float maxX = forward.x + searchRadius;

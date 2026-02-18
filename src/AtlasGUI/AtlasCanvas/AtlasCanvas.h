@@ -8,7 +8,6 @@
 #include <wx/event.h>
 #include <wx/frame.h>
 #include <wx/glcanvas.h>
-#include <wx/timer.h>
 
 class AtlasCanvas : public wxGLCanvas
 {
@@ -22,9 +21,15 @@ private:
 	void OnPaint(wxPaintEvent& event);
 	void OnSize(wxSizeEvent& event);
 	void OnMouseWheel(wxMouseEvent& event);
+	void OnMouseDown(wxMouseEvent& event);
+	void OnMouseUp(wxMouseEvent& event);
+	void OnMouseMove(wxMouseEvent& event);
 
 private:
 	bool isInitialized = false;
+	bool isDragging = false;
+
+	wxPoint lastMousePosition;
 
 	wxGLContext* glContext;
 

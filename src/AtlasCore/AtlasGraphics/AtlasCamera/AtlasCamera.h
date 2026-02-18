@@ -12,6 +12,7 @@ public:
 	void SetDirection(float ra_rad, float dec_rad);
 	void SetAspectRatio(float width, float height);
 	void SetZoom(float fov);
+	void Pan(float dRa, float dDe);
 
 	const glm::mat4& GetViewMatrix() const { return view; }
 	const glm::mat4& GetProjectionMatrix() const { return projection; }
@@ -27,6 +28,8 @@ private:
 private:
 	float fov;
 	float ratio;
+	float ra = 0.0f;
+	float de = 0.0f;
 
 	glm::vec3 position;
 	glm::vec3 forward;

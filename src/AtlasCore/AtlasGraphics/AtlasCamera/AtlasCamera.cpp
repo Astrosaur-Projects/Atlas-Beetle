@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <numbers>
 
 AtlasCamera::AtlasCamera(float width, float height) : position(0.0f, 0.0f, 0.0f), up(0.0f, 0.0f, 1.0f), fov(45.0f)
 {
@@ -15,6 +16,9 @@ AtlasCamera::AtlasCamera(float width, float height) : position(0.0f, 0.0f, 0.0f)
 
 void AtlasCamera::SetDirection(float ra, float dec)
 {
+	AtlasCamera::ra = ra;
+	AtlasCamera::de = dec;
+
 	float x = AtlasProjectionMath::getCartesianX(ra, dec);
 	float y = AtlasProjectionMath::getCartesianY(ra, dec);
 	float z = AtlasProjectionMath::getCartesianZ(dec);
@@ -36,7 +40,7 @@ void AtlasCamera::SetAspectRatio(float width, float height)
 void AtlasCamera::SetZoom(float fovDegrees)
 {
 	if (fovDegrees < 1.0f) { fovDegrees = 1.0f; }
-	if (fovDegrees > 120.0f) { fovDegrees = 120.0f; }
+	if (fovDegrees > 90.0f) { fovDegrees = 90.0f; }
 
 	fov = fovDegrees;
 
@@ -57,4 +61,24 @@ void AtlasCamera::UpdateView()
 	} else {
 		view = glm::lookAt(position, target, up);
 	}
+}
+
+void AtlasCamera::Pan(float dRa, float dDe)
+{
+	ra -= dRa;
+	de += dDe;
+
+	const float limit = 1.57f;
+	if (de > limit) { de = limit; }
+	if (de < -limit) { de = -limit; }
+
+	const float normal = 2.0f * std::numbers::pi_v<float>;
+
+	if (ra < 0.0f) {
+		ra += normal;
+	} else if (ra > normal) {
+		ra -= normal;
+	}
+
+	SetDirection(ra, de);
 }
