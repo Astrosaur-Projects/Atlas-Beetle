@@ -47,7 +47,7 @@ std::vector<AtlasStar> AtlasQuery::Query(const glm::vec3& forward, float fovDegr
 			.y = (float)sqlite3_column_double(statement, 11),
 			.z = (float)sqlite3_column_double(statement, 12)
 		};
-		};
+	};
 
 	std::expected<std::vector<AtlasStar>, std::string> queryStarRenderDataResult = AtlasDatabaseUtilities::bindStatementParameters(statement.get(), minX, maxX, minY, maxY, minZ, maxZ)
 		.and_then([&](bool) { return AtlasDatabaseUtilities::query<AtlasStar>(statement.get(), database.get(), initializeStarFromSQLStatement); });

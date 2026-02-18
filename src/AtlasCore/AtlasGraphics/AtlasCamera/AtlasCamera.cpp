@@ -1,6 +1,5 @@
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
 #include "AtlasCore/AtlasMath/AtlasProjectionMath/AtlasProjectionMath.h"
-#include <cstdlib>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <numbers>
@@ -37,12 +36,12 @@ void AtlasCamera::SetAspectRatio(float width, float height)
 	UpdateProjection();
 }
 
-void AtlasCamera::SetZoom(float fovDegrees)
+void AtlasCamera::SetZoom(float fov)
 {
-	if (fovDegrees < 1.0f) { fovDegrees = 1.0f; }
-	if (fovDegrees > 90.0f) { fovDegrees = 90.0f; }
+	if (fov < 1.0f) { fov = 1.0f; }
+	if (fov > 90.0f) { fov = 90.0f; }
 
-	fov = fovDegrees;
+	AtlasCamera::fov = fov;
 
 	UpdateProjection();
 }
@@ -56,11 +55,7 @@ void AtlasCamera::UpdateView()
 {
 	glm::vec3 target = position + forward;
 
-	if (std::abs(forward.z) > 0.99f) {
-		view = glm::lookAt(position, target, glm::vec3(1.0f, 0.0f, 0.0f));
-	} else {
-		view = glm::lookAt(position, target, up);
-	}
+	view = glm::lookAt(position, target, up);
 }
 
 void AtlasCamera::Pan(float dRa, float dDe)

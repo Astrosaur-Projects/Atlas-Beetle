@@ -11,9 +11,9 @@ AtlasRenderHorizon::AtlasRenderHorizon() : shader(0), vao(0), vbo(0), uViewProj(
 
 AtlasRenderHorizon::~AtlasRenderHorizon()
 {
-	if (vao) glDeleteVertexArrays(1, &vao);
-	if (vbo) glDeleteBuffers(1, &vbo);
-	if (shader) glDeleteProgram(shader);
+	if (vao) { glDeleteVertexArrays(1, &vao); }
+	if (vbo) { glDeleteBuffers(1, &vbo); }
+	if (shader) { glDeleteProgram(shader); }
 }
 
 void AtlasRenderHorizon::Initialize()
