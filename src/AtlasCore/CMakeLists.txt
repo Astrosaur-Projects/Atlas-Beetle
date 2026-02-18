@@ -14,9 +14,4 @@ target_include_directories(AtlasCore PUBLIC
 target_link_libraries(AtlasCore PRIVATE
 	AtlasUtilities
 	AtlasStartupTasks
-	wxWidgets::wxWidgets
-	CURL::libcurl
-	SQLite::SQLite3
-	cfitsio
-	glm::glm
 )

@@ -17,7 +17,6 @@ target_link_libraries(PlanetariumSoftware PRIVATE
 	AtlasCore
 	AtlasGUI
 	wxWidgets::wxWidgets
-	cfitsio
 )
 
 if(MSVC)

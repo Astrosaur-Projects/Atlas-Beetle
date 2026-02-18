@@ -20,7 +20,5 @@ target_include_directories(AtlasStartupTasks PUBLIC
 target_link_libraries(AtlasStartupTasks PRIVATE
 	AtlasUtilities
 	wxWidgets::wxWidgets
-	CURL::libcurl
 	SQLite::SQLite3
-	cfitsio
 )
