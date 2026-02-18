@@ -1,10 +1,10 @@
 #ifndef ATLAS_FITS_DATA_UTILITIES_H
 #define ATLAS_FITS_DATA_UTILITIES_H
 
+#include <cfitsio/fitsio.h>
+#include <cfitsio/longnam.h>
 #include <expected>
-#include <fitsio.h>
 #include <format>
-#include <longnam.h>
 #include <memory>
 #include <string>
 #include <vector>

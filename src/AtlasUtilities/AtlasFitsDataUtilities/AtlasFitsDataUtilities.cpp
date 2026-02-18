@@ -1,8 +1,8 @@
 #include "AtlasUtilities/AtlasFitsDataUtilities/AtlasFitsDataUtilities.h"
+#include <cfitsio/fitsio.h>
+#include <cfitsio/longnam.h>
 #include <expected>
-#include <fitsio.h>
 #include <format>
-#include <longnam.h>
 #include <string>
 #include <vector>
 

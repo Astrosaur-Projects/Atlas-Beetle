@@ -8,7 +8,7 @@
 #include "AtlasUtilities/AtlasFitsDataUtilities/AtlasFitsDataUtilities.h"
 #include <algorithm>
 #include <expected>
-#include <fitsio.h>
+#include <cfitsio/fitsio.h>
 #include <sqlite3.h>
 #include <sstream>
 #include <string>
