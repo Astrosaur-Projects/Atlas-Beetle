@@ -43,9 +43,9 @@ std::vector<AtlasStar> AtlasQuery::Query(const glm::vec3& forward, float fovDegr
 			.pmDe = sqlite3_column_double(statement, 4),
 			.mag = (float)sqlite3_column_double(statement, 5),
 			.color = (float)sqlite3_column_double(statement, 6),
-			.x = (float)sqlite3_column_double(statement, 7),
-			.y = (float)sqlite3_column_double(statement, 8),
-			.z = (float)sqlite3_column_double(statement, 9)
+			.x = (float)sqlite3_column_double(statement, 10),
+			.y = (float)sqlite3_column_double(statement, 11),
+			.z = (float)sqlite3_column_double(statement, 12)
 		};
 		};
 
