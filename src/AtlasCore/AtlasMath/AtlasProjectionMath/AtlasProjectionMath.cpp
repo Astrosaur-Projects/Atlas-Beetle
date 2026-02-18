@@ -8,9 +8,9 @@ double AtlasProjectionMath::getRaRadians(double raHours, double raMinutes, doubl
 	return static_cast<double>((raHours + (raMinutes / 60) + (raSeconds / 3600)) * (M_PI / 12));
 }
 
-double AtlasProjectionMath::getDecRadians(double decDegrees, double decMinutes, double decSeconds)
+double AtlasProjectionMath::getDecRadians(int decSign, double decDegrees, double decMinutes, double decSeconds)
 {
-	return static_cast<double>((decDegrees + (decMinutes / 60) + (decSeconds / 3600)) * (M_PI / 180));
+	return static_cast<double>((decDegrees + (decMinutes / 60) + (decSeconds / 3600)) * (M_PI / 180) * decSign);
 }
 
 float AtlasProjectionMath::getCartesianX(double ra_rad, double dec_rad)

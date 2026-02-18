@@ -16,7 +16,7 @@ namespace AtlasImportDefaultCatalog
 
 	bool getSexagesimalUnitsRA(std::string ra, double& raHours, double& raMinutes, double& raSeconds);
 
-	bool getSexagesimalUnitsDE(std::string de, double& deDegrees, double& deMinutes, double& deSeconds);
+	bool getSexagesimalUnitsDE(std::string de, int& sign, double& deDegrees, double& deMinutes, double& deSeconds);
 };
 
 #endif

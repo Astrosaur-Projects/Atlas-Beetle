@@ -5,7 +5,7 @@ namespace AtlasProjectionMath
 {
 	double getRaRadians(double raHours, double raMinutes, double raSeconds);
 
-	double getDecRadians(double decDegrees, double decMinutes, double decSeconds);
+	double getDecRadians(int decSign, double decDegrees, double decMinutes, double decSeconds);
 
 	float getCartesianX(double ra_rad, double dec_rad);
 

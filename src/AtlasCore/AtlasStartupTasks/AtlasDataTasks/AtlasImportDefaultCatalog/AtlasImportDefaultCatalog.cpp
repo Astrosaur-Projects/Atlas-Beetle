@@ -7,8 +7,9 @@
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include "AtlasUtilities/AtlasFitsDataUtilities/AtlasFitsDataUtilities.h"
 #include <algorithm>
-#include <expected>
 #include <cfitsio/fitsio.h>
+#include <expected>
+#include <numbers>
 #include <sqlite3.h>
 #include <sstream>
 #include <string>
@@ -96,12 +97,13 @@ std::expected<bool, std::string> AtlasImportDefaultCatalog::loadCatalog(const At
 
 			double raHours = 0.0, raMinutes = 0.0, raSeconds = 0.0;
 			double deDegrees = 0.0, deMinutes = 0.0, deSeconds = 0.0;
+			int deSign = 1;
 
 			AtlasImportDefaultCatalog::getSexagesimalUnitsRA(raBuffer[i], raHours, raMinutes, raSeconds);
-			AtlasImportDefaultCatalog::getSexagesimalUnitsDE(deBuffer[i], deDegrees, deMinutes, deSeconds);
+			AtlasImportDefaultCatalog::getSexagesimalUnitsDE(deBuffer[i], deSign, deDegrees, deMinutes, deSeconds);
 
 			star.ra = AtlasProjectionMath::getRaRadians(raHours, raMinutes, raSeconds);
-			star.de = AtlasProjectionMath::getDecRadians(deDegrees, deMinutes, deSeconds);
+			star.de = AtlasProjectionMath::getDecRadians(deSign, deDegrees, deMinutes, deSeconds);
 			star.pmRa = raProperMotionBuffer[i];
 			star.pmDe = decProperMotionBuffer[i];
 			star.mag = vMagBuffer[i];
@@ -132,9 +134,9 @@ bool AtlasImportDefaultCatalog::getSexagesimalUnitsRA(std::string ra, double& ra
 	return false;
 }
 
-bool AtlasImportDefaultCatalog::getSexagesimalUnitsDE(std::string de, double& deDegrees, double& deMinutes, double& deSeconds)
+bool AtlasImportDefaultCatalog::getSexagesimalUnitsDE(std::string de, int& sign, double& deDegrees, double& deMinutes, double& deSeconds)
 {
-	int sign = de.find('-') != std::string::npos ? -1 : 1;
+	sign = de.find('-') != std::string::npos ? -1 : 1;
 
 	std::replace(de.begin(), de.end(), ':', ' ');
 	std::replace(de.begin(), de.end(), '+', ' ');
