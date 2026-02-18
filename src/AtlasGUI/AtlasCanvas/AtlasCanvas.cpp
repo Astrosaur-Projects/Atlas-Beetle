@@ -26,6 +26,7 @@ AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : 
 	}
 
 	camera = std::make_unique<AtlasCamera>(900.0f, 600.0f);
+	camera->SetDirection(1.46f, 0.096f);
 
 	Bind(wxEVT_PAINT, &AtlasCanvas::OnPaint, this);
 	Bind(wxEVT_SIZE, &AtlasCanvas::OnSize, this);
