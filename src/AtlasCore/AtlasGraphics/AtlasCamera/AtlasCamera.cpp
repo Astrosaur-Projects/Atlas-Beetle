@@ -63,11 +63,12 @@ void AtlasCamera::Pan(float dRa, float dDe)
 	ra -= dRa;
 	de += dDe;
 
-	const float limit = 1.57f;
+	constexpr float limit = glm::radians(90.0f);
+
 	if (de > limit) { de = limit; }
 	if (de < -limit) { de = -limit; }
 
-	const float normal = 2.0f * std::numbers::pi_v<float>;
+	const float normal = 2.0f * std::numbers::pi;
 
 	if (ra < 0.0f) {
 		ra += normal;
