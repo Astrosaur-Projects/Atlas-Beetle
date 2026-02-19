@@ -18,11 +18,17 @@ void AtlasCamera::SetDirection(float ra, float dec)
 	AtlasCamera::ra = ra;
 	AtlasCamera::de = dec;
 
-	float x = AtlasProjectionMath::getCartesianX(ra, dec);
-	float y = AtlasProjectionMath::getCartesianY(ra, dec);
-	float z = AtlasProjectionMath::getCartesianZ(dec);
+	float fX = AtlasProjectionMath::getCartesianX(ra, dec);
+	float fY = AtlasProjectionMath::getCartesianY(ra, dec);
+	float fZ = AtlasProjectionMath::getCartesianZ(dec);
 
-	forward = glm::normalize(glm::vec3(x, y, z));
+	forward = glm::normalize(glm::vec3(fX, fY, fZ));
+
+	float uX = -std::sin(dec) * std::cos(ra);
+	float uY = -std::sin(dec) * std::sin(ra);
+	float uZ = std::cos(dec);
+
+	up = glm::normalize(glm::vec3(uX, uY, uZ));
 
 	UpdateView();
 }
