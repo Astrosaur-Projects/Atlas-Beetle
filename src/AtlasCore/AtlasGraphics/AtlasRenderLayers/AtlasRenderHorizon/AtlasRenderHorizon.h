@@ -24,13 +24,13 @@ private:
 	const char* HORIZON_VERTEX_SHADER = R"(
         #version 330 core
 
-        layout(location = 0) in vec3 aPos;
+        layout(location = 0) in vec3 aPosition;
 
         uniform mat4 uViewProj;
 
         void main()
         {
-            gl_Position = uViewProj * vec4(aPos, 1.0);
+            gl_Position = uViewProj * vec4(aPosition, 1.0);
         }
     )";
 

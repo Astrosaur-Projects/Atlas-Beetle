@@ -25,31 +25,45 @@ private:
     const char* STAR_VERTEX_SHADER = R"(
         #version 330 core
     
-        layout(location = 0) in vec3 aPos;
-        layout(location = 1) in float aMag;
-        layout(location = 2) in float aColor;
+        layout(location = 0) in vec3 aPosition;
+        layout(location = 1) in float aMagnitude;
+        layout(location = 2) in float aColorIndex;
 
         uniform mat4 uViewProj; 
 
+        out vec3 StarColor;
+
+        float getStarTemperature(float aColorIndex) {
+            return 4600.0 * ((1.0/(0.92 * aColorIndex + 1.7)) + (1/(0.92 * aColorIndex + 0.62)));
+        }
+
+        float getStarSize(float aMagnitude) {
+            float size = 6.0 - aMagnitude;
+            if (size < 1.0) size = 1.0;
+
+            return size;
+        }
+
         void main()
         {
-            gl_Position = uViewProj * vec4(aPos, 1.0);
-
-            float size = 6.0 - aMag;
-            if (size < 1.0) size = 1.0;
+            gl_Position = uViewProj * vec4(aPosition, 1.0);
         
-            gl_PointSize = size;
+            gl_PointSize = getStarSize(aMagnitude);
+
+            StarColor = vec3(1.0, 1.0, 1.0);
         }
     )";
 
     const char* STAR_FRAGMENT_SHADER = R"(
         #version 330 core
 
+        in vec3 StarColor;
+
         out vec4 FragColor;
 
         void main()
         {
-            FragColor = vec4(1.0, 1.0, 1.0, 1.0); 
+            FragColor = vec4(StarColor, 1.0);
         }
     )";
 };

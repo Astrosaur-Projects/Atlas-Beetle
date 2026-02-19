@@ -72,6 +72,7 @@ void AtlasRenderStars::Render(const AtlasCamera& camera)
 
 		glBindVertexArray(vao);
 		glDrawArrays(GL_POINTS, 0, (GLsizei)stars.size());
+
 		glBindVertexArray(0);
 	}
 
