@@ -39,7 +39,7 @@ private:
 
         float getStarSize(float aMagnitude) {
             float size = 6.0 - aMagnitude;
-            if (size < 1.0) size = 1.0;
+            if (size < 1.0) { size = 1.0; }
 
             return size;
         }
@@ -63,7 +63,15 @@ private:
 
         void main()
         {
-            FragColor = vec4(StarColor, 1.0);
+            vec2 centeredPointCoordinate = gl_PointCoord - vec2(0.5);
+
+            float distance = length(centeredPointCoordinate);
+
+            if (distance > 0.5) { discard; }
+
+            float alpha = 1.0 - smoothstep(0.15, 0.55, distance);
+
+            FragColor = vec4(StarColor, alpha);
         }
     )";
 };
