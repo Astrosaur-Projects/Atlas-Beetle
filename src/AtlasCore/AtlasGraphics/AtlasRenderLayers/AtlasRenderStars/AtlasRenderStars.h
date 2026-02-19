@@ -38,8 +38,8 @@ private:
         }
 
         float getStarSize(float aMagnitude) {
-            float size = 6.0 - aMagnitude;
-            if (size < 1.0) { size = 1.0; }
+            float size = 7.0 - aMagnitude;
+            if (size < 1.5) { size = 1.5; }
 
             return size;
         }
