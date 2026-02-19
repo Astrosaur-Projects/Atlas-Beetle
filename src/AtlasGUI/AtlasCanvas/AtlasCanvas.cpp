@@ -132,8 +132,7 @@ void AtlasCanvas::OnMouseUp(wxMouseEvent& event)
 
 void AtlasCanvas::OnMouseMove(wxMouseEvent& event)
 {
-	if (isDragging && camera)
-	{
+	if (isDragging && camera) {
 		wxPoint currentPos = event.GetPosition();
 
 		int dX = currentPos.x - lastMousePosition.x;
