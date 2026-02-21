@@ -33,24 +33,69 @@ private:
 
         out vec3 StarColor;
 
-        float getStarTemperature(float aColorIndex) {
-            return 4600.0 * ((1.0/(0.92 * aColorIndex + 1.7)) + (1/(0.92 * aColorIndex + 0.62)));
+        float getStarTemperatureKelvin(float aColorIndex) {
+            return 4600.0 * ((1.0/(0.92 * aColorIndex + 1.7)) + (1.0 / (0.92 * aColorIndex + 0.62)));
         }
 
-        float getStarSize(float aMagnitude) {
-            float size = 7.0 - aMagnitude;
-            if (size < 1.5) { size = 1.5; }
+        vec3 getStarColor(float aColorIndex) {
+            float tKelvin = getStarTemperatureKelvin(aColorIndex);
+            float cX = 0.0;
+            float cY = 0.0;
 
-            return size;
+            if (tKelvin >= 1667.0 && tKelvin <= 4000.0) {
+                cX = (-0.2661239 * (1e9 / (tKelvin * tKelvin * tKelvin))) - (0.2343589 * (1e6 / (tKelvin * tKelvin))) + (0.8776956 * (1e3 / tKelvin)) + 0.179910;
+            } else if (tKelvin > 4000.0 && tKelvin <= 25000.0) {
+                cX = (-3.0258469 * (1e9 / (tKelvin * tKelvin * tKelvin))) + (2.1070379 * (1e6 / (tKelvin * tKelvin))) + (0.2226347 * (1e3 / tKelvin)) + 0.240390;
+            }
+
+            if (tKelvin >= 1667.0 && tKelvin <= 2222.0) {
+                cY = (-1.1063814 * cX * cX * cX) - (1.34811010 * cX * cX) + (2.18555832 * cX) - 0.20219683;
+            } else if (tKelvin > 2222.0 && tKelvin <= 4000.0) {
+                cY = (-0.9549476 * cX * cX * cX) - (1.37418593 * cX * cX) + (2.09137015 * cX) - 0.16748867;
+            } else if (tKelvin > 4000.0 && tKelvin <= 25000.0) {
+                cY = (3.0817580 * cX * cX * cX) - (5.34811010 * cX * cX) + (3.75112997 * cX) - 0.37001483;
+            }
+
+            float cieX = 0.0;
+            float cieY = 1.0;
+            float cieZ = 0.0;
+
+            if (cY != 0.0) {
+                cieX = (cieY / cY) * cX;
+                cieZ = (cieY / cY) * (1.0 - cX - cY);
+            }
+
+            mat3 sRGB = mat3(
+                 3.2406255, -0.9689307,  0.0557101,
+                -1.5732080,  1.8757561, -0.02040211,
+                -0.4986286,  0.0415175,  1.0569959
+            );
+
+            vec3 sColor = sRGB * vec3(cieX, cieY, cieZ);
+
+            sColor = max(sColor, vec3(0.0));
+
+            vec3 lowerGammaCorrection = sColor * 12.92;
+            vec3 higherGammaCorrection = 1.055 * pow(sColor, vec3(1.0 / 2.4)) - 0.055;
+
+            vec3 gammaCorrectionMask = step(vec3(0.0031308), sColor);
+
+            sColor = mix(lowerGammaCorrection, higherGammaCorrection, gammaCorrectionMask);
+
+            return sColor;
+        }
+
+        float getStarPointSize(float aMagnitude) {
+            return max(7.0 - aMagnitude, 1.5);
         }
 
         void main()
         {
             gl_Position = uViewProj * vec4(aPosition, 1.0);
         
-            gl_PointSize = getStarSize(aMagnitude);
+            gl_PointSize = getStarPointSize(aMagnitude);
 
-            StarColor = vec3(1.0, 1.0, 1.0);
+            StarColor = getStarColor(aColorIndex);
         }
     )";
 
@@ -69,7 +114,7 @@ private:
 
             if (distance > 0.5) { discard; }
 
-            float alpha = 1.0 - smoothstep(0.15, 0.55, distance);
+            float alpha = 1.0 - smoothstep(0.2, 0.5, distance);
 
             FragColor = vec4(StarColor, alpha);
         }
