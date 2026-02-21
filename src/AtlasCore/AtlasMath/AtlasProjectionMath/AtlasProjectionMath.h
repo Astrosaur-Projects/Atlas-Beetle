@@ -7,11 +7,17 @@ namespace AtlasProjectionMath
 
 	double getDecRadians(int decSign, double decDegrees, double decMinutes, double decSeconds);
 
-	float getCartesianX(double ra_rad, double dec_rad);
+	float getForwardX(double ra_rad, double dec_rad);
 
-	float getCartesianY(double ra_rad, double dec_rad);
+	float getForwardY(double ra_rad, double dec_rad);
 
-	float getCartesianZ(double dec_rad);
+	float getForwardZ(double dec_rad);
+
+	float getUpX(double ra_rad, double dec_rad);
+
+	float getUpY(double ra_rad, double dec_rad);
+
+	float getUpZ(double dec_rad);
 };
 
 #endif
