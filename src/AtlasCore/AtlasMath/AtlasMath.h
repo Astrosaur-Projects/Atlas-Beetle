@@ -1,7 +1,7 @@
-#ifndef ATLAS_PROJECTION_MATH_H
-#define ATLAS_PROJECTION_MATH_H
+#ifndef ATLAS_MATH_H
+#define ATLAS_MATH_H
 
-namespace AtlasProjectionMath
+namespace AtlasMath
 {
 	double getRaRadians(double raHours, double raMinutes, double raSeconds);
 

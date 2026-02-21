@@ -1,4 +1,4 @@
-#include "AtlasCore/AtlasMath/AtlasProjectionMath/AtlasProjectionMath.h"
+#include "AtlasCore/AtlasMath/AtlasMath.h"
 #include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"
 #include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchDefaultCatalogRecord/AtlasFetchDefaultCatalogRecord.h"
@@ -104,8 +104,8 @@ std::expected<bool, std::string> AtlasImportDefaultCatalog::loadCatalog(const At
 			AtlasImportDefaultCatalog::getSexagesimalUnitsRA(raBuffer[i], raHours, raMinutes, raSeconds);
 			AtlasImportDefaultCatalog::getSexagesimalUnitsDE(deBuffer[i], deSign, deDegrees, deMinutes, deSeconds);
 
-			star.ra = AtlasProjectionMath::getRaRadians(raHours, raMinutes, raSeconds);
-			star.de = AtlasProjectionMath::getDecRadians(deSign, deDegrees, deMinutes, deSeconds);
+			star.ra = AtlasMath::getRaRadians(raHours, raMinutes, raSeconds);
+			star.de = AtlasMath::getDecRadians(deSign, deDegrees, deMinutes, deSeconds);
 			star.pmRa = raProperMotionBuffer[i];
 			star.pmDe = decProperMotionBuffer[i];
 			star.mag = vMagBuffer[i];

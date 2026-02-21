@@ -9,7 +9,7 @@ target_sources(AtlasCore PRIVATE
 	AtlasGraphics/AtlasRenderLayers/AtlasRenderHorizon/AtlasRenderHorizon.cpp
 	AtlasGraphics/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.cpp
 	AtlasGraphics/AtlasRenderSky/AtlasRenderSky.cpp
-	AtlasMath/AtlasProjectionMath/AtlasProjectionMath.cpp
+	"AtlasMath/AtlasMath.cpp"
 )
 
 target_include_directories(AtlasCore PUBLIC

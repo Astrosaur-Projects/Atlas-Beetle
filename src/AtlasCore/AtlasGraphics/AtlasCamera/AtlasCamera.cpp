@@ -1,5 +1,5 @@
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
-#include "AtlasCore/AtlasMath/AtlasProjectionMath/AtlasProjectionMath.h"
+#include "AtlasCore/AtlasMath/AtlasMath.h"
 #include <glm/ext/vector_float3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <numbers>
@@ -18,15 +18,15 @@ void AtlasCamera::SetDirection(float ra, float dec)
 	AtlasCamera::ra = ra;
 	AtlasCamera::de = dec;
 
-	float fX = AtlasProjectionMath::getForwardX(ra, dec);
-	float fY = AtlasProjectionMath::getForwardY(ra, dec);
-	float fZ = AtlasProjectionMath::getForwardZ(dec);
+	float fX = AtlasMath::getForwardX(ra, dec);
+	float fY = AtlasMath::getForwardY(ra, dec);
+	float fZ = AtlasMath::getForwardZ(dec);
 
 	forward = glm::normalize(glm::vec3(fX, fY, fZ));
 
-	float uX = AtlasProjectionMath::getUpX(ra, dec);
-	float uY = AtlasProjectionMath::getUpY(ra, dec);
-	float uZ = AtlasProjectionMath::getUpZ(dec);
+	float uX = AtlasMath::getUpX(ra, dec);
+	float uY = AtlasMath::getUpY(ra, dec);
+	float uZ = AtlasMath::getUpZ(dec);
 
 	up = glm::normalize(glm::vec3(uX, uY, uZ));
 
