@@ -1,5 +1,5 @@
-#ifndef ATLAS_QUERY_H
-#define ATLAS_QUERY_H
+#ifndef ATLAS_FETCH_STARS_H
+#define ATLAS_FETCH_STARS_H
 
 #include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
@@ -7,10 +7,10 @@
 #include <string>
 #include <vector>
 
-class AtlasQuery
+class AtlasFetchStars
 {
 public:
-	AtlasQuery();
+	AtlasFetchStars();
 
 	std::vector<AtlasStar> Query(const glm::vec3& forward, float fovDegrees);
 

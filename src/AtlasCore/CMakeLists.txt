@@ -5,7 +5,7 @@ add_subdirectory(AtlasStartupTasks)
 target_sources(AtlasCore PRIVATE
 	AtlasConfig/AtlasConfig.cpp
 	AtlasGraphics/AtlasCamera/AtlasCamera.cpp
-	AtlasGraphics/AtlasQuery/AtlasQuery.cpp
+	AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.cpp
 	AtlasGraphics/AtlasRenderLayers/AtlasRenderHorizon/AtlasRenderHorizon.cpp
 	AtlasGraphics/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.cpp
 	AtlasGraphics/AtlasRenderSky/AtlasRenderSky.cpp

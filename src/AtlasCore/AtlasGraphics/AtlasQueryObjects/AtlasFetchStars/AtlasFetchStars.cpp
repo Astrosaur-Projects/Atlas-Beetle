@@ -1,4 +1,4 @@
-#include "AtlasCore/AtlasGraphics/AtlasQuery/AtlasQuery.h"
+#include "AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h"
 #include <AtlasCore/AtlasObjects/AtlasStar.h>
 #include <AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h>
 #include <expected>
@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 
-AtlasQuery::AtlasQuery() : database(nullptr), statement(nullptr)
+AtlasFetchStars::AtlasFetchStars() : database(nullptr), statement(nullptr)
 {
 	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
 
@@ -23,7 +23,7 @@ AtlasQuery::AtlasQuery() : database(nullptr), statement(nullptr)
 	statement = std::move(prepareStatementResult.value());
 }
 
-std::vector<AtlasStar> AtlasQuery::Query(const glm::vec3& forward, float fovDegrees)
+std::vector<AtlasStar> AtlasFetchStars::Query(const glm::vec3& forward, float fovDegrees)
 {
 	float searchRadius = glm::radians(fovDegrees);
 

@@ -1,6 +1,6 @@
 #include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
 #include <AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h>
-#include <AtlasCore/AtlasGraphics/AtlasQuery/AtlasQuery.h>
+#include <AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h>
 #include <AtlasCore/AtlasObjects/AtlasStar.h>
 #include <GL/glew.h>
 #include <cstddef>
@@ -8,7 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 
-AtlasRenderStars::AtlasRenderStars(AtlasQuery& query) : query(query), shader(0), vao(0), vbo(0), uViewProj(-1) { }
+AtlasRenderStars::AtlasRenderStars(AtlasFetchStars& query) : query(query), shader(0), vao(0), vbo(0), uViewProj(-1) { }
 
 AtlasRenderStars::~AtlasRenderStars()
 {

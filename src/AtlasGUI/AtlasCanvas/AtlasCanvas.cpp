@@ -1,10 +1,11 @@
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
-#include "AtlasCore/AtlasGraphics/AtlasQuery/AtlasQuery.h"
+#include "AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderHorizon/AtlasRenderHorizon.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
 #include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
 #include <GL/glew.h>
+#include <glm/trigonometric.hpp>
 #include <memory>
 #include <utility>
 #include <wx/dcclient.h>
@@ -12,7 +13,6 @@
 #include <wx/event.h>
 #include <wx/gdicmn.h>
 #include <wx/glcanvas.h>
-#include <glm/trigonometric.hpp>
 
 AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : wxGLCanvas(parent, glAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
 {
@@ -21,7 +21,8 @@ AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : 
 
 	glContext = new wxGLContext(this, nullptr, &glContextAttributes);
 
-	if (!glContext->IsOK()) {
+	if (!glContext->IsOK())
+	{
 		delete glContext;
 		glContext = nullptr;
 	}
@@ -46,7 +47,7 @@ void AtlasCanvas::InitGraphics()
 {
 	if (glewInit() != GLEW_OK) return;
 
-	query = std::make_unique<AtlasQuery>();
+	query = std::make_unique<AtlasFetchStars>();
 
 	render = std::make_unique<AtlasRenderSky>();
 

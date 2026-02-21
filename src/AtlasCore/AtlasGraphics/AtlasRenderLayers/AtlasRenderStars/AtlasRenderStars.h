@@ -2,21 +2,21 @@
 #define ATLAS_DRAW_STARS_H
 
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
-#include "AtlasCore/AtlasGraphics/AtlasQuery/AtlasQuery.h"
+#include "AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasLayerInterface.h"
 #include <GL/glew.h>
 
 class AtlasRenderStars : public AtlasLayerInterface
 {
 public:
-	AtlasRenderStars(AtlasQuery& query);
+	AtlasRenderStars(AtlasFetchStars& query);
 	~AtlasRenderStars();
 
 	void Initialize() override;
 	void Render(const AtlasCamera& camera) override;
 
 private:
-	AtlasQuery& query;
+	AtlasFetchStars& query;
 
 	GLuint shader;
 	GLuint vao, vbo;
