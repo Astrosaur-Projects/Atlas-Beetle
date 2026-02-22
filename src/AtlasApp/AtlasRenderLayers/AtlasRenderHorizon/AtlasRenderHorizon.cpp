@@ -1,5 +1,5 @@
+#include "AtlasApp/AtlasRenderLayers/AtlasRenderHorizon/AtlasRenderHorizon.h"
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderHorizon/AtlasRenderHorizon.h"
 #include <GL/glew.h>
 #include <cmath>
 #include <glm/ext/matrix_float4x4.hpp>

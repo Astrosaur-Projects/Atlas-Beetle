@@ -1,8 +1,8 @@
+#include "AtlasApp/AtlasRenderLayers/AtlasRenderGrid/AtlasRenderGrid.h"
+#include "AtlasApp/AtlasRenderLayers/AtlasRenderHorizon/AtlasRenderHorizon.h"
+#include "AtlasApp/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
 #include "AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h"
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderGrid/AtlasRenderGrid.h"
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderHorizon/AtlasRenderHorizon.h"
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
 #include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
 #include <GL/glew.h>

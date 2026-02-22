@@ -1,11 +1,11 @@
-#ifndef ATLAS_RENDER_HORIZON_H
+#ifndef ATLAS_RENDER_GRID_H
 #define ATLAS_RENDER_GRID_H
 
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasLayerInterface.h"
+#include "AtlasCore/AtlasGraphics/AtlasRenderLayerInterface.h"
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
 #include <GL/glew.h>
 
-class AtlasRenderGrid : public AtlasLayerInterface
+class AtlasRenderGrid : public AtlasRenderLayerInterface
 {
 public:
     AtlasRenderGrid();

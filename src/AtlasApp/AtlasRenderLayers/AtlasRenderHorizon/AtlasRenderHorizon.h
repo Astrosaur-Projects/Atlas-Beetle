@@ -1,11 +1,11 @@
 #ifndef ATLAS_RENDER_HORIZON_H
 #define ATLAS_RENDER_HORIZON_H
 
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasLayerInterface.h"
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
+#include "AtlasCore/AtlasGraphics/AtlasRenderLayerInterface.h"
 #include <GL/glew.h>
 
-class AtlasRenderHorizon : public AtlasLayerInterface
+class AtlasRenderHorizon : public AtlasRenderLayerInterface
 {
 public:
 	AtlasRenderHorizon();

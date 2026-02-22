@@ -1,4 +1,4 @@
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderGrid/AtlasRenderGrid.h"
+#include "AtlasApp/AtlasRenderLayers/AtlasRenderGrid/AtlasRenderGrid.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <numbers>
 

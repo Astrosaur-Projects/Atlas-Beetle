@@ -1,4 +1,4 @@
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
+#include "AtlasApp/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
 #include <AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h>
 #include <AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h>
 #include <AtlasCore/AtlasObjects/AtlasStar.h>

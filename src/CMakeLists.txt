@@ -1,6 +1,7 @@
-﻿add_subdirectory(AtlasUtilities)
+﻿add_subdirectory(AtlasApp)
 add_subdirectory(AtlasCore)
 add_subdirectory(AtlasGUI)
+add_subdirectory(AtlasUtilities)
 
 add_executable(PlanetariumSoftware WIN32)
 
@@ -13,9 +14,10 @@ target_include_directories(PlanetariumSoftware PRIVATE
 )
 
 target_link_libraries(PlanetariumSoftware PRIVATE
-	AtlasUtilities
+	AtlasApp
 	AtlasCore
 	AtlasGUI
+	AtlasUtilities
 	wxWidgets::wxWidgets
 )
 

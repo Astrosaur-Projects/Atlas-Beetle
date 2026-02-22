@@ -3,10 +3,10 @@
 
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
 #include "AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h"
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasLayerInterface.h"
+#include "AtlasCore/AtlasGraphics/AtlasRenderLayerInterface.h"
 #include <GL/glew.h>
 
-class AtlasRenderStars : public AtlasLayerInterface
+class AtlasRenderStars : public AtlasRenderLayerInterface
 {
 public:
 	AtlasRenderStars(AtlasFetchStars& query);

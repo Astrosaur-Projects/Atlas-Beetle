@@ -2,7 +2,7 @@
 #define ATLAS_RENDER_SKY_H
 
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasLayerInterface.h"
+#include "AtlasCore/AtlasGraphics/AtlasRenderLayerInterface.h"
 #include <memory>
 #include <vector>
 
@@ -11,11 +11,11 @@ class AtlasRenderSky
 public:
 	AtlasRenderSky();
 
-	void AddLayer(std::unique_ptr<AtlasLayerInterface> layer);
+	void AddLayer(std::unique_ptr<AtlasRenderLayerInterface> layer);
 	void Render(const AtlasCamera& camera);
 
 private:
-	std::vector<std::unique_ptr<AtlasLayerInterface>> layers;
+	std::vector<std::unique_ptr<AtlasRenderLayerInterface>> layers;
 };
 
 #endif
