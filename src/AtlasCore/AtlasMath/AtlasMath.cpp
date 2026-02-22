@@ -1,16 +1,15 @@
-#define _USE_MATH_DEFINES
-
 #include "AtlasCore/AtlasMath/AtlasMath.h"
 #include <cmath>
+#include <numbers>
 
 double AtlasMath::getRaRadians(double raHours, double raMinutes, double raSeconds)
 {
-	return static_cast<double>((raHours + (raMinutes / 60) + (raSeconds / 3600)) * (M_PI / 12));
+	return static_cast<double>((raHours + (raMinutes / 60) + (raSeconds / 3600)) * (std::numbers::pi / 12));
 }
 
 double AtlasMath::getDecRadians(int decSign, double decDegrees, double decMinutes, double decSeconds)
 {
-	return static_cast<double>((decDegrees + (decMinutes / 60) + (decSeconds / 3600)) * (M_PI / 180) * decSign);
+	return static_cast<double>((decDegrees + (decMinutes / 60) + (decSeconds / 3600)) * (std::numbers::pi / 180) * decSign);
 }
 
 float AtlasMath::getForwardX(double ra_rad, double dec_rad)
