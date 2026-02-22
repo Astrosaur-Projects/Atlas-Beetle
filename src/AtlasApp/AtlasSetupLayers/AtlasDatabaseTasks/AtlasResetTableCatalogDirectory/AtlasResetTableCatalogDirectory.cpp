@@ -1,4 +1,4 @@
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasResetTableCatalogDirectory/AtlasResetTableCatalogDirectory.h"
+#include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasResetTableCatalogDirectory/AtlasResetTableCatalogDirectory.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>

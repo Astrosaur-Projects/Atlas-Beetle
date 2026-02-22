@@ -1,5 +1,5 @@
-#include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.h"
+#include "AtlasApp/AtlasSetupLayers/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
+#include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include "AtlasUtilities/AtlasDownloadUtilities/AtlasDownloadUtilities.h"

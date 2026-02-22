@@ -1,4 +1,4 @@
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.h"
+#include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>

@@ -1,6 +1,6 @@
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasExecuteDatabaseSchema/AtlasExecuteDatabaseSchema.h"
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchDoesTableExist/AtlasFetchDoesTableExist.h"
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasResetTableCatalogDirectory/AtlasResetTableCatalogDirectory.h"
+#include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasExecuteDatabaseSchema/AtlasExecuteDatabaseSchema.h"
+#include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasFetchDoesTableExist/AtlasFetchDoesTableExist.h"
+#include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasResetTableCatalogDirectory/AtlasResetTableCatalogDirectory.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
 #include <sqlite3.h>

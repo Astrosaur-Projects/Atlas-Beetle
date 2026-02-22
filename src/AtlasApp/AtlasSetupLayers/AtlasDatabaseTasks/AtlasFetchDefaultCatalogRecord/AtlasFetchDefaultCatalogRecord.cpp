@@ -1,4 +1,4 @@
-#include "AtlasCore/AtlasStartupTasks/AtlasDatabaseTasks/AtlasFetchDefaultCatalogRecord/AtlasFetchDefaultCatalogRecord.h"
+#include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasFetchDefaultCatalogRecord/AtlasFetchDefaultCatalogRecord.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>

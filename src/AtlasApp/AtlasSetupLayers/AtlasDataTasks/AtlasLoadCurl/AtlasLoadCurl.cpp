@@ -1,4 +1,4 @@
-#include "AtlasCore/AtlasStartupTasks/AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.h"
+#include "AtlasApp/AtlasSetupLayers/AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.h"
 #include <curl/curl.h>
 #include <expected>
 #include <format>

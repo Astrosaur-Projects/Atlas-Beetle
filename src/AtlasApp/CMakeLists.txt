@@ -1,5 +1,7 @@
 add_library(AtlasApp STATIC)
 
+add_subdirectory(AtlasSetupLayers)
+
 target_sources(AtlasApp PRIVATE
 	AtlasRenderLayers/AtlasRenderGrid/AtlasRenderGrid.cpp
 	AtlasRenderLayers/AtlasRenderHorizon/AtlasRenderHorizon.cpp
@@ -12,6 +14,7 @@ target_include_directories(AtlasApp PUBLIC
 
 target_link_libraries(AtlasApp PRIVATE
 	AtlasUtilities
+	AtlasSetupLayers
 	OpenGL::GL
 	GLEW::GLEW
 	glm::glm
