@@ -11,6 +11,7 @@ target_sources(AtlasSetupLayers PRIVATE
 	AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
 	AtlasDataTasks/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.cpp
 	AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.cpp
+	AtlasSetupCurl/AtlasSetupCurl.cpp
 )
 
 target_include_directories(AtlasSetupLayers PUBLIC
