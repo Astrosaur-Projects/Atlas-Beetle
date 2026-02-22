@@ -1,5 +1,6 @@
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
 #include "AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h"
+#include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderGrid/AtlasRenderGrid.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderHorizon/AtlasRenderHorizon.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
@@ -53,7 +54,9 @@ void AtlasCanvas::InitGraphics()
 
 	auto stars = std::make_unique<AtlasRenderStars>(*query);
 	auto horizon = std::make_unique<AtlasRenderHorizon>();
+	auto grid = std::make_unique<AtlasRenderGrid>();
 
+	render->AddLayer(std::move(grid));
 	render->AddLayer(std::move(stars));
 	render->AddLayer(std::move(horizon));
 

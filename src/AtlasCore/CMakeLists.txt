@@ -6,10 +6,11 @@ target_sources(AtlasCore PRIVATE
 	AtlasConfig/AtlasConfig.cpp
 	AtlasGraphics/AtlasCamera/AtlasCamera.cpp
 	AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.cpp
+	AtlasGraphics/AtlasRenderLayers/AtlasRenderGrid/AtlasRenderGrid.cpp
 	AtlasGraphics/AtlasRenderLayers/AtlasRenderHorizon/AtlasRenderHorizon.cpp
 	AtlasGraphics/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.cpp
 	AtlasGraphics/AtlasRenderSky/AtlasRenderSky.cpp
-	"AtlasMath/AtlasMath.cpp"
+	AtlasMath/AtlasMath.cpp
 )
 
 target_include_directories(AtlasCore PUBLIC
