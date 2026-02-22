@@ -8,7 +8,7 @@
 
 AtlasMenuFile::AtlasMenuFile() : wxMenu()
 {
-	this->Append(std::to_underlying(AtlasMenuOptionEnums::ID_CATALOG_MANAGER), "&Catalogs", "Add or remove astronomical catalogs");
+	this->Append(std::to_underlying(AtlasMenuOptionEnums::ID_CATALOG_MANAGER), "&Catalogs", "Manage astronomical catalogs");
 
 	this->AppendSeparator();
 
