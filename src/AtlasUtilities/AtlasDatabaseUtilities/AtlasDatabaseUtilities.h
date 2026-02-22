@@ -106,7 +106,7 @@ namespace AtlasDatabaseUtilities
 			bindStatementParametersResult = bindStatementParameter(statement, index++, parameter);
 
 			return bindStatementParametersResult.has_value();
-			};
+		};
 
 		(tryBind(args) && ...);
 

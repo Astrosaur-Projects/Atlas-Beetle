@@ -1,6 +1,6 @@
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
-#include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderLayerInterface.h"
+#include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
 #include <GL/glew.h>
 #include <memory>
 #include <utility>

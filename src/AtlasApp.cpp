@@ -1,9 +1,9 @@
-#include "AtlasCore/AtlasConfig/AtlasConfig.h"
 #include "AtlasApp/AtlasSetupLayers/AtlasConfigTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.h"
 #include "AtlasApp/AtlasSetupLayers/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
 #include "AtlasApp/AtlasSetupLayers/AtlasDataTasks/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"
 #include "AtlasApp/AtlasSetupLayers/AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.h"
 #include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasExecuteDatabaseSchema/AtlasExecuteDatabaseSchema.h"
+#include "AtlasCore/AtlasConfig/AtlasConfig.h"
 #include "AtlasGUI/AtlasFrame/AtlasFrame.h"
 #include <expected>
 #include <string>

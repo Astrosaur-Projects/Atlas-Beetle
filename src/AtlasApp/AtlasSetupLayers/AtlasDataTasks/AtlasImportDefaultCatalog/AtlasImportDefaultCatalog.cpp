@@ -1,15 +1,14 @@
-#include "AtlasCore/AtlasMath/AtlasMath.h"
-#include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include "AtlasApp/AtlasSetupLayers/AtlasDataTasks/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"
 #include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasFetchDefaultCatalogRecord/AtlasFetchDefaultCatalogRecord.h"
 #include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasInsertBatchStarRenderData/AtlasInsertBatchStarRenderData.h"
+#include "AtlasCore/AtlasMath/AtlasMath.h"
+#include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include "AtlasUtilities/AtlasFitsDataUtilities/AtlasFitsDataUtilities.h"
 #include <algorithm>
 #include <cfitsio/fitsio.h>
 #include <expected>
-#include <numbers>
 #include <sqlite3.h>
 #include <sstream>
 #include <string>

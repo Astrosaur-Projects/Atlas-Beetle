@@ -1,6 +1,11 @@
 #include "AtlasApp/AtlasRenderLayers/AtlasRenderGrid/AtlasRenderGrid.h"
+#include <AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h>
+#include <GL/glew.h>
+#include <cmath>
+#include <glm/ext/matrix_float4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <numbers>
+#include <vector>
 
 AtlasRenderGrid::AtlasRenderGrid() : shader(0), vao(0), vbo(0), uViewProj(-1), uColor(-1) { }
 

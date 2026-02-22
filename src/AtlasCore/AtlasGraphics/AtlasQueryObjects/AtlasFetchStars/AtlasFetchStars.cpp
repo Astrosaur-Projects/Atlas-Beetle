@@ -2,7 +2,8 @@
 #include <AtlasCore/AtlasObjects/AtlasStar.h>
 #include <AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h>
 #include <expected>
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/ext/vector_float3.hpp>
+#include <glm/trigonometric.hpp>
 #include <sqlite3.h>
 #include <string>
 #include <utility>

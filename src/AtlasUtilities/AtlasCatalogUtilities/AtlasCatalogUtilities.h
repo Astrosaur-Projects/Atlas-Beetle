@@ -51,7 +51,7 @@ namespace AtlasCatalogUtilities
 			.isEnabled = (bool)sqlite3_column_int(statement, 5),
 			.isInstalled = (bool)sqlite3_column_int(statement, 6),
 		};
-		};
+	};
 
 	AtlasCatalogObject getDefaultCatalogObject();
 
