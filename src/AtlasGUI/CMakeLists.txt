@@ -5,10 +5,7 @@ target_sources(AtlasGUI PRIVATE
 	AtlasFrame/AtlasFrame.cpp
 	AtlasMenuBar/AtlasMenuBar.cpp
 	AtlasMenus/AtlasMenuFile/AtlasMenuFile.cpp
-	AtlasMenus/AtlasMenuHelp/AtlasMenuHelp.cpp
-	AtlasMenus/AtlasMenuPlugins/AtlasMenuPlugins.cpp
 	AtlasMenus/AtlasMenuView/AtlasMenuView.cpp
-	AtlasPluginManager/AtlasPluginManager.cpp
 	AtlasCatalogManager/AtlasCatalogManager.cpp
 )
 

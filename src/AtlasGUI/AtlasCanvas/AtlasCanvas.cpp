@@ -22,8 +22,7 @@ AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : 
 
 	glContext = new wxGLContext(this, nullptr, &glContextAttributes);
 
-	if (!glContext->IsOK())
-	{
+	if (!glContext->IsOK()) {
 		delete glContext;
 		glContext = nullptr;
 	}
@@ -46,7 +45,7 @@ AtlasCanvas::~AtlasCanvas()
 
 void AtlasCanvas::InitGraphics()
 {
-	if (glewInit() != GLEW_OK) return;
+	if (glewInit() != GLEW_OK) { return; }
 
 	query = std::make_unique<AtlasFetchStars>();
 
