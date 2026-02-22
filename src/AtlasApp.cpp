@@ -88,10 +88,7 @@ void AtlasApp::OnInitCmdLine(wxCmdLineParser& parser)
 
 	static const wxCmdLineEntryDesc description[] = {
 		{ wxCMD_LINE_SWITCH, "V", "version", "display software version and exit" },
-		{ wxCMD_LINE_SWITCH, nullptr, "reset-catalogs", "reset astronomical catalogs to default" },
-		{ wxCMD_LINE_SWITCH, nullptr, "reset-gui", "reset window layout to default" },
-		{ wxCMD_LINE_SWITCH, nullptr, "reset-plugins", "reset plugins to default" },
-		{ wxCMD_LINE_SWITCH, nullptr, "reset-settings", "reset settings to default" },
+		{ wxCMD_LINE_SWITCH, nullptr, "reset", "reset to default" },
 		{ wxCMD_LINE_NONE }
 	};
 
@@ -108,10 +105,7 @@ bool AtlasApp::OnCmdLineParsed(wxCmdLineParser& parser)
 		return false;
 	}
 
-	config.resetCatalogs = parser.Found("reset-catalogs");
-	config.resetGui = parser.Found("reset-gui");
-	config.resetPlugins = parser.Found("reset-plugins");
-	config.resetSettings = parser.Found("reset-settings");
+	config.reset = parser.Found("reset");
 
 	return true;
 }
