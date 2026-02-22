@@ -1,8 +1,6 @@
 add_library(AtlasSetupLayers STATIC)
 
 target_sources(AtlasSetupLayers PRIVATE
-	AtlasConfigTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.cpp
-	AtlasDatabaseTasks/AtlasExecuteDatabaseSchema/AtlasExecuteDatabaseSchema.cpp
 	AtlasDatabaseTasks/AtlasFetchDefaultCatalogRecord/AtlasFetchDefaultCatalogRecord.cpp
 	AtlasDatabaseTasks/AtlasFetchDoesTableExist/AtlasFetchDoesTableExist.cpp
 	AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.cpp
@@ -10,8 +8,9 @@ target_sources(AtlasSetupLayers PRIVATE
 	AtlasDatabaseTasks/AtlasResetTableCatalogDirectory/AtlasResetTableCatalogDirectory.cpp
 	AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
 	AtlasDataTasks/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.cpp
-	AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.cpp
 	AtlasSetupCurl/AtlasSetupCurl.cpp
+	AtlasSetupDirectory/AtlasSetupDirectory.cpp
+	AtlasSetupDatabase/AtlasSetupDatabase.cpp
 )
 
 target_include_directories(AtlasSetupLayers PUBLIC

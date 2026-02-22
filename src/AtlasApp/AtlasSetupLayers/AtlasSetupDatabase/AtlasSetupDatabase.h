@@ -1,17 +1,23 @@
-#ifndef ATLAS_EXECUTE_DATABASE_SCHEMA_TASK_H
-#define ATLAS_EXECUTE_DATABASE_SCHEMA_TASK_H
+#ifndef ATLAS_SETUP_DATABASE_H
+#define ATLAS_SETUP_DATABASE_H
 
+#include "AtlasCore/AtlasStartup/AtlasSetupLayerInterface.h"
 #include <expected>
 #include <sqlite3.h>
 #include <string>
 
-namespace AtlasExecuteDatabaseSchema
+class AtlasSetupDatabase : public AtlasSetupLayerInterface
 {
-	std::expected<bool, std::string> initialize();
+public:
+	void Initialize();
+	std::expected<bool, std::string> Setup() override;
 
-	std::expected<bool, std::string> create(sqlite3* database, std::string table, std::string query);
+private:
+	std::expected<bool, std::string> Create(std::string table, std::string query);
+	std::expected<bool, std::string> Execute(std::string query);
 
-	std::expected<bool, std::string> execute(sqlite3* database, std::string query);
+private:
+	sqlite3* database;
 
 	const std::string CREATE_TABLE_CATALOG_DIRECTORY = R"(
 		CREATE TABLE IF NOT EXISTS CatalogDirectory (
