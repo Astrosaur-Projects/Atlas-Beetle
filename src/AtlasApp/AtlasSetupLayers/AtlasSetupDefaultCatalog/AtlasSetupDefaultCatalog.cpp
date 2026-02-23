@@ -1,5 +1,3 @@
-#include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasFetchDefaultCatalogRecord/AtlasFetchDefaultCatalogRecord.h"
-#include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasInsertBatchStarRenderData/AtlasInsertBatchStarRenderData.h"
 #include "AtlasApp/AtlasSetupLayers/AtlasSetupDefaultCatalog/AtlasSetupDefaultCatalog.h"
 #include "AtlasCore/AtlasMath/AtlasMath.h"
 #include "AtlasCore/AtlasObjects/AtlasStar.h"
@@ -9,9 +7,12 @@
 #include <algorithm>
 #include <cfitsio/fitsio.h>
 #include <expected>
+#include <sqlite3.h>
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <tuple>
+#include <utility>
 #include <vector>
 
 void AtlasSetupDefaultCatalog::Initialize()
@@ -22,17 +23,15 @@ void AtlasSetupDefaultCatalog::Initialize()
 		throw std::runtime_error(openDatabaseResult.error());
 	}
 
-	database = openDatabaseResult.value().get();
+	database = std::move(openDatabaseResult.value());
 }
 
 std::expected<bool, std::string> AtlasSetupDefaultCatalog::Setup()
 {
-	const std::string FETCH_DEFAULT_CATALOG = "SELECT * FROM CatalogDirectory WHERE id = 0";
-
-	return AtlasDatabaseUtilities::prepareStatement(database, FETCH_DEFAULT_CATALOG)
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
+	return AtlasDatabaseUtilities::prepareStatement(database.get(), FETCH_DEFAULT_CATALOG)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
 		.transform([](std::vector<AtlasCatalogUtilities::CatalogRecord> records) { return records.front(); })
-		.and_then([&](AtlasCatalogUtilities::CatalogRecord catalog) { return this->LoadCatalog(catalog); });
+		.and_then([&](AtlasCatalogUtilities::CatalogRecord catalog) { return LoadCatalog(catalog); });
 }
 
 std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const AtlasCatalogUtilities::CatalogRecord catalog)
@@ -74,20 +73,20 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const Atl
 		return loadCatalogResult;
 	}
 
-	std::vector<std::string> raBuffer(this->STAR_IMPORT_BATCH_SIZE);
-	std::vector<std::string> deBuffer(this->STAR_IMPORT_BATCH_SIZE);
-	std::vector<double> raProperMotionBuffer(this->STAR_IMPORT_BATCH_SIZE);
-	std::vector<double> decProperMotionBuffer(this->STAR_IMPORT_BATCH_SIZE);
-	std::vector<float> vMagBuffer(this->STAR_IMPORT_BATCH_SIZE);
-	std::vector<float> bvBuffer(this->STAR_IMPORT_BATCH_SIZE);
+	std::vector<std::string> raBuffer(STAR_IMPORT_BATCH_SIZE);
+	std::vector<std::string> deBuffer(STAR_IMPORT_BATCH_SIZE);
+	std::vector<double> raProperMotionBuffer(STAR_IMPORT_BATCH_SIZE);
+	std::vector<double> decProperMotionBuffer(STAR_IMPORT_BATCH_SIZE);
+	std::vector<float> vMagBuffer(STAR_IMPORT_BATCH_SIZE);
+	std::vector<float> bvBuffer(STAR_IMPORT_BATCH_SIZE);
 
 	std::vector<AtlasStar> starObjectBuffer;
-	starObjectBuffer.reserve(this->STAR_IMPORT_BATCH_SIZE);
+	starObjectBuffer.reserve(STAR_IMPORT_BATCH_SIZE);
 
 	long importBatchIndex = 1;
 
 	while (loadCatalogResult.has_value() && (importBatchIndex <= totalCatalogRows)) {
-		long importBatchSize = std::min(this->STAR_IMPORT_BATCH_SIZE, totalCatalogRows - importBatchIndex + 1);
+		long importBatchSize = std::min(STAR_IMPORT_BATCH_SIZE, totalCatalogRows - importBatchIndex + 1);
 
 		loadCatalogResult = loadCatalogResult
 			.and_then([&](bool) { return AtlasFitsDataUtilities::loadColumnIntoBuffer(file, raIndex, importBatchIndex, importBatchSize, raBuffer); })
@@ -107,8 +106,8 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const Atl
 			double deDegrees = 0.0, deMinutes = 0.0, deSeconds = 0.0;
 			int deSign = 1;
 
-			this->GetSexagesimalUnitsRA(raBuffer[i], raHours, raMinutes, raSeconds);
-			this->GetSexagesimalUnitsDE(deBuffer[i], deSign, deDegrees, deMinutes, deSeconds);
+			GetSexagesimalUnitsRA(raBuffer[i], raHours, raMinutes, raSeconds);
+			GetSexagesimalUnitsDE(deBuffer[i], deSign, deDegrees, deMinutes, deSeconds);
 
 			star.ra = AtlasMath::getRaRadians(raHours, raMinutes, raSeconds);
 			star.de = AtlasMath::getDecRadians(deSign, deDegrees, deMinutes, deSeconds);
@@ -121,7 +120,7 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const Atl
 		}
 
 		loadCatalogResult = loadCatalogResult
-			.and_then([&](bool) { return this->Insert(starObjectBuffer); });
+			.and_then([&](bool) { return Insert(starObjectBuffer); });
 
 		importBatchIndex += importBatchSize;
 	}
@@ -138,24 +137,24 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::Insert(std::vector<At
 	std::expected<bool, std::string> insertBatchDataResult = true;
 
 	insertBatchDataResult = insertBatchDataResult
-		.and_then([&](bool) { return AtlasDatabaseUtilities::prepareStatement(database, BEGIN_TRANSACTION); })
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database); })
-		.and_then([&](bool) { return this->InsertStarRenderData(buffer); });
+		.and_then([&](bool) { return AtlasDatabaseUtilities::prepareStatement(database.get(), BEGIN_TRANSACTION); })
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database.get()); })
+		.and_then([&](bool) { return InsertStarRenderData(buffer); });
 
 	if (!insertBatchDataResult.has_value()) {
-		std::ignore = AtlasDatabaseUtilities::prepareStatement(database, ROLLBACK_TRANSACTION)
-			.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database); });
+		std::ignore = AtlasDatabaseUtilities::prepareStatement(database.get(), ROLLBACK_TRANSACTION)
+			.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database.get()); });
 
 		return std::unexpected<std::string>(insertBatchDataResult.error());
 	}
 
-	return AtlasDatabaseUtilities::prepareStatement(database, COMMIT_TRANSACTION)
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database); });
+	return AtlasDatabaseUtilities::prepareStatement(database.get(), COMMIT_TRANSACTION)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database.get()); });
 }
 
 std::expected<bool, std::string> AtlasSetupDefaultCatalog::InsertStarRenderData(std::vector<AtlasStar> buffer)
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareInsertStatementResult = AtlasDatabaseUtilities::prepareStatement(database, INSERT_STAR_RENDER_DATA_STATEMENT);
+	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareInsertStatementResult = AtlasDatabaseUtilities::prepareStatement(database.get(), INSERT_STAR_RENDER_DATA_STATEMENT);
 
 	if (!prepareInsertStatementResult.has_value()) {
 		return std::unexpected<std::string>(prepareInsertStatementResult.error());
@@ -168,7 +167,7 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::InsertStarRenderData(
 	for (const auto& star : buffer) {
 		insertStarRenderDataResult = insertStarRenderDataResult
 			.and_then([&](bool) { return AtlasDatabaseUtilities::bindStatementParameters(statement, star.ra, star.de, star.pmRa, star.pmDe, star.mag, star.color, (int)AtlasCatalogUtilities::AtlasCatalogTypeEnums::STAR); })
-			.and_then([&](bool) { return AtlasDatabaseUtilities::execute(statement, database); });
+			.and_then([&](bool) { return AtlasDatabaseUtilities::execute(statement, database.get()); });
 
 		if (!insertStarRenderDataResult.has_value()) { break; }
 	}

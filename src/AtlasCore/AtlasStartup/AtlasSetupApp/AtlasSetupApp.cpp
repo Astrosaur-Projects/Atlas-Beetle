@@ -13,35 +13,26 @@
 
 AtlasSetupApp::AtlasSetupApp()
 {
-	auto setupCurl = std::make_unique<AtlasSetupCurl>();
-	auto setupDirectory = std::make_unique<AtlasSetupDirectory>();
-	auto setupDatabase = std::make_unique<AtlasSetupDatabase>();
-	auto resetCatalogDirectory = std::make_unique<AtlasResetCatalogDirectory>();
-	auto downloadCatalogs = std::make_unique<AtlasDownloadCatalogs>();
-	auto setupDefaultCatalog = std::make_unique<AtlasSetupDefaultCatalog>();
-
-	this->AddLayer(std::move(setupCurl));
-	this->AddLayer(std::move(setupDirectory));
-	this->AddLayer(std::move(setupDatabase));
-	this->AddLayer(std::move(resetCatalogDirectory));
-	this->AddLayer(std::move(downloadCatalogs));
-	this->AddLayer(std::move(setupDefaultCatalog));
+	this->AddLayer(std::make_unique<AtlasSetupCurl>());
+	this->AddLayer(std::make_unique<AtlasSetupDirectory>());
+	this->AddLayer(std::make_unique<AtlasSetupDatabase>());
+	this->AddLayer(std::make_unique<AtlasResetCatalogDirectory>());
+	this->AddLayer(std::make_unique<AtlasDownloadCatalogs>());
+	this->AddLayer(std::make_unique<AtlasSetupDefaultCatalog>());
 }
 
 void AtlasSetupApp::AddLayer(std::unique_ptr<AtlasSetupLayerInterface> layer)
 {
-	layer->Initialize();
-
 	layers.push_back(std::move(layer));
 }
 
 std::expected<bool, std::string> AtlasSetupApp::Setup()
 {
-	std::expected<bool, std::string> applicationSetupResult = true;
+	std::expected<bool, std::string> setupResult = true;
 
 	for (const std::unique_ptr<AtlasSetupLayerInterface>& layer : layers) {
-		applicationSetupResult = applicationSetupResult.and_then([&](bool) { return layer->Setup(); });
+		setupResult = setupResult.and_then([&](bool) { layer->Initialize(); return layer->Setup(); });
 	}
 
-	return applicationSetupResult;
+	return setupResult;
 }

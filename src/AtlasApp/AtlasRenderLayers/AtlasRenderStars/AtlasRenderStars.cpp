@@ -8,7 +8,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 
-AtlasRenderStars::AtlasRenderStars(AtlasFetchStars& query) : query(query), shader(0), vao(0), vbo(0), uViewProj(-1) { }
+AtlasRenderStars::AtlasRenderStars() : shader(0), vao(0), vbo(0), uViewProj(-1)
+{
+	starRenderDataAccessObject = std::make_unique<AtlasFetchStars>();
+}
 
 AtlasRenderStars::~AtlasRenderStars()
 {
@@ -64,7 +67,7 @@ void AtlasRenderStars::Render(const AtlasCamera& camera)
 	glm::mat4 viewProj = camera.GetProjectionMatrix() * camera.GetViewMatrix();
 	glUniformMatrix4fv(uViewProj, 1, GL_FALSE, glm::value_ptr(viewProj));
 
-	std::vector<AtlasStar> stars = query.Query(camera.GetForwardVector(), camera.GetFOV());
+	std::vector<AtlasStar> stars = starRenderDataAccessObject->Query(camera.GetForwardVector(), camera.GetFOV());
 
 	if (!stars.empty()) {
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);

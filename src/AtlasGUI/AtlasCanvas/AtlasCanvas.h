@@ -2,7 +2,6 @@
 #define ATLAS_CANVAS_H
 
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
-#include "AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
 #include <memory>
 #include <wx/event.h>
@@ -34,7 +33,6 @@ private:
 	wxGLContext* glContext;
 
 	std::unique_ptr<AtlasCamera> camera;
-	std::unique_ptr<AtlasFetchStars> query;
 	std::unique_ptr<AtlasRenderSky> render;
 };
 

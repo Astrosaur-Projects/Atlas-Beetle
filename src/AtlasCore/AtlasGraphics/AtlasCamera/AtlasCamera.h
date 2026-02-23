@@ -1,6 +1,7 @@
 #ifndef ATLAS_CAMERA_H
 #define ATLAS_CAMERA_H
 
+#include <GL/glew.h>
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/ext/vector_float3.hpp>
 

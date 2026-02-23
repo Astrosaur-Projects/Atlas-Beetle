@@ -1,3 +1,6 @@
+#include "AtlasApp/AtlasRenderLayers/AtlasRenderGrid/AtlasRenderGrid.h"
+#include "AtlasApp/AtlasRenderLayers/AtlasRenderHorizon/AtlasRenderHorizon.h"
+#include "AtlasApp/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderLayerInterface.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
@@ -7,6 +10,10 @@
 
 AtlasRenderSky::AtlasRenderSky()
 {
+	this->AddLayer(std::move(std::make_unique<AtlasRenderGrid>()));
+	this->AddLayer(std::move(std::make_unique<AtlasRenderStars>()));
+	this->AddLayer(std::move(std::make_unique<AtlasRenderHorizon>()));
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }

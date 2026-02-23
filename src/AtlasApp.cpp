@@ -19,7 +19,6 @@ public:
 private:
 	AtlasFrame* frame = nullptr;
 	AtlasConfig& config = AtlasConfig::getInstance();
-	std::unique_ptr<AtlasSetupApp> setupSequence;
 };
 
 /*
@@ -59,9 +58,7 @@ bool AtlasApp::OnInit()
 		return false;
 	}
 
-	setupSequence = std::make_unique<AtlasSetupApp>();
-
-	std::expected<bool, std::string> initAppResult = setupSequence->Setup();
+	std::expected<bool, std::string> initAppResult = std::make_unique<AtlasSetupApp>()->Setup();
 
 	if (!initAppResult.has_value()) {
 		wxMessageBox(initAppResult.error(), "Error", wxOK | wxICON_ERROR);
@@ -69,7 +66,6 @@ bool AtlasApp::OnInit()
 	}
 
 	frame = new AtlasFrame();
-
 	frame->Show(true);
 
 	return true;

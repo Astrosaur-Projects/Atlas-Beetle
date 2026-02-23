@@ -9,14 +9,14 @@
 class AtlasRenderStars : public AtlasRenderLayerInterface
 {
 public:
-	AtlasRenderStars(AtlasFetchStars& query);
+	AtlasRenderStars();
 	~AtlasRenderStars();
 
 	void Initialize() override;
 	void Render(const AtlasCamera& camera) override;
 
 private:
-	AtlasFetchStars& query;
+    std::unique_ptr<AtlasFetchStars> starRenderDataAccessObject;
 
 	GLuint shader;
 	GLuint vao, vbo;

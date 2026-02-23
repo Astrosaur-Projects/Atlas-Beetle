@@ -3,8 +3,8 @@
 
 #include "AtlasCore/AtlasStartup/AtlasSetupLayerInterface.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
+#include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
-#include <sqlite3.h>
 #include <string>
 #include <vector>
 
@@ -19,7 +19,7 @@ private:
 	std::expected<bool, std::string> DownloadCatalog(const AtlasCatalogUtilities::CatalogRecord catalog);
 
 private:
-	sqlite3* database;
+	AtlasDatabaseUtilities::MemorySafeDatabase database;
 
 	const std::string SELECT_FROM_CATALOG_DIRECTORY = "SELECT id, name, source, path, type, isEnabled, isInstalled FROM CatalogDirectory;";
 };

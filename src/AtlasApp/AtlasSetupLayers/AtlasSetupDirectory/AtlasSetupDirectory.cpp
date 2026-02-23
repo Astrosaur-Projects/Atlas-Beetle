@@ -11,9 +11,9 @@ std::expected<bool, std::string> AtlasSetupDirectory::Setup()
 	std::expected<bool, std::string> initDirectoryResult = true;
 
 	initDirectoryResult = initDirectoryResult
-		.and_then([&](bool) { return this->InitDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_DATABASE); })
-		.and_then([&](bool) { return this->InitDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS); })
-		.and_then([&](bool) { return this->InitDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_PLUGINS); });
+		.and_then([&](bool) { return InitDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_DATABASE); })
+		.and_then([&](bool) { return InitDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS); })
+		.and_then([&](bool) { return InitDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_PLUGINS); });
 
 	return initDirectoryResult;
 }

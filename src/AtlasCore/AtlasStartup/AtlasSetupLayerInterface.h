@@ -9,8 +9,8 @@ class AtlasSetupLayerInterface
 public:
 	virtual ~AtlasSetupLayerInterface() = default;
 
-	virtual void Initialize() = 0;
-	virtual std::expected<bool, std::string> Setup() = 0;
+	virtual void Initialize() { };
+	virtual std::expected<bool, std::string> Setup() { return true; };
 };
 
 #endif

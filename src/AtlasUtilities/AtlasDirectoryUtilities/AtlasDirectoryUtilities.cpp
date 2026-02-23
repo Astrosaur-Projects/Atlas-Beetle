@@ -29,7 +29,7 @@ std::string AtlasDirectoryUtilities::getDirectoryName(AtlasDirectoryEnums direct
 	switch (directory) {
 		case AtlasDirectoryEnums::DIR_CATALOGS: return "AtlasCatalogs";
 		case AtlasDirectoryEnums::DIR_DATABASE: return "AtlasDatabase";
-		case AtlasDirectoryEnums::DIR_PLUGINS:	return "AtlasPlugins";
+		case AtlasDirectoryEnums::DIR_PLUGINS: return "AtlasPlugins";
 		default: return "";
 	}
 }

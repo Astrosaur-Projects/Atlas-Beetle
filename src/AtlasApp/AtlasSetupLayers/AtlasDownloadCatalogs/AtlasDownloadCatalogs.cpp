@@ -7,6 +7,7 @@
 #include <sqlite3.h>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 #include <wx/filename.h>
 
@@ -18,14 +19,14 @@ void AtlasDownloadCatalogs::Initialize()
 		throw std::runtime_error(openDatabaseResult.error());
 	}
 
-	database = openDatabaseResult.value().get();
+	database = std::move(openDatabaseResult.value());
 }
 
 std::expected<bool, std::string> AtlasDownloadCatalogs::Setup()
 {
-	return AtlasDatabaseUtilities::prepareStatement(database, SELECT_FROM_CATALOG_DIRECTORY)
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
-		.and_then([&](std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs) { return this->DownloadCatalogs(catalogs); });
+	return AtlasDatabaseUtilities::prepareStatement(database.get(), SELECT_FROM_CATALOG_DIRECTORY)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
+		.and_then([&](std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs) { return DownloadCatalogs(catalogs); });
 }
 
 std::expected<bool, std::string> AtlasDownloadCatalogs::DownloadCatalogs(std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs)
@@ -33,7 +34,7 @@ std::expected<bool, std::string> AtlasDownloadCatalogs::DownloadCatalogs(std::ve
 	std::expected<bool, std::string> downloadCatalogsResult = true;
 
 	for (const AtlasCatalogUtilities::CatalogRecord& catalog : catalogs) {
-		downloadCatalogsResult = downloadCatalogsResult.and_then([&](bool) { return this->DownloadCatalog(catalog); });
+		downloadCatalogsResult = downloadCatalogsResult.and_then([&](bool) { return DownloadCatalog(catalog); });
 
 		if (!downloadCatalogsResult.has_value()) { break; }
 	}

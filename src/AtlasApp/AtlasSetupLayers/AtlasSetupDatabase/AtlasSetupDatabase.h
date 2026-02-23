@@ -2,14 +2,14 @@
 #define ATLAS_SETUP_DATABASE_H
 
 #include "AtlasCore/AtlasStartup/AtlasSetupLayerInterface.h"
+#include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
-#include <sqlite3.h>
 #include <string>
 
 class AtlasSetupDatabase : public AtlasSetupLayerInterface
 {
 public:
-	void Initialize();
+	void Initialize() override;
 	std::expected<bool, std::string> Setup() override;
 
 private:
@@ -18,7 +18,7 @@ private:
 	std::expected<bool, std::string> ExecuteStatement(std::string query);
 
 private:
-	sqlite3* database;
+	AtlasDatabaseUtilities::MemorySafeDatabase database;
 
 	const std::string FETCH_DOES_TABLE_EXIST = "SELECT COUNT(type) FROM sqlite_master WHERE type = 'table' AND name = ?;";
 

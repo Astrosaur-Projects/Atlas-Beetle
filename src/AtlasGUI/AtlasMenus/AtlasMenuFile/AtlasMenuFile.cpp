@@ -8,11 +8,11 @@
 
 AtlasMenuFile::AtlasMenuFile() : wxMenu()
 {
-	this->Append(std::to_underlying(AtlasMenuOptionEnums::ID_CATALOG_MANAGER), "&Catalogs", "Manage astronomical catalogs");
+	Append(std::to_underlying(AtlasMenuOptionEnums::ID_CATALOG_MANAGER), "&Catalogs", "Manage astronomical catalogs");
 
-	this->AppendSeparator();
+	AppendSeparator();
 
-	this->Append(wxID_EXIT);
+	Append(wxID_EXIT);
 
 	Bind(wxEVT_MENU, &AtlasMenuFile::OnCatalogManager, this, std::to_underlying(AtlasMenuOptionEnums::ID_CATALOG_MANAGER));
 }

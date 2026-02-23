@@ -9,9 +9,9 @@ AtlasMenuBar::AtlasMenuBar() : wxMenuBar()
 
 	viewMenu = new AtlasMenuView;
 
-	this->Append(fileMenu, "&File");
+	Append(fileMenu, "&File");
 
-	this->Append(viewMenu, "&View");
+	Append(viewMenu, "&View");
 }
 
 AtlasMenuBar::~AtlasMenuBar()
