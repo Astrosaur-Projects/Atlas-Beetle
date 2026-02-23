@@ -121,12 +121,59 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const Atl
 		}
 
 		loadCatalogResult = loadCatalogResult
-			.and_then([&](bool) { return AtlasInsertBatchStarRenderData::insert(database, starObjectBuffer); });
+			.and_then([&](bool) { return this->Insert(starObjectBuffer); });
 
 		importBatchIndex += importBatchSize;
 	}
 
 	return loadCatalogResult;
+}
+
+std::expected<bool, std::string> AtlasSetupDefaultCatalog::Insert(std::vector<AtlasStar> buffer)
+{
+	if (buffer.empty()) {
+		return true;
+	}
+
+	std::expected<bool, std::string> insertBatchDataResult = true;
+
+	insertBatchDataResult = insertBatchDataResult
+		.and_then([&](bool) { return AtlasDatabaseUtilities::prepareStatement(database, BEGIN_TRANSACTION); })
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database); })
+		.and_then([&](bool) { return this->InsertStarRenderData(buffer); });
+
+	if (!insertBatchDataResult.has_value()) {
+		std::ignore = AtlasDatabaseUtilities::prepareStatement(database, ROLLBACK_TRANSACTION)
+			.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database); });
+
+		return std::unexpected<std::string>(insertBatchDataResult.error());
+	}
+
+	return AtlasDatabaseUtilities::prepareStatement(database, COMMIT_TRANSACTION)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database); });
+}
+
+std::expected<bool, std::string> AtlasSetupDefaultCatalog::InsertStarRenderData(std::vector<AtlasStar> buffer)
+{
+	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareInsertStatementResult = AtlasDatabaseUtilities::prepareStatement(database, INSERT_STAR_RENDER_DATA_STATEMENT);
+
+	if (!prepareInsertStatementResult.has_value()) {
+		return std::unexpected<std::string>(prepareInsertStatementResult.error());
+	}
+
+	sqlite3_stmt* statement = prepareInsertStatementResult.value().get();
+
+	std::expected<bool, std::string> insertStarRenderDataResult = true;
+
+	for (const auto& star : buffer) {
+		insertStarRenderDataResult = insertStarRenderDataResult
+			.and_then([&](bool) { return AtlasDatabaseUtilities::bindStatementParameters(statement, star.ra, star.de, star.pmRa, star.pmDe, star.mag, star.color, (int)AtlasCatalogUtilities::AtlasCatalogTypeEnums::STAR); })
+			.and_then([&](bool) { return AtlasDatabaseUtilities::execute(statement, database); });
+
+		if (!insertStarRenderDataResult.has_value()) { break; }
+	}
+
+	return insertStarRenderDataResult;
 }
 
 bool AtlasSetupDefaultCatalog::GetSexagesimalUnitsRA(std::string ra, double& raHours, double& raMinutes, double& raSeconds)
