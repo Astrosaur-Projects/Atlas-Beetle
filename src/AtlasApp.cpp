@@ -1,11 +1,8 @@
-#include "AtlasApp/AtlasSetupLayers/AtlasConfigTasks/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.h"
-#include "AtlasApp/AtlasSetupLayers/AtlasDataTasks/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
-#include "AtlasApp/AtlasSetupLayers/AtlasDataTasks/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"
-#include "AtlasApp/AtlasSetupLayers/AtlasDataTasks/AtlasLoadCurl/AtlasLoadCurl.h"
-#include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasExecuteDatabaseSchema/AtlasExecuteDatabaseSchema.h"
 #include "AtlasCore/AtlasConfig/AtlasConfig.h"
+#include "AtlasCore/AtlasStartup/AtlasSetupApp/AtlasSetupApp.h"
 #include "AtlasGUI/AtlasFrame/AtlasFrame.h"
 #include <expected>
+#include <memory>
 #include <string>
 #include <wx/app.h>
 #include <wx/cmdline.h>
@@ -22,6 +19,7 @@ public:
 private:
 	AtlasFrame* frame = nullptr;
 	AtlasConfig& config = AtlasConfig::getInstance();
+	std::unique_ptr<AtlasSetupApp> setupSequence;
 };
 
 /*
@@ -61,14 +59,9 @@ bool AtlasApp::OnInit()
 		return false;
 	}
 
-	std::expected<bool, std::string> initAppResult = true;
+	setupSequence = std::make_unique<AtlasSetupApp>();
 
-	initAppResult = initAppResult
-		.and_then([](bool) { return AtlasLoadCurl::load(); })
-		.and_then([](bool) { return AtlasCreateApplicationDirectory::initialize(); })
-		.and_then([](bool) { return AtlasExecuteDatabaseSchema::initialize(); })
-		.and_then([](bool) { return AtlasDownloadCatalogs::download(); })
-		.and_then([](bool) { return AtlasImportDefaultCatalog::load(); });
+	std::expected<bool, std::string> initAppResult = setupSequence->Setup();
 
 	if (!initAppResult.has_value()) {
 		wxMessageBox(initAppResult.error(), "Error", wxOK | wxICON_ERROR);
