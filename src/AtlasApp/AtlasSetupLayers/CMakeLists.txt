@@ -6,10 +6,10 @@ target_sources(AtlasSetupLayers PRIVATE
 	AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.cpp
 	AtlasDatabaseTasks/AtlasInsertBatchStarRenderData/AtlasInsertBatchStarRenderData.cpp
 	AtlasDatabaseTasks/AtlasResetTableCatalogDirectory/AtlasResetTableCatalogDirectory.cpp
-	AtlasDataTasks/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.cpp
 	AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
 	AtlasSetupCurl/AtlasSetupCurl.cpp
 	AtlasSetupDatabase/AtlasSetupDatabase.cpp
+	AtlasSetupDefaultCatalog/AtlasSetupDefaultCatalog.cpp
 	AtlasSetupDirectory/AtlasSetupDirectory.cpp
 )
 
