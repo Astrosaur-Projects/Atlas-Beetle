@@ -13,11 +13,14 @@ public:
 	std::expected<bool, std::string> Setup() override;
 
 private:
-	std::expected<bool, std::string> Create(std::string table, std::string query);
-	std::expected<bool, std::string> Execute(std::string query);
+	std::expected<bool, std::string> CreateTable(std::string table, std::string query);
+	std::expected<bool, std::string> DoesTableExist(std::string table);
+	std::expected<bool, std::string> ExecuteStatement(std::string query);
 
 private:
 	sqlite3* database;
+
+	const std::string FETCH_DOES_TABLE_EXIST = "SELECT COUNT(type) FROM sqlite_master WHERE type = 'table' AND name = ?;";
 
 	const std::string CREATE_TABLE_CATALOG_DIRECTORY = R"(
 		CREATE TABLE IF NOT EXISTS CatalogDirectory (
