@@ -1,4 +1,4 @@
-#include "AtlasApp/AtlasSetupLayers/AtlasSetupDirectory/AtlasSetupDirectory.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasSetupDirectory/AtlasSetupDirectory.h"
 #include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
 #include <expected>
 #include <format>
@@ -6,7 +6,7 @@
 #include <wx/filefn.h>
 #include <wx/filename.h>
 
-std::expected<bool, std::string> AtlasSetupDirectory::Setup()
+std::expected<bool, std::string> AtlasSetupDirectory::Start()
 {
 	std::expected<bool, std::string> initDirectoryResult = true;
 

@@ -1,4 +1,4 @@
-#include "AtlasApp/AtlasSetupLayers/AtlasSetupDatabase/AtlasSetupDatabase.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasSetupDatabase/AtlasSetupDatabase.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
 #include <sqlite3.h>
@@ -18,7 +18,7 @@ void AtlasSetupDatabase::Initialize()
 	database = std::move(openDatabaseResult.value());
 }
 
-std::expected<bool, std::string> AtlasSetupDatabase::Setup()
+std::expected<bool, std::string> AtlasSetupDatabase::Start()
 {
 	std::expected<bool, std::string> setupDatabaseResult = true;
 

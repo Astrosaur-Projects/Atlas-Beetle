@@ -5,7 +5,7 @@ target_sources(AtlasCore PRIVATE
 	AtlasGraphics/AtlasCamera/AtlasCamera.cpp
 	AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.cpp
 	AtlasGraphics/AtlasRenderSky/AtlasRenderSky.cpp
-	AtlasStartup/AtlasSetupApp/AtlasSetupApp.cpp
+	AtlasStartup/AtlasStartApp/AtlasStartApp.cpp
 	AtlasMath/AtlasMath.cpp
 )
 

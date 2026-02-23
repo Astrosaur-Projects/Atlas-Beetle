@@ -1,4 +1,4 @@
-#include "AtlasApp/AtlasSetupLayers/AtlasSetupDefaultCatalog/AtlasSetupDefaultCatalog.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasSetupDefaultCatalog/AtlasSetupDefaultCatalog.h"
 #include "AtlasCore/AtlasMath/AtlasMath.h"
 #include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
@@ -26,7 +26,7 @@ void AtlasSetupDefaultCatalog::Initialize()
 	database = std::move(openDatabaseResult.value());
 }
 
-std::expected<bool, std::string> AtlasSetupDefaultCatalog::Setup()
+std::expected<bool, std::string> AtlasSetupDefaultCatalog::Start()
 {
 	return AtlasDatabaseUtilities::prepareStatement(database.get(), FETCH_DEFAULT_CATALOG)
 		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })

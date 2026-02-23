@@ -1,6 +1,6 @@
-add_library(AtlasSetupLayers STATIC)
+add_library(AtlasStartupLayers STATIC)
 
-target_sources(AtlasSetupLayers PRIVATE
+target_sources(AtlasStartupLayers PRIVATE
 	AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
 	AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.cpp
 	AtlasSetupCurl/AtlasSetupCurl.cpp
@@ -9,11 +9,11 @@ target_sources(AtlasSetupLayers PRIVATE
 	AtlasSetupDirectory/AtlasSetupDirectory.cpp
 )
 
-target_include_directories(AtlasSetupLayers PUBLIC
+target_include_directories(AtlasStartupLayers PUBLIC
 	${CMAKE_SOURCE_DIR}/src
 )
 
-target_link_libraries(AtlasSetupLayers PRIVATE
+target_link_libraries(AtlasStartupLayers PRIVATE
 	AtlasUtilities
 	wxWidgets::wxWidgets
 	SQLite::SQLite3

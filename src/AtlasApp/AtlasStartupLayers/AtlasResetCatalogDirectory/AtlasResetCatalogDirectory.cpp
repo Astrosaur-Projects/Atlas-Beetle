@@ -1,4 +1,4 @@
-#include "AtlasApp/AtlasSetupLayers/AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
@@ -18,7 +18,7 @@ void AtlasResetCatalogDirectory::Initialize()
 	database = std::move(openDatabaseResult.value());
 }
 
-std::expected<bool, std::string> AtlasResetCatalogDirectory::Setup()
+std::expected<bool, std::string> AtlasResetCatalogDirectory::Start()
 {
 	std::expected<bool, std::string> resetCatalogDirectoryResult = true;
 

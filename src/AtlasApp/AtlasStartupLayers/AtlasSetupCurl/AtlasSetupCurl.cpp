@@ -1,11 +1,11 @@
-#include "AtlasApp/AtlasSetupLayers/AtlasSetupCurl/AtlasSetupCurl.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasSetupCurl/AtlasSetupCurl.h"
 #include <curl/curl.h>
 #include <expected>
 #include <format>
 #include <string>
 #include <utility>
 
-std::expected<bool, std::string> AtlasSetupCurl::Setup()
+std::expected<bool, std::string> AtlasSetupCurl::Start()
 {
 	CURLcode result = curl_global_init(CURL_GLOBAL_ALL);
 

@@ -1,18 +1,18 @@
 #ifndef ATLAS_DOWNLOAD_CATALOGS_H
 #define ATLAS_DOWNLOAD_CATALOGS_H
 
-#include "AtlasCore/AtlasStartup/AtlasSetupLayerInterface.h"
+#include "AtlasCore/AtlasStartup/AtlasStartupLayerInterface.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
 #include <string>
 #include <vector>
 
-class AtlasDownloadCatalogs : public AtlasSetupLayerInterface
+class AtlasDownloadCatalogs : public AtlasStartupLayerInterface
 {
 public:
 	void Initialize() override;
-	std::expected<bool, std::string> Setup() override;
+	std::expected<bool, std::string> Start() override;
 
 private:
 	std::expected<bool, std::string> DownloadCatalogs(std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs);

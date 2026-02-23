@@ -2,18 +2,18 @@
 #define ATLAS_SETUP_DEFAULT_CATALOG_H
 
 #include "AtlasCore/AtlasObjects/AtlasStar.h"
-#include "AtlasCore/AtlasStartup/AtlasSetupLayerInterface.h"
+#include "AtlasCore/AtlasStartup/AtlasStartupLayerInterface.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
 #include <string>
 #include <vector>
 
-class AtlasSetupDefaultCatalog : public AtlasSetupLayerInterface
+class AtlasSetupDefaultCatalog : public AtlasStartupLayerInterface
 {
 public:
 	void Initialize() override;
-	std::expected<bool, std::string> Setup() override;
+	std::expected<bool, std::string> Start() override;
 
 private:
 	std::expected<bool, std::string> LoadCatalog(const AtlasCatalogUtilities::CatalogRecord catalog);

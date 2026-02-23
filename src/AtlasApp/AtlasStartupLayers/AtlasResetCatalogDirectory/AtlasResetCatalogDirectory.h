@@ -1,16 +1,16 @@
 #ifndef ATLAS_RESET_CATALOG_DIRECTORY_H
 #define ATLAS_RESET_CATALOG_DIRECTORY_H
 
-#include "AtlasCore/AtlasStartup/AtlasSetupLayerInterface.h"
+#include "AtlasCore/AtlasStartup/AtlasStartupLayerInterface.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
 #include <string>
 
-class AtlasResetCatalogDirectory : public AtlasSetupLayerInterface
+class AtlasResetCatalogDirectory : public AtlasStartupLayerInterface
 {
 public:
 	void Initialize() override;
-	std::expected<bool, std::string> Setup() override;
+	std::expected<bool, std::string> Start() override;
 
 private:
 	std::expected<bool, std::string> TruncateCatalogDirectory();

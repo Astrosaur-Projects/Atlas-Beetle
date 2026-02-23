@@ -1,16 +1,16 @@
 #ifndef ATLAS_SETUP_DATABASE_H
 #define ATLAS_SETUP_DATABASE_H
 
-#include "AtlasCore/AtlasStartup/AtlasSetupLayerInterface.h"
+#include "AtlasCore/AtlasStartup/AtlasStartupLayerInterface.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
 #include <string>
 
-class AtlasSetupDatabase : public AtlasSetupLayerInterface
+class AtlasSetupDatabase : public AtlasStartupLayerInterface
 {
 public:
 	void Initialize() override;
-	std::expected<bool, std::string> Setup() override;
+	std::expected<bool, std::string> Start() override;
 
 private:
 	std::expected<bool, std::string> CreateTable(std::string table, std::string query);

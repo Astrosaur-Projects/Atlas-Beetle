@@ -1,4 +1,4 @@
-#include "AtlasApp/AtlasSetupLayers/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include "AtlasUtilities/AtlasDownloadUtilities/AtlasDownloadUtilities.h"
@@ -22,7 +22,7 @@ void AtlasDownloadCatalogs::Initialize()
 	database = std::move(openDatabaseResult.value());
 }
 
-std::expected<bool, std::string> AtlasDownloadCatalogs::Setup()
+std::expected<bool, std::string> AtlasDownloadCatalogs::Start()
 {
 	return AtlasDatabaseUtilities::prepareStatement(database.get(), SELECT_FROM_CATALOG_DIRECTORY)
 		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
