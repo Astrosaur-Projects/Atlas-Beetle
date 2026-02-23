@@ -7,13 +7,13 @@
 
 void AtlasSetupDatabase::Initialize()
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDbResult = AtlasDatabaseUtilities::open();
+	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
 
-	if (!openDbResult.has_value()) {
-		throw std::runtime_error(openDbResult.error());
+	if (!openDatabaseResult.has_value()) {
+		throw std::runtime_error(openDatabaseResult.error());
 	}
 
-	database = openDbResult.value().get();
+	database = openDatabaseResult.value().get();
 }
 
 std::expected<bool, std::string> AtlasSetupDatabase::Setup()
