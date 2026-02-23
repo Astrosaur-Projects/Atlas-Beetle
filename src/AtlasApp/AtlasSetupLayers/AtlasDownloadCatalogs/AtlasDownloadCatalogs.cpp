@@ -1,4 +1,3 @@
-#include "AtlasApp/AtlasSetupLayers/AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.h"
 #include "AtlasApp/AtlasSetupLayers/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
@@ -6,14 +5,26 @@
 #include <curl/curl.h>
 #include <expected>
 #include <sqlite3.h>
+#include <stdexcept>
 #include <string>
 #include <vector>
 #include <wx/filename.h>
 
+void AtlasDownloadCatalogs::Initialize()
+{
+	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
+
+	if (!openDatabaseResult.has_value()) {
+		throw std::runtime_error(openDatabaseResult.error());
+	}
+
+	database = openDatabaseResult.value().get();
+}
+
 std::expected<bool, std::string> AtlasDownloadCatalogs::Setup()
 {
-	return AtlasDatabaseUtilities::open()
-		.and_then([](AtlasDatabaseUtilities::MemorySafeDatabase database) { return AtlasFetchTableCatalogDirectory::fetch(database.get()); })
+	return AtlasDatabaseUtilities::prepareStatement(database, SELECT_FROM_CATALOG_DIRECTORY)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
 		.and_then([&](std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs) { return this->DownloadCatalogs(catalogs); });
 }
 

@@ -1,7 +1,6 @@
 add_library(AtlasSetupLayers STATIC)
 
 target_sources(AtlasSetupLayers PRIVATE
-	AtlasDatabaseTasks/AtlasFetchTableCatalogDirectory/AtlasFetchTableCatalogDirectory.cpp
 	AtlasDatabaseTasks/AtlasInsertBatchStarRenderData/AtlasInsertBatchStarRenderData.cpp
 	AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
 	AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.cpp
