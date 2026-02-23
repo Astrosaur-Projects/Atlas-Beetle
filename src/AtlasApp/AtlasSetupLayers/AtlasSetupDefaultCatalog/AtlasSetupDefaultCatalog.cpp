@@ -27,7 +27,11 @@ void AtlasSetupDefaultCatalog::Initialize()
 
 std::expected<bool, std::string> AtlasSetupDefaultCatalog::Setup()
 {
-	return AtlasFetchDefaultCatalogRecord::fetch(database)
+	const std::string FETCH_DEFAULT_CATALOG = "SELECT * FROM CatalogDirectory WHERE id = 0";
+
+	return AtlasDatabaseUtilities::prepareStatement(database, FETCH_DEFAULT_CATALOG)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database, AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
+		.transform([](std::vector<AtlasCatalogUtilities::CatalogRecord> records) { return records.front(); })
 		.and_then([&](AtlasCatalogUtilities::CatalogRecord catalog) { return this->LoadCatalog(catalog); });
 }
 
