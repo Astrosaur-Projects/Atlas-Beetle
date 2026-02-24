@@ -1,4 +1,4 @@
-add_library(AtlasStartupLayers STATIC)
+add_library(AtlasStartupLayers OBJECT)
 
 target_sources(AtlasStartupLayers PRIVATE
 	AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
