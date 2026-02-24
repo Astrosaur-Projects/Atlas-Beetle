@@ -5,39 +5,63 @@
 #include <wx/gdicmn.h>
 #include <wx/listbase.h>
 #include <wx/listctrl.h>
+#include <wx/panel.h>
+#include <wx/settings.h>
 #include <wx/sizer.h>
+#include <wx/splitter.h>
 #include <wx/srchctrl.h>
 #include <wx/string.h>
+#include <wx/toplevel.h>
+#include <wx/treebase.h>
+#include <wx/treectrl.h>
 
-AtlasCatalogManager::AtlasCatalogManager() : wxDialog(NULL, wxID_ANY, "Catalog Manager")
+AtlasCatalogManager::AtlasCatalogManager() : wxDialog(NULL, wxID_ANY, "Catalog Manager", wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
 {
 	searchControl = new wxSearchCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
-
 	searchControl->ShowCancelButton(true);
 
 	wxBoxSizer* boxSizer = new wxBoxSizer(wxVERTICAL);
-
 	boxSizer->Add(searchControl, 0, wxALL | wxEXPAND, 5);
 
-	listView = new wxListView(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT | wxLC_VIRTUAL);
+	mainSplitter = new wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_3D | wxSP_LIVE_UPDATE);
+	mainSplitter->SetMinimumPaneSize(150);
 
-	listView->AppendColumn("Name");
-	listView->AppendColumn("Type");
-	listView->AppendColumn("Enabled");
-	listView->AppendColumn("Installed");
+	rightSplitter = new wxSplitterWindow(mainSplitter, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_3D | wxSP_LIVE_UPDATE);
+	rightSplitter->SetMinimumPaneSize(100);
 
-	boxSizer->Add(listView, 1, wxLEFT | wxBOTTOM | wxRIGHT | wxEXPAND, 5);
+	directoryTree = new wxTreeCtrl(mainSplitter, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTR_DEFAULT_STYLE | wxTR_HIDE_ROOT);
+
+	filePreview = new wxPanel(rightSplitter, wxID_ANY);
+	filePreview->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_APPWORKSPACE));
+
+	fileDetails = new wxListView(rightSplitter, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT | wxLC_HRULES | wxLC_VRULES);
+	fileDetails->AppendColumn("Property", wxLIST_FORMAT_LEFT, 100);
+	fileDetails->AppendColumn("Value", wxLIST_FORMAT_LEFT, 300);
+
+	rightSplitter->SplitHorizontally(filePreview, fileDetails);
+
+	mainSplitter->SplitVertically(directoryTree, rightSplitter);
+
+	boxSizer->Add(mainSplitter, 1, wxALL | wxEXPAND, 5);
+
+	wxSizer* buttonSizer = CreateStdDialogButtonSizer(wxOK | wxCANCEL);
+	if (buttonSizer) { boxSizer->Add(buttonSizer, 0, wxALL | wxEXPAND, 5); }
 
 	SetSizerAndFit(boxSizer);
+	Center();
 
 	Bind(wxEVT_SEARCH, &AtlasCatalogManager::OnSearch, this);
+	directoryTree->Bind(wxEVT_TREE_SEL_CHANGED, &AtlasCatalogManager::OnTreeSelectionChanged, this);
 }
-
 
 AtlasCatalogManager::~AtlasCatalogManager()
 {
 }
 
 void AtlasCatalogManager::OnSearch(wxCommandEvent& event)
+{
+}
+
+void AtlasCatalogManager::OnTreeSelectionChanged(wxTreeEvent& event)
 {
 }
