@@ -29,6 +29,8 @@ namespace AtlasCatalogUtilities
 
 	struct CatalogRecord
 	{
+		int id;
+
 		std::string name;
 
 		std::string source;
