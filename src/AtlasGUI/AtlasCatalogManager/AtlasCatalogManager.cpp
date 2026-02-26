@@ -1,4 +1,10 @@
+#include "AtlasApp/AtlasQueryObjects/AtlasQueryCatalogDirectory/AtlasQueryCatalogDirectory.h"
 #include "AtlasGUI/AtlasCatalogManager/AtlasCatalogManager.h"
+#include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
+#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
+#include <memory>
+#include <string>
+#include <vector>
 #include <wx/defs.h>
 #include <wx/dialog.h>
 #include <wx/event.h>
@@ -16,6 +22,19 @@
 #include <wx/treectrl.h>
 
 AtlasCatalogManager::AtlasCatalogManager() : wxDialog(NULL, wxID_ANY, "Catalog Manager", wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
+{
+	catalogDirectoryQueryObject = std::make_unique<AtlasQueryCatalogDirectory>();
+
+	Initialize();
+
+	std::string catalogDirectoryPath = AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS);
+
+	wxTreeItemId catalogDirectoryRootId = directoryTree->AddRoot("Root");
+
+	BuildDirectoryTree();
+}
+
+void AtlasCatalogManager::Initialize()
 {
 	searchControl = new wxSearchCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
 	searchControl->ShowCancelButton(true);
@@ -54,14 +73,15 @@ AtlasCatalogManager::AtlasCatalogManager() : wxDialog(NULL, wxID_ANY, "Catalog M
 	directoryTree->Bind(wxEVT_TREE_SEL_CHANGED, &AtlasCatalogManager::OnTreeSelectionChanged, this);
 }
 
-AtlasCatalogManager::~AtlasCatalogManager()
+void AtlasCatalogManager::BuildDirectoryTree()
+{
+	std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs = catalogDirectoryQueryObject->Query();
+}
+
+void AtlasCatalogManager::OnTreeSelectionChanged(wxTreeEvent& event)
 {
 }
 
 void AtlasCatalogManager::OnSearch(wxCommandEvent& event)
-{
-}
-
-void AtlasCatalogManager::OnTreeSelectionChanged(wxTreeEvent& event)
 {
 }

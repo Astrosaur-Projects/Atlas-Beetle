@@ -1,6 +1,8 @@
 #ifndef ATLAS_CATALOG_MANAGER_H
 #define ATLAS_CATALOG_MANAGER_H
 
+#include "AtlasApp/AtlasQueryObjects/AtlasQueryCatalogDirectory/AtlasQueryCatalogDirectory.h"
+#include <memory>
 #include <wx/dialog.h>
 #include <wx/event.h>
 #include <wx/listctrl.h>
@@ -14,9 +16,10 @@ class AtlasCatalogManager : public wxDialog
 {
 public:
 	AtlasCatalogManager();
-	~AtlasCatalogManager();
 
 private:
+	std::unique_ptr<AtlasQueryCatalogDirectory> catalogDirectoryQueryObject;
+
 	wxSearchCtrl* searchControl = nullptr;
 
 	wxSplitterWindow* mainSplitter = nullptr;
@@ -27,6 +30,9 @@ private:
 	wxListView* fileDetails = nullptr;
 
 private:
+	void Initialize();
+	void BuildDirectoryTree();
+
 	void OnSearch(wxCommandEvent& event);
 	void OnTreeSelectionChanged(wxTreeEvent& event);
 };
