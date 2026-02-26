@@ -20,7 +20,7 @@ std::expected<bool, std::string> AtlasSetupDirectory::Start()
 
 std::expected<bool, std::string> AtlasSetupDirectory::InitDirectory(AtlasDirectoryUtilities::AtlasDirectoryEnums directory)
 {
-	std::string path = AtlasDirectoryUtilities::getDirectoryPath(directory);
+	std::string path = AtlasDirectoryUtilities::GetDirectoryPath(directory);
 
 	wxFileName fileName = wxFileName::DirName(path);
 

@@ -20,15 +20,15 @@ void AtlasCamera::SetDirection(float ra, float dec)
 	AtlasCamera::ra = ra;
 	AtlasCamera::de = dec;
 
-	float fX = AtlasMath::getForwardX(ra, dec);
-	float fY = AtlasMath::getForwardY(ra, dec);
-	float fZ = AtlasMath::getForwardZ(dec);
+	float fX = AtlasMath::GetForwardX(ra, dec);
+	float fY = AtlasMath::GetForwardY(ra, dec);
+	float fZ = AtlasMath::GetForwardZ(dec);
 
 	forward = glm::normalize(glm::vec3(fX, fY, fZ));
 
-	float uX = AtlasMath::getUpX(ra, dec);
-	float uY = AtlasMath::getUpY(ra, dec);
-	float uZ = AtlasMath::getUpZ(dec);
+	float uX = AtlasMath::GetUpX(ra, dec);
+	float uY = AtlasMath::GetUpY(ra, dec);
+	float uZ = AtlasMath::GetUpZ(dec);
 
 	up = glm::normalize(glm::vec3(uX, uY, uZ));
 

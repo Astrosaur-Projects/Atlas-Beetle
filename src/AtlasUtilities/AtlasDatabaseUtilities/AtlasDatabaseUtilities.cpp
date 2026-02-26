@@ -5,11 +5,11 @@
 #include <sqlite3.h>
 #include <string>
 
-std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> AtlasDatabaseUtilities::open()
+std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> AtlasDatabaseUtilities::Open()
 {
 	sqlite3* database = nullptr;
 
-	std::string path = AtlasDirectoryUtilities::getDatabasePath();
+	std::string path = AtlasDirectoryUtilities::GetDatabasePath();
 
 	int resultCode = sqlite3_open(path.c_str(), &database);
 
@@ -22,7 +22,7 @@ std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> AtlasData
 	return AtlasDatabaseUtilities::MemorySafeDatabase(database);
 }
 
-std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> AtlasDatabaseUtilities::prepareStatement(sqlite3* database, std::string sql)
+std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> AtlasDatabaseUtilities::PrepareStatement(sqlite3* database, std::string sql)
 {
 	sqlite3_stmt* statement = nullptr;
 
@@ -37,7 +37,7 @@ std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> AtlasDat
 	return AtlasDatabaseUtilities::MemorySafeStatement(statement);
 }
 
-std::expected<bool, std::string> AtlasDatabaseUtilities::execute(sqlite3_stmt* statement, sqlite3* database)
+std::expected<bool, std::string> AtlasDatabaseUtilities::Execute(sqlite3_stmt* statement, sqlite3* database)
 {
 	int resultCode;
 

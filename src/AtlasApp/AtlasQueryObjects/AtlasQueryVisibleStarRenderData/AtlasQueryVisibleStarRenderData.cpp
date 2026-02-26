@@ -11,13 +11,13 @@
 
 AtlasQueryVisibleStarRenderData::AtlasQueryVisibleStarRenderData() : database(nullptr), statement(nullptr)
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
+	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::Open();
 
 	if (!openDatabaseResult.has_value()) { return; }
 
 	database = std::move(openDatabaseResult.value());
 
-	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::prepareStatement(database.get(), QUERY_STAR_RENDER_DATA);
+	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::PrepareStatement(database.get(), QUERY_STAR_RENDER_DATA);
 
 	if (!prepareStatementResult.has_value()) { return; }
 
@@ -50,8 +50,8 @@ std::vector<AtlasStar> AtlasQueryVisibleStarRenderData::Query(const glm::vec3& f
 		};
 	};
 
-	std::expected<std::vector<AtlasStar>, std::string> queryStarRenderDataResult = AtlasDatabaseUtilities::bindStatementParameters(statement.get(), minX, maxX, minY, maxY, minZ, maxZ)
-		.and_then([&](bool) { return AtlasDatabaseUtilities::query<AtlasStar>(statement.get(), database.get(), initializeStarFromSQLStatement); });
+	std::expected<std::vector<AtlasStar>, std::string> queryStarRenderDataResult = AtlasDatabaseUtilities::BindStatementParameters(statement.get(), minX, maxX, minY, maxY, minZ, maxZ)
+		.and_then([&](bool) { return AtlasDatabaseUtilities::Query<AtlasStar>(statement.get(), database.get(), initializeStarFromSQLStatement); });
 
 	if (!queryStarRenderDataResult.has_value()) {
 		return std::vector<AtlasStar>();

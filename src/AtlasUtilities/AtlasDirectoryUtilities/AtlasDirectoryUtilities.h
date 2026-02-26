@@ -12,11 +12,11 @@ namespace AtlasDirectoryUtilities
 		DIR_DATABASE
 	};
 
-	std::string getDatabasePath();
+	std::string GetDatabasePath();
 
-	std::string getDirectoryPath(AtlasDirectoryEnums directory);
+	std::string GetDirectoryPath(AtlasDirectoryEnums directory);
 
-	std::string getDirectoryName(AtlasDirectoryEnums directory);
+	std::string GetDirectoryName(AtlasDirectoryEnums directory);
 };
 
 #endif

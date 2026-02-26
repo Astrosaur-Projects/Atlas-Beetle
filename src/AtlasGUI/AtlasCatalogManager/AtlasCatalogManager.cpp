@@ -27,7 +27,7 @@ AtlasCatalogManager::AtlasCatalogManager() : wxDialog(NULL, wxID_ANY, "Catalog M
 
 	Initialize();
 
-	std::string catalogDirectoryPath = AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS);
+	std::string catalogDirectoryPath = AtlasDirectoryUtilities::GetDirectoryPath(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS);
 
 	wxTreeItemId catalogDirectoryRootId = directoryTree->AddRoot("Root");
 

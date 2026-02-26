@@ -5,7 +5,7 @@
 #include <wx/filename.h>
 #include <wx/string.h>
 
-AtlasCatalogUtilities::AtlasCatalogObject AtlasCatalogUtilities::getDefaultCatalogObject()
+AtlasCatalogUtilities::AtlasCatalogObject AtlasCatalogUtilities::GetDefaultCatalogObject()
 {
 	return AtlasCatalogUtilities::AtlasCatalogObject {
 		AtlasCatalogEnums::CAT_BSC5P,
@@ -15,11 +15,11 @@ AtlasCatalogUtilities::AtlasCatalogObject AtlasCatalogUtilities::getDefaultCatal
 	};
 }
 
-std::string AtlasCatalogUtilities::getCatalogFilePath(AtlasCatalogUtilities::AtlasCatalogObject catalog)
+std::string AtlasCatalogUtilities::GetCatalogFilePath(AtlasCatalogUtilities::AtlasCatalogObject catalog)
 {
 	std::string fileName = std::regex_replace(catalog.name, std::regex("[^a-zA-Z0-9._-]"), "");
 
-	wxString path = wxString(AtlasDirectoryUtilities::getDirectoryPath(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS))
+	wxString path = wxString(AtlasDirectoryUtilities::GetDirectoryPath(AtlasDirectoryUtilities::AtlasDirectoryEnums::DIR_CATALOGS))
 		+ wxFileName::GetPathSeparator()
 		+ fileName
 		+ ".fits";

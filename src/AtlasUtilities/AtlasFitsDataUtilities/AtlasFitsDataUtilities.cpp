@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-std::expected<AtlasFitsDataUtilities::MemorySafeFitsFile, std::string> AtlasFitsDataUtilities::open(std::string path)
+std::expected<AtlasFitsDataUtilities::MemorySafeFitsFile, std::string> AtlasFitsDataUtilities::Open(std::string path)
 {
 	fitsfile* filePointer = nullptr;
 
@@ -27,7 +27,7 @@ std::expected<AtlasFitsDataUtilities::MemorySafeFitsFile, std::string> AtlasFits
 	return AtlasFitsDataUtilities::MemorySafeFitsFile(filePointer);
 }
 
-std::expected<bool, std::string> AtlasFitsDataUtilities::moveToHeaderDataUnit(fitsfile* file, int index)
+std::expected<bool, std::string> AtlasFitsDataUtilities::MoveToHeaderDataUnit(fitsfile* file, int index)
 {
 	int status = 0;
 
@@ -46,7 +46,7 @@ std::expected<bool, std::string> AtlasFitsDataUtilities::moveToHeaderDataUnit(fi
 	return true;
 }
 
-std::expected<bool, std::string> AtlasFitsDataUtilities::getRowCount(fitsfile* file, long& count)
+std::expected<bool, std::string> AtlasFitsDataUtilities::GetRowCount(fitsfile* file, long& count)
 {
 	int status = 0;
 
@@ -65,7 +65,7 @@ std::expected<bool, std::string> AtlasFitsDataUtilities::getRowCount(fitsfile* f
 	return true;
 }
 
-std::expected<bool, std::string> AtlasFitsDataUtilities::getColumnCount(fitsfile* file, int& count)
+std::expected<bool, std::string> AtlasFitsDataUtilities::GetColumnCount(fitsfile* file, int& count)
 {
 	int status = 0;
 
@@ -84,7 +84,7 @@ std::expected<bool, std::string> AtlasFitsDataUtilities::getColumnCount(fitsfile
 	return true;
 }
 
-std::expected<bool, std::string> AtlasFitsDataUtilities::getColumnIndex(fitsfile* file, std::string column, int& index)
+std::expected<bool, std::string> AtlasFitsDataUtilities::GetColumnIndex(fitsfile* file, std::string column, int& index)
 {
 	int status = 0;
 
@@ -105,7 +105,7 @@ std::expected<bool, std::string> AtlasFitsDataUtilities::getColumnIndex(fitsfile
 	return index;
 }
 
-std::expected<bool, std::string> AtlasFitsDataUtilities::getColumnWidth(fitsfile* file, int column, int& width)
+std::expected<bool, std::string> AtlasFitsDataUtilities::GetColumnWidth(fitsfile* file, int column, int& width)
 {
 	int status = 0;
 
@@ -124,13 +124,13 @@ std::expected<bool, std::string> AtlasFitsDataUtilities::getColumnWidth(fitsfile
 	return true;
 }
 
-std::expected<bool, std::string> AtlasFitsDataUtilities::loadColumnIntoBuffer(fitsfile* file, int column, long start, long size, std::vector<std::string>& buffer, std::string defaultValue)
+std::expected<bool, std::string> AtlasFitsDataUtilities::LoadColumnIntoBuffer(fitsfile* file, int column, long start, long size, std::vector<std::string>& buffer, std::string defaultValue)
 {
 	int status = 0;
 
 	int width = 0;
 
-	std::expected<bool, std::string> widthResult = AtlasFitsDataUtilities::getColumnWidth(file, column, width);
+	std::expected<bool, std::string> widthResult = AtlasFitsDataUtilities::GetColumnWidth(file, column, width);
 
 	if (!widthResult.has_value()) {
 		return widthResult;

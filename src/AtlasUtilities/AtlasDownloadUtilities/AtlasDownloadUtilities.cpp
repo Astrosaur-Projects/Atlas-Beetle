@@ -8,7 +8,7 @@
 #include <string>
 #include <string.h>
 
-std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std::string url, const std::string filename)
+std::expected<CURLcode, std::string> AtlasDownloadUtilities::Download(const std::string url, const std::string filename)
 {
 	CURL* curl = curl_easy_init();
 
@@ -24,7 +24,7 @@ std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std:
 
 	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 
-	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, AtlasDownloadUtilities::writeDataCallback);
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, AtlasDownloadUtilities::WriteDataCallback);
 
 	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
 
@@ -55,7 +55,7 @@ std::expected<CURLcode, std::string> AtlasDownloadUtilities::download(const std:
 	return result;
 }
 
-size_t AtlasDownloadUtilities::writeDataCallback(void* buffer, size_t size, size_t count, void* stream)
+size_t AtlasDownloadUtilities::WriteDataCallback(void* buffer, size_t size, size_t count, void* stream)
 {
 	size_t dataWritten = fwrite(buffer, size, count, (FILE*)stream);
 

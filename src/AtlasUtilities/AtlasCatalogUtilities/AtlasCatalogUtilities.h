@@ -1,6 +1,7 @@
 #ifndef ATLAS_CATALOG_UTILITIES_H
 #define ATLAS_CATALOG_UTILITIES_H
 
+#include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
 #include <sqlite3.h>
 #include <string>
 
@@ -55,9 +56,9 @@ namespace AtlasCatalogUtilities
 		};
 	};
 
-	AtlasCatalogObject getDefaultCatalogObject();
+	AtlasCatalogObject GetDefaultCatalogObject();
 
-	std::string getCatalogFilePath(AtlasCatalogObject catalog);
-};
+	std::string GetCatalogFilePath(AtlasCatalogUtilities::AtlasCatalogObject catalog);
+}
 
 #endif

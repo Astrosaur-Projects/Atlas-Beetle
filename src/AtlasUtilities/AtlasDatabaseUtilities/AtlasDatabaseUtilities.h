@@ -32,9 +32,9 @@ namespace AtlasDatabaseUtilities
 
 	using MemorySafeDatabase = std::unique_ptr<sqlite3, DestroyDatabase>;
 
-	std::expected<MemorySafeDatabase, std::string> open();
+	std::expected<MemorySafeDatabase, std::string> Open();
 
-	std::expected<MemorySafeStatement, std::string> prepareStatement(sqlite3* database, std::string sql);
+	std::expected<MemorySafeStatement, std::string> PrepareStatement(sqlite3* database, std::string sql);
 
 	static int bind(sqlite3_stmt* statement, int index, int64_t parameter)
 	{
@@ -82,7 +82,7 @@ namespace AtlasDatabaseUtilities
 	}
 
 	template <typename T>
-	std::expected<bool, std::string> bindStatementParameter(sqlite3_stmt* statement, int index, const T& parameter)
+	std::expected<bool, std::string> BindStatementParameter(sqlite3_stmt* statement, int index, const T& parameter)
 	{
 		int resultCode = bind(statement, index, parameter);
 
@@ -96,14 +96,14 @@ namespace AtlasDatabaseUtilities
 	}
 
 	template <typename... Args>
-	std::expected<bool, std::string> bindStatementParameters(sqlite3_stmt* statement, Args&&... args)
+	std::expected<bool, std::string> BindStatementParameters(sqlite3_stmt* statement, Args&&... args)
 	{
 		std::expected<bool, std::string> bindStatementParametersResult = true;
 
 		int index = 1;
 
 		auto tryBind = [&](const auto& parameter) -> bool {
-			bindStatementParametersResult = bindStatementParameter(statement, index++, parameter);
+			bindStatementParametersResult = BindStatementParameter(statement, index++, parameter);
 
 			return bindStatementParametersResult.has_value();
 		};
@@ -113,10 +113,10 @@ namespace AtlasDatabaseUtilities
 		return bindStatementParametersResult;
 	}
 
-	std::expected<bool, std::string> execute(sqlite3_stmt* statement, sqlite3* database);
+	std::expected<bool, std::string> Execute(sqlite3_stmt* statement, sqlite3* database);
 
 	template <typename T>
-	std::expected <std::vector<T>, std::string> query(sqlite3_stmt* statement, sqlite3* database, std::function<T(sqlite3_stmt*)> initializeTypeFromStatement)
+	std::expected <std::vector<T>, std::string> Query(sqlite3_stmt* statement, sqlite3* database, std::function<T(sqlite3_stmt*)> initializeTypeFromStatement)
 	{
 		std::vector<T> data;
 

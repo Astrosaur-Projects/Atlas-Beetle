@@ -9,7 +9,7 @@
 
 void AtlasSetupDatabase::Initialize()
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
+	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::Open();
 
 	if (!openDatabaseResult.has_value()) {
 		throw std::runtime_error(openDatabaseResult.error());
@@ -43,15 +43,15 @@ std::expected<bool, std::string> AtlasSetupDatabase::CreateTable(std::string tab
 	std::expected<bool, std::string> createResult = true;
 
 	createResult = createResult
-		.and_then([&](bool) { return AtlasDatabaseUtilities::prepareStatement(database.get(), query); })
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database.get()); });
+		.and_then([&](bool) { return AtlasDatabaseUtilities::PrepareStatement(database.get(), query); })
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::Execute(statement.get(), database.get()); });
 
 	return createResult;
 }
 
 std::expected<bool, std::string> AtlasSetupDatabase::DoesTableExist(std::string table)
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::prepareStatement(database.get(), FETCH_DOES_TABLE_EXIST);
+	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::PrepareStatement(database.get(), FETCH_DOES_TABLE_EXIST);
 
 	if (!prepareStatementResult.has_value()) {
 		return std::unexpected<std::string>(prepareStatementResult.error());
@@ -64,8 +64,8 @@ std::expected<bool, std::string> AtlasSetupDatabase::DoesTableExist(std::string 
 	std::expected<bool, std::string> doesTableExistResult = true;
 
 	doesTableExistResult = doesTableExistResult
-		.and_then([&](bool) { return AtlasDatabaseUtilities::bindStatementParameters(statement, table); })
-		.and_then([&](bool) { return AtlasDatabaseUtilities::query<int>(statement, database.get(), initializeIntFromSQLStatement); })
+		.and_then([&](bool) { return AtlasDatabaseUtilities::BindStatementParameters(statement, table); })
+		.and_then([&](bool) { return AtlasDatabaseUtilities::Query<int>(statement, database.get(), initializeIntFromSQLStatement); })
 		.transform([](std::vector<int> records) { return records.front() > 0; });
 
 	return doesTableExistResult;
@@ -76,8 +76,8 @@ std::expected<bool, std::string> AtlasSetupDatabase::ExecuteStatement(std::strin
 	std::expected<bool, std::string> executeResult = true;
 
 	executeResult = executeResult
-		.and_then([&](bool) { return AtlasDatabaseUtilities::prepareStatement(database.get(), query); })
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database.get()); });
+		.and_then([&](bool) { return AtlasDatabaseUtilities::PrepareStatement(database.get(), query); })
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::Execute(statement.get(), database.get()); });
 
 	return executeResult;
 }

@@ -17,7 +17,7 @@
 
 void AtlasSetupDefaultCatalog::Initialize()
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
+	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::Open();
 
 	if (!openDatabaseResult.has_value()) {
 		throw std::runtime_error(openDatabaseResult.error());
@@ -28,15 +28,15 @@ void AtlasSetupDefaultCatalog::Initialize()
 
 std::expected<bool, std::string> AtlasSetupDefaultCatalog::Start()
 {
-	return AtlasDatabaseUtilities::prepareStatement(database.get(), FETCH_DEFAULT_CATALOG)
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
+	return AtlasDatabaseUtilities::PrepareStatement(database.get(), FETCH_DEFAULT_CATALOG)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::Query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
 		.transform([](std::vector<AtlasCatalogUtilities::CatalogRecord> records) { return records.front(); })
 		.and_then([&](AtlasCatalogUtilities::CatalogRecord catalog) { return LoadCatalog(catalog); });
 }
 
 std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const AtlasCatalogUtilities::CatalogRecord catalog)
 {
-	std::expected<AtlasFitsDataUtilities::MemorySafeFitsFile, std::string> openFitsFileResult = AtlasFitsDataUtilities::open(catalog.path);
+	std::expected<AtlasFitsDataUtilities::MemorySafeFitsFile, std::string> openFitsFileResult = AtlasFitsDataUtilities::Open(catalog.path);
 
 	if (!openFitsFileResult.has_value()) {
 		return std::unexpected<std::string>(openFitsFileResult.error());
@@ -49,8 +49,8 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const Atl
 	std::expected<bool, std::string> loadCatalogResult = true;
 
 	loadCatalogResult = loadCatalogResult
-		.and_then([&](bool) { return AtlasFitsDataUtilities::moveToHeaderDataUnit(file, 2); })
-		.and_then([&](bool) { return AtlasFitsDataUtilities::getRowCount(file, totalCatalogRows); });
+		.and_then([&](bool) { return AtlasFitsDataUtilities::MoveToHeaderDataUnit(file, 2); })
+		.and_then([&](bool) { return AtlasFitsDataUtilities::GetRowCount(file, totalCatalogRows); });
 
 	if (!loadCatalogResult.has_value()) {
 		return std::unexpected<std::string>(loadCatalogResult.error());
@@ -62,12 +62,12 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const Atl
 	int vMagIndex = 0, bvIndex = 0;
 
 	loadCatalogResult = loadCatalogResult
-		.and_then([&](bool) { return AtlasFitsDataUtilities::getColumnIndex(file, "RAJ2000", raIndex); })
-		.and_then([&](bool) { return AtlasFitsDataUtilities::getColumnIndex(file, "DEJ2000", deIndex); })
-		.and_then([&](bool) { return AtlasFitsDataUtilities::getColumnIndex(file, "pmRA", raProperMotionIndex); })
-		.and_then([&](bool) { return AtlasFitsDataUtilities::getColumnIndex(file, "pmDE", decProperMotionIndex); })
-		.and_then([&](bool) { return AtlasFitsDataUtilities::getColumnIndex(file, "Vmag", vMagIndex); })
-		.and_then([&](bool) { return AtlasFitsDataUtilities::getColumnIndex(file, "B-V", bvIndex); });
+		.and_then([&](bool) { return AtlasFitsDataUtilities::GetColumnIndex(file, "RAJ2000", raIndex); })
+		.and_then([&](bool) { return AtlasFitsDataUtilities::GetColumnIndex(file, "DEJ2000", deIndex); })
+		.and_then([&](bool) { return AtlasFitsDataUtilities::GetColumnIndex(file, "pmRA", raProperMotionIndex); })
+		.and_then([&](bool) { return AtlasFitsDataUtilities::GetColumnIndex(file, "pmDE", decProperMotionIndex); })
+		.and_then([&](bool) { return AtlasFitsDataUtilities::GetColumnIndex(file, "Vmag", vMagIndex); })
+		.and_then([&](bool) { return AtlasFitsDataUtilities::GetColumnIndex(file, "B-V", bvIndex); });
 
 	if (!loadCatalogResult.has_value()) {
 		return loadCatalogResult;
@@ -89,12 +89,12 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const Atl
 		long importBatchSize = std::min(STAR_IMPORT_BATCH_SIZE, totalCatalogRows - importBatchIndex + 1);
 
 		loadCatalogResult = loadCatalogResult
-			.and_then([&](bool) { return AtlasFitsDataUtilities::loadColumnIntoBuffer(file, raIndex, importBatchIndex, importBatchSize, raBuffer); })
-			.and_then([&](bool) { return AtlasFitsDataUtilities::loadColumnIntoBuffer(file, deIndex, importBatchIndex, importBatchSize, deBuffer); })
-			.and_then([&](bool) { return AtlasFitsDataUtilities::loadColumnIntoBuffer<double>(file, raProperMotionIndex, importBatchIndex, importBatchSize, raProperMotionBuffer); })
-			.and_then([&](bool) { return AtlasFitsDataUtilities::loadColumnIntoBuffer<double>(file, decProperMotionIndex, importBatchIndex, importBatchSize, decProperMotionBuffer); })
-			.and_then([&](bool) { return AtlasFitsDataUtilities::loadColumnIntoBuffer<float>(file, vMagIndex, importBatchIndex, importBatchSize, vMagBuffer); })
-			.and_then([&](bool) { return AtlasFitsDataUtilities::loadColumnIntoBuffer<float>(file, bvIndex, importBatchIndex, importBatchSize, bvBuffer); });
+			.and_then([&](bool) { return AtlasFitsDataUtilities::LoadColumnIntoBuffer(file, raIndex, importBatchIndex, importBatchSize, raBuffer); })
+			.and_then([&](bool) { return AtlasFitsDataUtilities::LoadColumnIntoBuffer(file, deIndex, importBatchIndex, importBatchSize, deBuffer); })
+			.and_then([&](bool) { return AtlasFitsDataUtilities::LoadColumnIntoBuffer<double>(file, raProperMotionIndex, importBatchIndex, importBatchSize, raProperMotionBuffer); })
+			.and_then([&](bool) { return AtlasFitsDataUtilities::LoadColumnIntoBuffer<double>(file, decProperMotionIndex, importBatchIndex, importBatchSize, decProperMotionBuffer); })
+			.and_then([&](bool) { return AtlasFitsDataUtilities::LoadColumnIntoBuffer<float>(file, vMagIndex, importBatchIndex, importBatchSize, vMagBuffer); })
+			.and_then([&](bool) { return AtlasFitsDataUtilities::LoadColumnIntoBuffer<float>(file, bvIndex, importBatchIndex, importBatchSize, bvBuffer); });
 
 		starObjectBuffer.clear();
 		for (long i = 0; i < importBatchSize; ++i) {
@@ -109,8 +109,8 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const Atl
 			GetSexagesimalUnitsRA(raBuffer[i], raHours, raMinutes, raSeconds);
 			GetSexagesimalUnitsDE(deBuffer[i], deSign, deDegrees, deMinutes, deSeconds);
 
-			star.ra = AtlasMath::getRaRadians(raHours, raMinutes, raSeconds);
-			star.de = AtlasMath::getDecRadians(deSign, deDegrees, deMinutes, deSeconds);
+			star.ra = AtlasMath::GetRaRadians(raHours, raMinutes, raSeconds);
+			star.de = AtlasMath::GetDecRadians(deSign, deDegrees, deMinutes, deSeconds);
 			star.pmRa = raProperMotionBuffer[i];
 			star.pmDe = decProperMotionBuffer[i];
 			star.mag = vMagBuffer[i];
@@ -137,24 +137,24 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::Insert(std::vector<At
 	std::expected<bool, std::string> insertBatchDataResult = true;
 
 	insertBatchDataResult = insertBatchDataResult
-		.and_then([&](bool) { return AtlasDatabaseUtilities::prepareStatement(database.get(), BEGIN_TRANSACTION); })
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database.get()); })
+		.and_then([&](bool) { return AtlasDatabaseUtilities::PrepareStatement(database.get(), BEGIN_TRANSACTION); })
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::Execute(statement.get(), database.get()); })
 		.and_then([&](bool) { return InsertStarRenderData(buffer); });
 
 	if (!insertBatchDataResult.has_value()) {
-		std::ignore = AtlasDatabaseUtilities::prepareStatement(database.get(), ROLLBACK_TRANSACTION)
-			.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database.get()); });
+		std::ignore = AtlasDatabaseUtilities::PrepareStatement(database.get(), ROLLBACK_TRANSACTION)
+			.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::Execute(statement.get(), database.get()); });
 
 		return std::unexpected<std::string>(insertBatchDataResult.error());
 	}
 
-	return AtlasDatabaseUtilities::prepareStatement(database.get(), COMMIT_TRANSACTION)
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database.get()); });
+	return AtlasDatabaseUtilities::PrepareStatement(database.get(), COMMIT_TRANSACTION)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::Execute(statement.get(), database.get()); });
 }
 
 std::expected<bool, std::string> AtlasSetupDefaultCatalog::InsertStarRenderData(std::vector<AtlasStar> buffer)
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareInsertStatementResult = AtlasDatabaseUtilities::prepareStatement(database.get(), INSERT_STAR_RENDER_DATA_STATEMENT);
+	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareInsertStatementResult = AtlasDatabaseUtilities::PrepareStatement(database.get(), INSERT_STAR_RENDER_DATA_STATEMENT);
 
 	if (!prepareInsertStatementResult.has_value()) {
 		return std::unexpected<std::string>(prepareInsertStatementResult.error());
@@ -166,8 +166,8 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::InsertStarRenderData(
 
 	for (const auto& star : buffer) {
 		insertStarRenderDataResult = insertStarRenderDataResult
-			.and_then([&](bool) { return AtlasDatabaseUtilities::bindStatementParameters(statement, star.ra, star.de, star.pmRa, star.pmDe, star.mag, star.color, (int)AtlasCatalogUtilities::AtlasCatalogTypeEnums::STAR); })
-			.and_then([&](bool) { return AtlasDatabaseUtilities::execute(statement, database.get()); });
+			.and_then([&](bool) { return AtlasDatabaseUtilities::BindStatementParameters(statement, star.ra, star.de, star.pmRa, star.pmDe, star.mag, star.color, (int)AtlasCatalogUtilities::AtlasCatalogTypeEnums::STAR); })
+			.and_then([&](bool) { return AtlasDatabaseUtilities::Execute(statement, database.get()); });
 
 		if (!insertStarRenderDataResult.has_value()) { break; }
 	}

@@ -13,7 +13,7 @@
 
 void AtlasDownloadCatalogs::Initialize()
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
+	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::Open();
 
 	if (!openDatabaseResult.has_value()) {
 		throw std::runtime_error(openDatabaseResult.error());
@@ -24,8 +24,8 @@ void AtlasDownloadCatalogs::Initialize()
 
 std::expected<bool, std::string> AtlasDownloadCatalogs::Start()
 {
-	return AtlasDatabaseUtilities::prepareStatement(database.get(), SELECT_FROM_CATALOG_DIRECTORY)
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
+	return AtlasDatabaseUtilities::PrepareStatement(database.get(), SELECT_FROM_CATALOG_DIRECTORY)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::Query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
 		.and_then([&](std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs) { return DownloadCatalogs(catalogs); });
 }
 
@@ -50,6 +50,6 @@ std::expected<bool, std::string> AtlasDownloadCatalogs::DownloadCatalog(const At
 
 	std::string querySourceUrl = catalog.source + "&-out.all" + "&-out.max=unlimited";
 
-	return AtlasDownloadUtilities::download(querySourceUrl, catalog.path)
+	return AtlasDownloadUtilities::Download(querySourceUrl, catalog.path)
 		.transform([](CURLcode code) { return code == SQLITE_OK; });
 }

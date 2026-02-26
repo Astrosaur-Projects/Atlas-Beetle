@@ -10,7 +10,7 @@
 
 AtlasQueryCatalogDirectory::AtlasQueryCatalogDirectory() : database(nullptr), statement(nullptr)
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
+	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::Open();
 
 	if (!openDatabaseResult.has_value()) {
 		throw std::runtime_error(openDatabaseResult.error());
@@ -18,7 +18,7 @@ AtlasQueryCatalogDirectory::AtlasQueryCatalogDirectory() : database(nullptr), st
 
 	database = std::move(openDatabaseResult.value());
 
-	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::prepareStatement(database.get(), QUERY_STAR_RENDER_DATA);
+	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::PrepareStatement(database.get(), QUERY_STAR_RENDER_DATA);
 
 	if (!prepareStatementResult.has_value()) {
 		throw std::runtime_error(prepareStatementResult.error());
@@ -41,7 +41,7 @@ std::vector<AtlasCatalogUtilities::CatalogRecord> AtlasQueryCatalogDirectory::Qu
 		};
 	};
 
-	std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> queryStarRenderDataResult = AtlasDatabaseUtilities::query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), initializeCatalogRecordFromSQLStatement);
+	std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> queryStarRenderDataResult = AtlasDatabaseUtilities::Query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), initializeCatalogRecordFromSQLStatement);
 
 	if (!queryStarRenderDataResult.has_value()) {
 		return std::vector<AtlasCatalogUtilities::CatalogRecord>();

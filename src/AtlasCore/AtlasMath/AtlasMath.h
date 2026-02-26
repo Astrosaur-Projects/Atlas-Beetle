@@ -3,21 +3,21 @@
 
 namespace AtlasMath
 {
-	double getRaRadians(double raHours, double raMinutes, double raSeconds);
+	double GetRaRadians(double raHours, double raMinutes, double raSeconds);
 
-	double getDecRadians(int decSign, double decDegrees, double decMinutes, double decSeconds);
+	double GetDecRadians(int decSign, double decDegrees, double decMinutes, double decSeconds);
 
-	float getForwardX(double ra_rad, double dec_rad);
+	float GetForwardX(double ra_rad, double dec_rad);
 
-	float getForwardY(double ra_rad, double dec_rad);
+	float GetForwardY(double ra_rad, double dec_rad);
 
-	float getForwardZ(double dec_rad);
+	float GetForwardZ(double dec_rad);
 
-	float getUpX(double ra_rad, double dec_rad);
+	float GetUpX(double ra_rad, double dec_rad);
 
-	float getUpY(double ra_rad, double dec_rad);
+	float GetUpY(double ra_rad, double dec_rad);
 
-	float getUpZ(double dec_rad);
+	float GetUpZ(double dec_rad);
 };
 
 #endif

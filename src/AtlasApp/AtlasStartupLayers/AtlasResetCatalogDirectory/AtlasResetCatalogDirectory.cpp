@@ -9,7 +9,7 @@
 
 void AtlasResetCatalogDirectory::Initialize()
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
+	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::Open();
 
 	if (!openDatabaseResult.has_value()) {
 		throw std::runtime_error(openDatabaseResult.error());
@@ -31,13 +31,13 @@ std::expected<bool, std::string> AtlasResetCatalogDirectory::Start()
 
 std::expected<bool, std::string> AtlasResetCatalogDirectory::TruncateCatalogDirectory()
 {
-	return AtlasDatabaseUtilities::prepareStatement(database.get(), TRUNCATE_CATALOG_DIRECTORY)
-		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::execute(statement.get(), database.get()); });
+	return AtlasDatabaseUtilities::PrepareStatement(database.get(), TRUNCATE_CATALOG_DIRECTORY)
+		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::Execute(statement.get(), database.get()); });
 }
 
 std::expected<bool, std::string> AtlasResetCatalogDirectory::InsertDefaultCatalogRecord()
 {
-	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::prepareStatement(database.get(), INSERT_INTO_CATALOG_DIRECTORY);
+	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::PrepareStatement(database.get(), INSERT_INTO_CATALOG_DIRECTORY);
 
 	if (!prepareStatementResult.has_value()) {
 		return std::unexpected<std::string>(prepareStatementResult.error());
@@ -45,13 +45,13 @@ std::expected<bool, std::string> AtlasResetCatalogDirectory::InsertDefaultCatalo
 
 	sqlite3_stmt* statment = prepareStatementResult.value().get();
 
-	AtlasCatalogUtilities::AtlasCatalogObject catalog = AtlasCatalogUtilities::getDefaultCatalogObject();
+	AtlasCatalogUtilities::AtlasCatalogObject catalog = AtlasCatalogUtilities::GetDefaultCatalogObject();
 
 	std::expected<bool, std::string> insertDefaultCatalogRecordResult = true;
 
 	insertDefaultCatalogRecordResult = insertDefaultCatalogRecordResult
-		.and_then([&](bool) { return AtlasDatabaseUtilities::bindStatementParameters(statment, 0, catalog.name, catalog.source, AtlasCatalogUtilities::getCatalogFilePath(catalog)); })
-		.and_then([&](bool) { return AtlasDatabaseUtilities::execute(statment, database.get()); });
+		.and_then([&](bool) { return AtlasDatabaseUtilities::BindStatementParameters(statment, 0, catalog.name, catalog.source, AtlasCatalogUtilities::GetCatalogFilePath(catalog)); })
+		.and_then([&](bool) { return AtlasDatabaseUtilities::Execute(statment, database.get()); });
 
 	return insertDefaultCatalogRecordResult;
 }
