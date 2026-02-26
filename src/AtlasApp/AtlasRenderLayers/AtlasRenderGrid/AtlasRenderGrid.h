@@ -25,7 +25,7 @@ private:
     
     glm::vec4 color = glm::vec4(0.0f, 0.0f, 1.0f, 0.1f);
 
-    int numOfVerticies = 0;
+    int numOfVertices = 0;
 
     const int VERTICAL_MARKS = 36;
     const int HORIZONTAL_MARKS = 18;

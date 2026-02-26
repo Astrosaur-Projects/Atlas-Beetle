@@ -90,7 +90,7 @@ void AtlasRenderGrid::BuildGrid()
 
 	glBindVertexArray(0);
 
-	numOfVerticies = vertices.size() / 3;
+	numOfVertices = vertices.size() / 3;
 }
 
 void AtlasRenderGrid::Render(const AtlasCamera& camera)
@@ -104,7 +104,7 @@ void AtlasRenderGrid::Render(const AtlasCamera& camera)
 
 	glBindVertexArray(vao);
 
-	glDrawArrays(GL_LINES, 0, numOfVerticies);
+	glDrawArrays(GL_LINES, 0, numOfVertices);
 
 	glBindVertexArray(0);
 
