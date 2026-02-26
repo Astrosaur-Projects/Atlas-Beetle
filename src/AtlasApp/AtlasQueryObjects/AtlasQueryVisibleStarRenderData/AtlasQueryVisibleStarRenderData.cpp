@@ -1,6 +1,6 @@
-#include "AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h"
-#include <AtlasCore/AtlasObjects/AtlasStar.h>
-#include <AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h>
+#include "AtlasApp/AtlasQueryObjects/AtlasQueryVisibleStarRenderData/AtlasQueryVisibleStarRenderData.h"
+#include "AtlasCore/AtlasObjects/AtlasStar.h"
+#include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/trigonometric.hpp>
@@ -9,7 +9,7 @@
 #include <utility>
 #include <vector>
 
-AtlasFetchStars::AtlasFetchStars() : database(nullptr), statement(nullptr)
+AtlasQueryVisibleStarRenderData::AtlasQueryVisibleStarRenderData() : database(nullptr), statement(nullptr)
 {
 	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::open();
 
@@ -24,7 +24,7 @@ AtlasFetchStars::AtlasFetchStars() : database(nullptr), statement(nullptr)
 	statement = std::move(prepareStatementResult.value());
 }
 
-std::vector<AtlasStar> AtlasFetchStars::Query(const glm::vec3& forward, float fovDegrees)
+std::vector<AtlasStar> AtlasQueryVisibleStarRenderData::Query(const glm::vec3& forward, float fovDegrees)
 {
 	float searchRadius = glm::radians(fovDegrees);
 

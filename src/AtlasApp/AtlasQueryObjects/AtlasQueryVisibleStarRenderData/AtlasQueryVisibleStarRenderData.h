@@ -1,5 +1,5 @@
-#ifndef ATLAS_FETCH_STARS_H
-#define ATLAS_FETCH_STARS_H
+#ifndef ATLAS_QUERY_VISIBLE_STAR_RENDER_DATA_H
+#define ATLAS_QUERY_VISIBLE_STAR_RENDER_DATA_H
 
 #include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
@@ -7,19 +7,19 @@
 #include <string>
 #include <vector>
 
-class AtlasFetchStars
+class AtlasQueryVisibleStarRenderData
 {
 public:
-	AtlasFetchStars();
+    AtlasQueryVisibleStarRenderData();
 
-	std::vector<AtlasStar> Query(const glm::vec3& forward, float fovDegrees);
-
-private:
-	AtlasDatabaseUtilities::MemorySafeDatabase database;
-	AtlasDatabaseUtilities::MemorySafeStatement statement;
+    std::vector<AtlasStar> Query(const glm::vec3& forward, float fovDegrees);
 
 private:
-	const std::string QUERY_STAR_RENDER_DATA = R"(
+    AtlasDatabaseUtilities::MemorySafeDatabase database;
+    AtlasDatabaseUtilities::MemorySafeStatement statement;
+
+private:
+    const std::string QUERY_STAR_RENDER_DATA = R"(
         SELECT 
             StarRenderData.*,
             StarIndex.minX, StarIndex.minY, StarIndex.minZ

@@ -1,16 +1,17 @@
+#include "AtlasApp/AtlasQueryObjects/AtlasQueryVisibleStarRenderData/AtlasQueryVisibleStarRenderData.h"
 #include "AtlasApp/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
-#include <AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h>
-#include <AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h>
-#include <AtlasCore/AtlasObjects/AtlasStar.h>
+#include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
+#include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include <GL/glew.h>
 #include <cstddef>
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <memory>
 #include <vector>
 
 AtlasRenderStars::AtlasRenderStars() : shader(0), vao(0), vbo(0), uViewProj(-1)
 {
-	starRenderDataAccessObject = std::make_unique<AtlasFetchStars>();
+	visibleStarRenderDataQueryObject = std::make_unique<AtlasQueryVisibleStarRenderData>();
 }
 
 AtlasRenderStars::~AtlasRenderStars()
@@ -67,7 +68,7 @@ void AtlasRenderStars::Render(const AtlasCamera& camera)
 	glm::mat4 viewProj = camera.GetProjectionMatrix() * camera.GetViewMatrix();
 	glUniformMatrix4fv(uViewProj, 1, GL_FALSE, glm::value_ptr(viewProj));
 
-	std::vector<AtlasStar> stars = starRenderDataAccessObject->Query(camera.GetForwardVector(), camera.GetFOV());
+	std::vector<AtlasStar> stars = visibleStarRenderDataQueryObject->Query(camera.GetForwardVector(), camera.GetFOV());
 
 	if (!stars.empty()) {
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);

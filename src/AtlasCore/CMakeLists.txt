@@ -3,7 +3,6 @@ add_library(AtlasCore STATIC)
 target_sources(AtlasCore PRIVATE
 	AtlasConfig/AtlasConfig.cpp
 	AtlasGraphics/AtlasCamera/AtlasCamera.cpp
-	AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.cpp
 	AtlasGraphics/AtlasRenderSky/AtlasRenderSky.cpp
 	AtlasStartup/AtlasStartApp/AtlasStartApp.cpp
 	AtlasMath/AtlasMath.cpp

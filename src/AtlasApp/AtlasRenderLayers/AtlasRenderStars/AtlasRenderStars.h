@@ -2,9 +2,9 @@
 #define ATLAS_DRAW_STARS_H
 
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
-#include "AtlasCore/AtlasGraphics/AtlasQueryObjects/AtlasFetchStars/AtlasFetchStars.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderLayerInterface.h"
 #include <GL/glew.h>
+#include "AtlasApp/AtlasQueryObjects/AtlasQueryVisibleStarRenderData/AtlasQueryVisibleStarRenderData.h"
 
 class AtlasRenderStars : public AtlasRenderLayerInterface
 {
@@ -16,7 +16,7 @@ public:
 	void Render(const AtlasCamera& camera) override;
 
 private:
-    std::unique_ptr<AtlasFetchStars> starRenderDataAccessObject;
+    std::unique_ptr<AtlasQueryVisibleStarRenderData> visibleStarRenderDataQueryObject;
 
 	GLuint shader;
 	GLuint vao, vbo;
