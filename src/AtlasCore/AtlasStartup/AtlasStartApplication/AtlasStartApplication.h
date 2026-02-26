@@ -1,5 +1,5 @@
-#ifndef ATLAS_SETUP_APP_H
-#define ATLAS_SETUP_APP_H
+#ifndef ATLAS_START_APPLICATION_H
+#define ATLAS_START_APPLICATION_H
 
 #include "AtlasCore/AtlasStartup/AtlasStartupLayerInterface.h"
 #include <expected>
@@ -7,10 +7,10 @@
 #include <string>
 #include <vector>
 
-class AtlasStartApp
+class AtlasStartApplication
 {
 public:
-	AtlasStartApp();
+	AtlasStartApplication();
 
 	void AddLayer(std::unique_ptr<AtlasStartupLayerInterface> layer);
 	std::expected<bool, std::string> Start();

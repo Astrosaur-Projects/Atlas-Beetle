@@ -1,5 +1,5 @@
 #include "AtlasCore/AtlasConfig/AtlasConfig.h"
-#include "AtlasCore/AtlasStartup/AtlasStartApp/AtlasStartApp.h"
+#include "AtlasCore/AtlasStartup/AtlasStartApplication/AtlasStartApplication.h"
 #include "AtlasGUI/AtlasFrame/AtlasFrame.h"
 #include <expected>
 #include <memory>
@@ -58,7 +58,7 @@ bool AtlasApp::OnInit()
 		return false;
 	}
 
-	std::expected<bool, std::string> initAppResult = std::make_unique<AtlasStartApp>()->Start();
+	std::expected<bool, std::string> initAppResult = std::make_unique<AtlasStartApplication>()->Start();
 
 	if (!initAppResult.has_value()) {
 		wxMessageBox(initAppResult.error(), "Error", wxOK | wxICON_ERROR);
