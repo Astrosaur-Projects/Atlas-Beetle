@@ -4,7 +4,7 @@
 class AtlasConfig
 {
 public:
-	static AtlasConfig& getInstance();
+	static AtlasConfig& GetInstance();
 
 public:
 	AtlasConfig(AtlasConfig const&) = delete;

@@ -18,7 +18,7 @@ public:
 
 private:
 	AtlasFrame* frame = nullptr;
-	AtlasConfig& config = AtlasConfig::getInstance();
+	AtlasConfig& config = AtlasConfig::GetInstance();
 };
 
 /*

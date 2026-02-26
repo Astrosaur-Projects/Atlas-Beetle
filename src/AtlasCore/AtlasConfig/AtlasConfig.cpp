@@ -1,6 +1,6 @@
 #include "AtlasCore/AtlasConfig/AtlasConfig.h"
 
-AtlasConfig& AtlasConfig::getInstance()
+AtlasConfig& AtlasConfig::GetInstance()
 {
 	static AtlasConfig instance;
 
