@@ -1,4 +1,4 @@
-#include "AtlasApp/AtlasStartupLayers/AtlasSetupDefaultCatalog/AtlasSetupDefaultCatalog.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"
 #include "AtlasCore/AtlasMath/AtlasMath.h"
 #include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
@@ -15,7 +15,7 @@
 #include <utility>
 #include <vector>
 
-void AtlasSetupDefaultCatalog::Initialize()
+void AtlasImportDefaultCatalog::Initialize()
 {
 	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::Open();
 
@@ -26,7 +26,7 @@ void AtlasSetupDefaultCatalog::Initialize()
 	database = std::move(openDatabaseResult.value());
 }
 
-std::expected<bool, std::string> AtlasSetupDefaultCatalog::Start()
+std::expected<bool, std::string> AtlasImportDefaultCatalog::Start()
 {
 	return AtlasDatabaseUtilities::PrepareStatement(database.get(), FETCH_DEFAULT_CATALOG)
 		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::Query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), AtlasCatalogUtilities::initializeCatalogRecordFromSQLStatement); })
@@ -34,7 +34,7 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::Start()
 		.and_then([&](AtlasCatalogUtilities::CatalogRecord catalog) { return LoadCatalog(catalog); });
 }
 
-std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const AtlasCatalogUtilities::CatalogRecord catalog)
+std::expected<bool, std::string> AtlasImportDefaultCatalog::LoadCatalog(const AtlasCatalogUtilities::CatalogRecord catalog)
 {
 	std::expected<AtlasFitsDataUtilities::MemorySafeFitsFile, std::string> openFitsFileResult = AtlasFitsDataUtilities::Open(catalog.path);
 
@@ -128,7 +128,7 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::LoadCatalog(const Atl
 	return loadCatalogResult;
 }
 
-std::expected<bool, std::string> AtlasSetupDefaultCatalog::Insert(std::vector<AtlasStar> buffer)
+std::expected<bool, std::string> AtlasImportDefaultCatalog::Insert(std::vector<AtlasStar> buffer)
 {
 	if (buffer.empty()) {
 		return true;
@@ -152,7 +152,7 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::Insert(std::vector<At
 		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::Execute(statement.get(), database.get()); });
 }
 
-std::expected<bool, std::string> AtlasSetupDefaultCatalog::InsertStarRenderData(std::vector<AtlasStar> buffer)
+std::expected<bool, std::string> AtlasImportDefaultCatalog::InsertStarRenderData(std::vector<AtlasStar> buffer)
 {
 	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareInsertStatementResult = AtlasDatabaseUtilities::PrepareStatement(database.get(), INSERT_STAR_RENDER_DATA_STATEMENT);
 
@@ -175,7 +175,7 @@ std::expected<bool, std::string> AtlasSetupDefaultCatalog::InsertStarRenderData(
 	return insertStarRenderDataResult;
 }
 
-bool AtlasSetupDefaultCatalog::GetSexagesimalUnitsRA(std::string ra, double& raHours, double& raMinutes, double& raSeconds)
+bool AtlasImportDefaultCatalog::GetSexagesimalUnitsRA(std::string ra, double& raHours, double& raMinutes, double& raSeconds)
 {
 	std::replace(ra.begin(), ra.end(), ':', ' ');
 
@@ -188,7 +188,7 @@ bool AtlasSetupDefaultCatalog::GetSexagesimalUnitsRA(std::string ra, double& raH
 	return false;
 }
 
-bool AtlasSetupDefaultCatalog::GetSexagesimalUnitsDE(std::string de, int& sign, double& deDegrees, double& deMinutes, double& deSeconds)
+bool AtlasImportDefaultCatalog::GetSexagesimalUnitsDE(std::string de, int& sign, double& deDegrees, double& deMinutes, double& deSeconds)
 {
 	sign = de.find('-') != std::string::npos ? -1 : 1;
 

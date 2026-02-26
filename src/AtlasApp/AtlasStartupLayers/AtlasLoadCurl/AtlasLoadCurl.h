@@ -1,9 +1,9 @@
-#ifndef ATLAS_SETUP_CURL_H
-#define ATLAS_SETUP_CURL_H
+#ifndef ATLAS_LOAD_CURL_H
+#define ATLAS_LOAD_CURL_H
 
 #include "AtlasCore/AtlasStartup/AtlasStartupLayerInterface.h"
 
-class AtlasSetupCurl : public AtlasStartupLayerInterface
+class AtlasLoadCurl : public AtlasStartupLayerInterface
 {
 public:
     std::expected<bool, std::string> Start() override;

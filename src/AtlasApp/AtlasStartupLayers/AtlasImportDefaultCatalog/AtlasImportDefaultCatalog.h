@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-class AtlasSetupDefaultCatalog : public AtlasStartupLayerInterface
+class AtlasImportDefaultCatalog : public AtlasStartupLayerInterface
 {
 public:
 	void Initialize() override;

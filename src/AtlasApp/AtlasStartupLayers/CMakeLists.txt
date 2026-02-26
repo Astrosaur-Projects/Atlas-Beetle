@@ -3,10 +3,10 @@ add_library(AtlasStartupLayers OBJECT)
 target_sources(AtlasStartupLayers PRIVATE
 	AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
 	AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.cpp
-	AtlasSetupCurl/AtlasSetupCurl.cpp
-	AtlasSetupDatabase/AtlasSetupDatabase.cpp
-	AtlasSetupDefaultCatalog/AtlasSetupDefaultCatalog.cpp
-	AtlasSetupDirectory/AtlasSetupDirectory.cpp
+	AtlasLoadCurl/AtlasLoadCurl.cpp
+	AtlasInitializeDatabaseSchema/AtlasInitializeDatabaseSchema.cpp
+	AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.cpp
+	AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.cpp
 )
 
 target_include_directories(AtlasStartupLayers PUBLIC

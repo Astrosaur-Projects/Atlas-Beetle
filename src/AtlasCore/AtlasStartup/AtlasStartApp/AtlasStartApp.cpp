@@ -1,9 +1,9 @@
 #include "AtlasApp/AtlasStartupLayers/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
 #include "AtlasApp/AtlasStartupLayers/AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.h"
-#include "AtlasApp/AtlasStartupLayers/AtlasSetupCurl/AtlasSetupCurl.h"
-#include "AtlasApp/AtlasStartupLayers/AtlasSetupDatabase/AtlasSetupDatabase.h"
-#include "AtlasApp/AtlasStartupLayers/AtlasSetupDefaultCatalog/AtlasSetupDefaultCatalog.h"
-#include "AtlasApp/AtlasStartupLayers/AtlasSetupDirectory/AtlasSetupDirectory.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasLoadCurl/AtlasLoadCurl.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasInitializeDatabaseSchema/AtlasInitializeDatabaseSchema.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.h"
 #include "AtlasCore/AtlasStartup/AtlasStartApp/AtlasStartApp.h"
 #include "AtlasCore/AtlasStartup/AtlasStartupLayerInterface.h"
 #include <expected>
@@ -13,12 +13,12 @@
 
 AtlasStartApp::AtlasStartApp()
 {
-	this->AddLayer(std::make_unique<AtlasSetupCurl>());
-	this->AddLayer(std::make_unique<AtlasSetupDirectory>());
-	this->AddLayer(std::make_unique<AtlasSetupDatabase>());
+	this->AddLayer(std::make_unique<AtlasLoadCurl>());
+	this->AddLayer(std::make_unique<AtlasCreateApplicationDirectory>());
+	this->AddLayer(std::make_unique<AtlasInitializeDatabaseSchema>());
 	this->AddLayer(std::make_unique<AtlasResetCatalogDirectory>());
 	this->AddLayer(std::make_unique<AtlasDownloadCatalogs>());
-	this->AddLayer(std::make_unique<AtlasSetupDefaultCatalog>());
+	this->AddLayer(std::make_unique<AtlasImportDefaultCatalog>());
 }
 
 void AtlasStartApp::AddLayer(std::unique_ptr<AtlasStartupLayerInterface> layer)

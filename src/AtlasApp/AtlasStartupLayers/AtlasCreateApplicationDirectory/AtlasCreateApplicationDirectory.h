@@ -6,7 +6,7 @@
 #include <expected>
 #include <string>
 
-class AtlasSetupDirectory : public AtlasStartupLayerInterface
+class AtlasCreateApplicationDirectory : public AtlasStartupLayerInterface
 {
 public:
 	std::expected<bool, std::string> Start() override;

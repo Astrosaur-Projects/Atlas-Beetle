@@ -1,12 +1,12 @@
-#ifndef ATLAS_SETUP_DATABASE_H
-#define ATLAS_SETUP_DATABASE_H
+#ifndef ATLAS_INITIALIZE_DATABASE_SCHEMA_H
+#define ATLAS_INITIALIZE_DATABASE_SCHEMA_H
 
 #include "AtlasCore/AtlasStartup/AtlasStartupLayerInterface.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
 #include <string>
 
-class AtlasSetupDatabase : public AtlasStartupLayerInterface
+class AtlasInitializeDatabaseSchema : public AtlasStartupLayerInterface
 {
 public:
 	void Initialize() override;

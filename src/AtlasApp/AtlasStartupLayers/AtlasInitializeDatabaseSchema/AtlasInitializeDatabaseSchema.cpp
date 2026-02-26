@@ -1,4 +1,4 @@
-#include "AtlasApp/AtlasStartupLayers/AtlasSetupDatabase/AtlasSetupDatabase.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasInitializeDatabaseSchema/AtlasInitializeDatabaseSchema.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
 #include <sqlite3.h>
@@ -7,7 +7,7 @@
 #include <utility>
 #include <vector>
 
-void AtlasSetupDatabase::Initialize()
+void AtlasInitializeDatabaseSchema::Initialize()
 {
 	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::Open();
 
@@ -18,7 +18,7 @@ void AtlasSetupDatabase::Initialize()
 	database = std::move(openDatabaseResult.value());
 }
 
-std::expected<bool, std::string> AtlasSetupDatabase::Start()
+std::expected<bool, std::string> AtlasInitializeDatabaseSchema::Start()
 {
 	std::expected<bool, std::string> setupDatabaseResult = true;
 
@@ -32,7 +32,7 @@ std::expected<bool, std::string> AtlasSetupDatabase::Start()
 	return setupDatabaseResult;
 }
 
-std::expected<bool, std::string> AtlasSetupDatabase::CreateTable(std::string table, std::string query)
+std::expected<bool, std::string> AtlasInitializeDatabaseSchema::CreateTable(std::string table, std::string query)
 {
 	std::expected<bool, std::string> doesTableExistResult = DoesTableExist(table);
 
@@ -49,7 +49,7 @@ std::expected<bool, std::string> AtlasSetupDatabase::CreateTable(std::string tab
 	return createResult;
 }
 
-std::expected<bool, std::string> AtlasSetupDatabase::DoesTableExist(std::string table)
+std::expected<bool, std::string> AtlasInitializeDatabaseSchema::DoesTableExist(std::string table)
 {
 	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::PrepareStatement(database.get(), FETCH_DOES_TABLE_EXIST);
 
@@ -71,7 +71,7 @@ std::expected<bool, std::string> AtlasSetupDatabase::DoesTableExist(std::string 
 	return doesTableExistResult;
 }
 
-std::expected<bool, std::string> AtlasSetupDatabase::ExecuteStatement(std::string query)
+std::expected<bool, std::string> AtlasInitializeDatabaseSchema::ExecuteStatement(std::string query)
 {
 	std::expected<bool, std::string> executeResult = true;
 
