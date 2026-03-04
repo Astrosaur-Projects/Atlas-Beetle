@@ -1,46 +1,67 @@
 #include "AtlasApp/AtlasRenderLayers/AtlasRenderGrid/AtlasRenderGrid.h"
-#include <AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h>
+#include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
+#include "AtlasUtilities/AtlasGraphicsUtilities/AtlasGraphicsUtilities.h"
 #include <GL/glew.h>
 #include <cmath>
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <numbers>
+#include <string>
 #include <vector>
 
-AtlasRenderGrid::AtlasRenderGrid() : shader(0), vao(0), vbo(0), uViewProj(-1), uColor(-1) { }
+AtlasRenderGrid::AtlasRenderGrid() : program(0), vao(0), vbo(0), uViewProj(-1), uColor(-1)
+{
+	vShaderSource = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasGridShaders/Grid.vert");
+	fShaderSource = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasGridShaders/Grid.frag");
+}
 
 AtlasRenderGrid::~AtlasRenderGrid()
 {
 	if (vao) { glDeleteVertexArrays(1, &vao); }
 	if (vbo) { glDeleteBuffers(1, &vbo); }
-	if (shader) { glDeleteProgram(shader); }
+	if (program) { glDeleteProgram(program); }
 }
 
 void AtlasRenderGrid::Initialize()
 {
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &HORIZON_VERTEX_SHADER, nullptr);
-	glCompileShader(vertexShader);
+	GLuint vShader = InitializeShader(GL_VERTEX_SHADER, vShaderSource);
+	GLuint fShader = InitializeShader(GL_FRAGMENT_SHADER, fShaderSource);
 
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &HORIZON_FRAGMENT_SHADER, nullptr);
-	glCompileShader(fragmentShader);
+	program = InitializeProgram(vShader, fShader);
 
-	shader = glCreateProgram();
-	glAttachShader(shader, vertexShader);
-	glAttachShader(shader, fragmentShader);
-	glLinkProgram(shader);
+	glDeleteShader(vShader);
+	glDeleteShader(fShader);
 
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
-	uViewProj = glGetUniformLocation(shader, "uViewProj");
-	uColor = glGetUniformLocation(shader, "uColor");
+	uViewProj = glGetUniformLocation(program, "uViewProj");
+	uColor = glGetUniformLocation(program, "uColor");
 
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);;
 
 	AtlasRenderGrid::BuildGrid();
+}
+
+GLuint AtlasRenderGrid::InitializeShader(GLenum glShader, std::string source) const
+{
+	GLuint shader = glCreateShader(glShader);
+
+	const GLchar* cSource = source.c_str();
+
+	glShaderSource(shader, 1, &cSource, nullptr);
+	glCompileShader(shader);
+
+	return shader;
+}
+
+GLuint AtlasRenderGrid::InitializeProgram(GLuint vShader, GLuint fShader) const
+{
+	GLuint program = glCreateProgram();
+
+	glAttachShader(program, vShader);
+	glAttachShader(program, fShader);
+	glLinkProgram(program);
+
+	return program;
 }
 
 void AtlasRenderGrid::BuildGrid()
@@ -95,7 +116,7 @@ void AtlasRenderGrid::BuildGrid()
 
 void AtlasRenderGrid::Render(const AtlasCamera& camera)
 {
-	glUseProgram(shader);
+	glUseProgram(program);
 
 	glm::mat4 viewProj = camera.GetProjectionMatrix() * camera.GetViewMatrix();
 	glUniformMatrix4fv(uViewProj, 1, GL_FALSE, glm::value_ptr(viewProj));

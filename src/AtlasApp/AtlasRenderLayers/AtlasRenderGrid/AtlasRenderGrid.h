@@ -1,9 +1,10 @@
 #ifndef ATLAS_RENDER_GRID_H
 #define ATLAS_RENDER_GRID_H
 
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayerInterface.h"
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
+#include "AtlasCore/AtlasGraphics/AtlasRenderLayerInterface.h"
 #include <GL/glew.h>
+#include <string>
 
 class AtlasRenderGrid : public AtlasRenderLayerInterface
 {
@@ -15,11 +16,14 @@ public:
     void Render(const AtlasCamera& camera) override;
 
 private:
+    GLuint InitializeShader(GLenum shader, std::string source) const;
+    GLuint InitializeProgram(GLuint vShader, GLuint fShader) const;
     void BuildGrid();
 
 private:
-    GLuint shader;
-    GLuint vao, vbo;
+    GLuint program;
+    GLuint vao;
+    GLuint vbo;
     GLint uViewProj;
     GLint uColor;
     
@@ -27,34 +31,11 @@ private:
 
     int numOfVertices = 0;
 
+    std::string vShaderSource;
+    std::string fShaderSource;
+
     const int VERTICAL_MARKS = 36;
     const int HORIZONTAL_MARKS = 18;
-
-    const char* HORIZON_VERTEX_SHADER = R"(
-        #version 330 core
-
-        layout(location = 0) in vec3 aPosition;
-
-        uniform mat4 uViewProj;
-
-        void main()
-        {
-            gl_Position = uViewProj * vec4(aPosition, 1.0);
-        }
-    )";
-
-    const char* HORIZON_FRAGMENT_SHADER = R"(
-        #version 330 core
-
-        uniform vec4 uColor;
-
-        out vec4 FragColor;
-
-        void main()
-        {
-            FragColor = uColor;
-        }
-    )";
 };
 
 #endif
