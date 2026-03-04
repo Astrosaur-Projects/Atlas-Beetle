@@ -5,6 +5,13 @@ add_subdirectory(AtlasUtilities)
 
 add_executable(PlanetariumSoftware WIN32)
 
+add_custom_command(
+    TARGET PlanetariumSoftware POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/resources
+    $<TARGET_FILE_DIR:PlanetariumSoftware>/resources
+)
+
 target_sources(PlanetariumSoftware PRIVATE
 	AtlasApp.cpp
 )
