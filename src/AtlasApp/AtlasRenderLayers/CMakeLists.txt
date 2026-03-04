@@ -2,7 +2,7 @@ add_library(AtlasRenderLayers OBJECT)
 
 target_sources(AtlasRenderLayers PRIVATE
 	AtlasRenderGrid/AtlasRenderGrid.cpp
-	AtlasRenderHorizon/AtlasRenderHorizon.cpp
+	AtlasRenderEquator/AtlasRenderEquator.cpp
 	AtlasRenderStars/AtlasRenderStars.cpp
 )
 
