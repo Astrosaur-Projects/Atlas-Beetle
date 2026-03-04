@@ -6,7 +6,8 @@ target_sources(AtlasUtilities PRIVATE
 	AtlasDownloadUtilities/AtlasDownloadUtilities.cpp
 	AtlasCatalogUtilities/AtlasCatalogUtilities.cpp
 	AtlasFitsDataUtilities/AtlasFitsDataUtilities.cpp
- )
+	AtlasGraphicsUtilities/AtlasGraphicsUtilities.cpp
+)
 
 target_include_directories(AtlasUtilities PUBLIC 
 	${CMAKE_SOURCE_DIR}/src
