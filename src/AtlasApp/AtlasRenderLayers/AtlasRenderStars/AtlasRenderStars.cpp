@@ -2,44 +2,45 @@
 #include "AtlasApp/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
 #include "AtlasCore/AtlasObjects/AtlasStar.h"
+#include "AtlasUtilities/AtlasGraphicsUtilities/AtlasGraphicsUtilities.h"
 #include <GL/glew.h>
 #include <cstddef>
 #include <glm/ext/matrix_float4x4.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/type_ptr.inl>
 #include <memory>
+#include <string>
 #include <vector>
 
-AtlasRenderStars::AtlasRenderStars() : shader(0), vao(0), vbo(0), uViewProj(-1)
+AtlasRenderStars::AtlasRenderStars() : program(0), vao(0), vbo(0), uViewProj(-1)
 {
 	visibleStarRenderDataQueryObject = std::make_unique<AtlasQueryVisibleStarRenderData>();
+
+	vShaderSource = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasStarShaders/Star.vert");
+	fShaderSource = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasStarShaders/Star.frag");
+
+	vStarSize = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasStarShaders/AtlasStarPointSizeShaders/StarPointSize_Default.glsl");
+	vStarColor = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasStarShaders/AtlasStarColorShaders/StarColor_Interpolation.glsl");
+	fStarAlpha = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasStarShaders/AtlasStarAlphaShaders/StarAlpha_Soft.glsl");
 }
 
 AtlasRenderStars::~AtlasRenderStars()
 {
 	if (vao) { glDeleteVertexArrays(1, &vao); }
 	if (vbo) { glDeleteBuffers(1, &vbo); }
-	if (shader) { glDeleteProgram(shader); }
+	if (program) { glDeleteProgram(program); }
 }
 
 void AtlasRenderStars::Initialize()
 {
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &STAR_VERTEX_SHADER, nullptr);
-	glCompileShader(vertexShader);
+	GLuint vShader = InitializeShader(GL_VERTEX_SHADER, vShaderSource + "\n" + vStarColor + "\n" + vStarSize);
+	GLuint fShader = InitializeShader(GL_FRAGMENT_SHADER, fShaderSource + "\n" + fStarAlpha);
 
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &STAR_FRAGMENT_SHADER, nullptr);
-	glCompileShader(fragmentShader);
+	program = InitializeProgram(vShader, fShader);
 
-	shader = glCreateProgram();
-	glAttachShader(shader, vertexShader);
-	glAttachShader(shader, fragmentShader);
-	glLinkProgram(shader);
+	glDeleteShader(vShader);
+	glDeleteShader(fShader);
 
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
-	uViewProj = glGetUniformLocation(shader, "uViewProj");
+	uViewProj = glGetUniformLocation(program, "uViewProj");
 
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
@@ -59,9 +60,32 @@ void AtlasRenderStars::Initialize()
 	glBindVertexArray(0);
 }
 
+GLuint AtlasRenderStars::InitializeShader(GLenum glShader, std::string source) const
+{
+	GLuint shader = glCreateShader(glShader);
+
+	const GLchar* cSource = source.c_str();
+
+	glShaderSource(shader, 1, &cSource, nullptr);
+	glCompileShader(shader);
+
+	return shader;
+}
+
+GLuint AtlasRenderStars::InitializeProgram(GLuint vShader, GLuint fShader) const
+{
+	GLuint program = glCreateProgram();
+
+	glAttachShader(program, vShader);
+	glAttachShader(program, fShader);
+	glLinkProgram(program);
+
+	return program;
+}
+
 void AtlasRenderStars::Render(const AtlasCamera& camera)
 {
-	glUseProgram(shader);
+	glUseProgram(program);
 
 	glEnable(GL_PROGRAM_POINT_SIZE);
 
