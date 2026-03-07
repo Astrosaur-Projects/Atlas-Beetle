@@ -9,6 +9,14 @@
 
 AtlasQueryGraphicsConfig::AtlasQueryGraphicsConfig()
 {
+	InitializeDatabase();
+
+	fetchStatement = InitializeStatement(QUERY_FETCH_GRAPHICS_CONFIG);
+	updateStatement = InitializeStatement(QUERY_UPDATE_GRAPHICS_CONFIG);
+}
+
+void AtlasQueryGraphicsConfig::InitializeDatabase()
+{
 	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::Open();
 
 	if (!openDatabaseResult.has_value()) {
@@ -16,14 +24,17 @@ AtlasQueryGraphicsConfig::AtlasQueryGraphicsConfig()
 	}
 
 	database = std::move(openDatabaseResult.value());
+}
 
-	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::PrepareStatement(database.get(), QUERY_GRAPHICS_CONFIG);
+AtlasDatabaseUtilities::MemorySafeStatement AtlasQueryGraphicsConfig::InitializeStatement(std::string query)
+{
+	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::PrepareStatement(database.get(), query);
 
 	if (!prepareStatementResult.has_value()) {
 		throw std::runtime_error(prepareStatementResult.error());
 	}
 
-	statement = std::move(prepareStatementResult.value());
+	return std::move(prepareStatementResult.value());
 }
 
 std::expected<std::vector<AtlasQueryGraphicsConfig::GraphicsConfigRecord>, std::string> AtlasQueryGraphicsConfig::Query()
@@ -36,5 +47,5 @@ std::expected<std::vector<AtlasQueryGraphicsConfig::GraphicsConfigRecord>, std::
 		};
 	};
 
-	return AtlasDatabaseUtilities::Query<AtlasQueryGraphicsConfig::GraphicsConfigRecord>(statement.get(), database.get(), initializeGraphicsConfigRecordFromSQLStatement);
+	return AtlasDatabaseUtilities::Query<AtlasQueryGraphicsConfig::GraphicsConfigRecord>(fetchStatement.get(), database.get(), initializeGraphicsConfigRecordFromSQLStatement);
 }
