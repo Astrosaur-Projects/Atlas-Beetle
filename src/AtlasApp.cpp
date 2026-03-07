@@ -1,4 +1,3 @@
-#include "AtlasCore/AtlasConfig/AtlasConfig.h"
 #include "AtlasCore/AtlasStartup/AtlasStartApplication/AtlasStartApplication.h"
 #include "AtlasGUI/AtlasFrame/AtlasFrame.h"
 #include <expected>
@@ -18,7 +17,6 @@ public:
 
 private:
 	AtlasFrame* frame = nullptr;
-	AtlasConfig& config = AtlasConfig::GetInstance();
 };
 
 /*
@@ -93,8 +91,6 @@ bool AtlasApp::OnCmdLineParsed(wxCmdLineParser& parser)
 	if (parser.Found("version")) {
 		return false;
 	}
-
-	config.reset = parser.Found("reset");
 
 	return true;
 }
