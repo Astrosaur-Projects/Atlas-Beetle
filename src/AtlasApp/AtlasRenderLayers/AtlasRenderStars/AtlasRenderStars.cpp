@@ -95,7 +95,11 @@ void AtlasRenderStars::Render(const AtlasCamera& camera)
 
 	glUniform3f(uStarColor, 1.0f, 1.0f, 1.0f);
 
-	std::vector<AtlasStar> stars = visibleStarRenderDataQueryObject->Query(camera.GetForwardVector(), camera.GetFOV());
+	std::expected<std::vector<AtlasStar>, std::string> queryVisibleStarRenderDataResult = visibleStarRenderDataQueryObject->Query(camera.GetForwardVector(), camera.GetFOV());
+
+	if (!queryVisibleStarRenderDataResult.has_value()) { return; }
+
+	std::vector<AtlasStar> stars = queryVisibleStarRenderDataResult.value();
 
 	if (!stars.empty()) {
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);

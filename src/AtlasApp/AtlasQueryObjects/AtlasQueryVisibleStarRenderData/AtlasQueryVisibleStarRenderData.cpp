@@ -24,7 +24,7 @@ AtlasQueryVisibleStarRenderData::AtlasQueryVisibleStarRenderData() : database(nu
 	statement = std::move(prepareStatementResult.value());
 }
 
-std::vector<AtlasStar> AtlasQueryVisibleStarRenderData::Query(const glm::vec3& forward, float fovDegrees)
+std::expected<std::vector<AtlasStar>, std::string> AtlasQueryVisibleStarRenderData::Query(const glm::vec3& forward, float fovDegrees)
 {
 	float searchRadius = glm::radians(fovDegrees);
 
@@ -50,12 +50,6 @@ std::vector<AtlasStar> AtlasQueryVisibleStarRenderData::Query(const glm::vec3& f
 		};
 	};
 
-	std::expected<std::vector<AtlasStar>, std::string> queryStarRenderDataResult = AtlasDatabaseUtilities::BindStatementParameters(statement.get(), minX, maxX, minY, maxY, minZ, maxZ)
+	return AtlasDatabaseUtilities::BindStatementParameters(statement.get(), minX, maxX, minY, maxY, minZ, maxZ)
 		.and_then([&](bool) { return AtlasDatabaseUtilities::Query<AtlasStar>(statement.get(), database.get(), initializeStarFromSQLStatement); });
-
-	if (!queryStarRenderDataResult.has_value()) {
-		return std::vector<AtlasStar>();
-	}
-
-	return queryStarRenderDataResult.value();
 }

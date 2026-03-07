@@ -12,7 +12,7 @@ class AtlasQueryVisibleStarRenderData
 public:
     AtlasQueryVisibleStarRenderData();
 
-    std::vector<AtlasStar> Query(const glm::vec3& forward, float fovDegrees);
+    std::expected<std::vector<AtlasStar>, std::string> Query(const glm::vec3& forward, float fovDegrees);
 
 private:
     AtlasDatabaseUtilities::MemorySafeDatabase database;
