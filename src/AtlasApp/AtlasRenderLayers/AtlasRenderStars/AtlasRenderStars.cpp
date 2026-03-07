@@ -6,7 +6,7 @@
 #include <GL/glew.h>
 #include <cstddef>
 #include <glm/ext/matrix_float4x4.hpp>
-#include <glm/gtc/type_ptr.inl>
+#include <glm/gtc/type_ptr.hpp>
 #include <memory>
 #include <string>
 #include <vector>
