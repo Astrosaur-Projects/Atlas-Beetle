@@ -26,6 +26,7 @@ private:
 	GLuint vao;
 	GLuint vbo;
 	GLint uViewProj;
+	GLint uStarColor;
 
 	std::string vShaderSource;
 	std::string fShaderSource;

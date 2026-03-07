@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 
-AtlasRenderStars::AtlasRenderStars() : program(0), vao(0), vbo(0), uViewProj(-1)
+AtlasRenderStars::AtlasRenderStars() : program(0), vao(0), vbo(0), uViewProj(-1), uStarColor(-1)
 {
 	visibleStarRenderDataQueryObject = std::make_unique<AtlasQueryVisibleStarRenderData>();
 
@@ -41,6 +41,7 @@ void AtlasRenderStars::Initialize()
 	glDeleteShader(fShader);
 
 	uViewProj = glGetUniformLocation(program, "uViewProj");
+	uStarColor = glGetUniformLocation(program, "uStarColor");
 
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
@@ -91,6 +92,8 @@ void AtlasRenderStars::Render(const AtlasCamera& camera)
 
 	glm::mat4 viewProj = camera.GetProjectionMatrix() * camera.GetViewMatrix();
 	glUniformMatrix4fv(uViewProj, 1, GL_FALSE, glm::value_ptr(viewProj));
+
+	glUniform3f(uStarColor, 1.0f, 1.0f, 1.0f);
 
 	std::vector<AtlasStar> stars = visibleStarRenderDataQueryObject->Query(camera.GetForwardVector(), camera.GetFOV());
 

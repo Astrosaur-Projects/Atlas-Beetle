@@ -5,6 +5,7 @@ layout(location = 1) in float aMagnitude;
 layout(location = 2) in float aColorIndex;
 
 uniform mat4 uViewProj; 
+uniform vec3 uStarColor;
 
 out vec3 vStarColor;
 
