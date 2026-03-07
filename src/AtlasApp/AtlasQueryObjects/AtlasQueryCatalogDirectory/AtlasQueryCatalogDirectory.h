@@ -11,7 +11,7 @@ class AtlasQueryCatalogDirectory
 public:
 	AtlasQueryCatalogDirectory();
 
-	std::vector<AtlasCatalogUtilities::CatalogRecord> Query();
+	std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> Query();
 
 private:
 	AtlasDatabaseUtilities::MemorySafeDatabase database;

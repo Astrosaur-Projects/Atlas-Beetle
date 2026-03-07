@@ -2,6 +2,7 @@
 #include "AtlasGUI/AtlasCatalogManager/AtlasCatalogManager.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
+#include <expected>
 #include <memory>
 #include <string>
 #include <vector>
@@ -75,7 +76,7 @@ void AtlasCatalogManager::Initialize()
 
 void AtlasCatalogManager::BuildDirectoryTree()
 {
-	std::vector<AtlasCatalogUtilities::CatalogRecord> catalogs = catalogDirectoryQueryObject->Query();
+	std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> queryCatalogDirectoryResult = catalogDirectoryQueryObject->Query();
 }
 
 void AtlasCatalogManager::OnTreeSelectionChanged(wxTreeEvent& event)

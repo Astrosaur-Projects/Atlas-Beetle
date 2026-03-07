@@ -27,7 +27,7 @@ AtlasQueryCatalogDirectory::AtlasQueryCatalogDirectory() : database(nullptr), st
 	statement = std::move(prepareStatementResult.value());
 }
 
-std::vector<AtlasCatalogUtilities::CatalogRecord> AtlasQueryCatalogDirectory::Query()
+std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> AtlasQueryCatalogDirectory::Query()
 {
 	const auto initializeCatalogRecordFromSQLStatement = [](sqlite3_stmt* statement) -> AtlasCatalogUtilities::CatalogRecord {
 		return AtlasCatalogUtilities::CatalogRecord {
@@ -41,11 +41,5 @@ std::vector<AtlasCatalogUtilities::CatalogRecord> AtlasQueryCatalogDirectory::Qu
 		};
 	};
 
-	std::expected<std::vector<AtlasCatalogUtilities::CatalogRecord>, std::string> queryStarRenderDataResult = AtlasDatabaseUtilities::Query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), initializeCatalogRecordFromSQLStatement);
-
-	if (!queryStarRenderDataResult.has_value()) {
-		return std::vector<AtlasCatalogUtilities::CatalogRecord>();
-	}
-
-	return queryStarRenderDataResult.value();
+	return AtlasDatabaseUtilities::Query<AtlasCatalogUtilities::CatalogRecord>(statement.get(), database.get(), initializeCatalogRecordFromSQLStatement);
 }
