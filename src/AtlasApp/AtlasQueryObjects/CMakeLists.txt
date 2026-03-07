@@ -2,8 +2,9 @@ add_library(AtlasQueryObjects OBJECT)
 
 target_sources(AtlasQueryObjects PRIVATE
 	AtlasQueryCatalogDirectory/AtlasQueryCatalogDirectory.cpp
+	AtlasQueryGraphicsConfig/AtlasQueryGraphicsConfig.cpp
 	AtlasQueryVisibleStarRenderData/AtlasQueryVisibleStarRenderData.cpp
-)
+ )
 
 target_include_directories(AtlasQueryObjects PUBLIC
 	${CMAKE_SOURCE_DIR}/src
