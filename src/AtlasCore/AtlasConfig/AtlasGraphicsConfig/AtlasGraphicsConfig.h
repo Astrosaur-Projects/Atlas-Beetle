@@ -40,7 +40,7 @@ private:
 	float upperMagnitudeLimit;
 
 	const float STAR_POINT_SIZE_MIN = 0.0f;
-	const float STAR_POINT_SIZE_MAX = 100.0f;
+	const float STAR_POINT_SIZE_MAX = 10.0f;
 
 	const float MAGNITUDE_LIMIT_MIN = -27.0f;
 	const float MAGNITUDE_LIMIT_MAX = 32.0f;
