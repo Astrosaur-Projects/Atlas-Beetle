@@ -43,7 +43,8 @@ std::expected<std::vector<AtlasQueryGraphicsConfig::GraphicsConfigRecord>, std::
 		return AtlasQueryGraphicsConfig::GraphicsConfigRecord {
 			.id = sqlite3_column_int(statement, 0),
 			.pointSize = (float)sqlite3_column_double(statement, 1),
-			.magnitudeLimit = (float)sqlite3_column_double(statement, 2)
+			.lowerMagnitudeLimit = (float)sqlite3_column_double(statement, 2),
+			.upperMagnitudeLimit = (float)sqlite3_column_double(statement, 3)
 		};
 	};
 

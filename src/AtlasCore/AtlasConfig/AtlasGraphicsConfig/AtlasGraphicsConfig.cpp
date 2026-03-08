@@ -15,7 +15,7 @@ AtlasGraphicsConfig& AtlasGraphicsConfig::GetInstance()
 	return instance;
 }
 
-AtlasGraphicsConfig::AtlasGraphicsConfig() : pointSize(1.0f), magnitudeLimit(6.5f)
+AtlasGraphicsConfig::AtlasGraphicsConfig() : pointSize(1.0f), lowerMagnitudeLimit(-27.0f), upperMagnitudeLimit(32.0f)
 {
 	graphicsConfigQueryObject = std::make_unique<AtlasQueryGraphicsConfig>();
 }
@@ -27,11 +27,18 @@ float AtlasGraphicsConfig::GetStarPointSize() const
 	return pointSize;
 }
 
-float AtlasGraphicsConfig::GetMagnitudeLimit() const
+float AtlasGraphicsConfig::GetLowerMagnitudeLimit() const
 {
 	std::shared_lock<std::shared_mutex> lock(mutex);
 
-	return magnitudeLimit;
+	return lowerMagnitudeLimit;
+}
+
+float AtlasGraphicsConfig::GetUpperMagnitudeLimit() const
+{
+	std::shared_lock<std::shared_mutex> lock(mutex);
+
+	return upperMagnitudeLimit;
 }
 
 std::expected<bool, std::string> AtlasGraphicsConfig::SetStarPointSize(float size)
@@ -51,10 +58,10 @@ std::expected<bool, std::string> AtlasGraphicsConfig::SetStarPointSize(float siz
 	return true;
 }
 
-std::expected<bool, std::string> AtlasGraphicsConfig::SetMagnitudeLimit(float limit)
+std::expected<bool, std::string> AtlasGraphicsConfig::SetLowerMagnitudeLimit(float limit)
 {
-	if (limit < MAGNITUDE_LIMIT_MIN || limit > MAGNITUDE_LIMIT_MAX) {
-		std::string error = std::format("Magnitude limit must be between {} and {}", MAGNITUDE_LIMIT_MIN, MAGNITUDE_LIMIT_MAX);
+	if (limit < MAGNITUDE_LIMIT_MIN || limit > upperMagnitudeLimit) {
+		std::string error = std::format("Lower Magnitude limit must be between {} and {}", MAGNITUDE_LIMIT_MIN, upperMagnitudeLimit);
 
 		return std::unexpected<std::string>(error);
 	}
@@ -62,7 +69,24 @@ std::expected<bool, std::string> AtlasGraphicsConfig::SetMagnitudeLimit(float li
 	{
 		std::lock_guard<std::shared_mutex> lock(mutex);
 
-		magnitudeLimit = limit;
+		lowerMagnitudeLimit = limit;
+	}
+
+	return true;
+}
+
+std::expected<bool, std::string> AtlasGraphicsConfig::SetUpperMagnitudeLimit(float limit)
+{
+	if (limit < lowerMagnitudeLimit || limit > MAGNITUDE_LIMIT_MAX) {
+		std::string error = std::format("Upper Magnitude limit must be between {} and {}", lowerMagnitudeLimit, MAGNITUDE_LIMIT_MAX);
+
+		return std::unexpected<std::string>(error);
+	}
+
+	{
+		std::lock_guard<std::shared_mutex> lock(mutex);
+
+		upperMagnitudeLimit = limit;
 	}
 
 	return true;
@@ -88,7 +112,8 @@ std::expected<bool, std::string> AtlasGraphicsConfig::LoadFromDatabase()
 		std::lock_guard<std::shared_mutex> lock(mutex);
 
 		pointSize = config.pointSize;
-		magnitudeLimit = config.magnitudeLimit;
+		lowerMagnitudeLimit = config.lowerMagnitudeLimit;
+		upperMagnitudeLimit = config.upperMagnitudeLimit;
 	}
 
 	return true;
@@ -97,14 +122,15 @@ std::expected<bool, std::string> AtlasGraphicsConfig::LoadFromDatabase()
 std::expected<bool, std::string> AtlasGraphicsConfig::SaveToDatabase()
 {
 	float size;
-	float limit;
+	float lowerLimit, upperLimit;
 
 	{
 		std::shared_lock<std::shared_mutex> lock(mutex);
 
 		size = pointSize;
-		limit = magnitudeLimit;
+		lowerLimit = lowerMagnitudeLimit;
+		upperLimit = upperMagnitudeLimit;
 	}
 
-	return graphicsConfigQueryObject->Update(size, limit);
+	return graphicsConfigQueryObject->Update(size, lowerMagnitudeLimit, upperMagnitudeLimit);
 }

@@ -17,7 +17,9 @@ public:
 
 		float pointSize;
 
-		float magnitudeLimit;
+		float lowerMagnitudeLimit;
+
+		float upperMagnitudeLimit;
 	};
 
 public:
@@ -40,7 +42,13 @@ private:
 
 private:
 	const std::string QUERY_FETCH_GRAPHICS_CONFIG = "SELECT * FROM GraphicsConfig;";
-	const std::string QUERY_UPDATE_GRAPHICS_CONFIG = "UPDATE GraphicsConfig SET pointSize = ?, magnitudeLimit = ? WHERE id = 1;";
+	const std::string QUERY_UPDATE_GRAPHICS_CONFIG = R"(
+		UPDATE GraphicsConfig
+			SET pointSize = ?,
+			lowerMagnitudeLimit = ?,
+			upperMagnitudeLimit = ?
+		WHERE id = 1;
+	)";
 };
 
 #endif

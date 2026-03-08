@@ -17,10 +17,12 @@ public:
 
 public:
 	float GetStarPointSize() const;
-	float GetMagnitudeLimit() const;
+	float GetLowerMagnitudeLimit() const;
+	float GetUpperMagnitudeLimit() const;
 
 	std::expected<bool, std::string> SetStarPointSize(float size);
-	std::expected<bool, std::string> SetMagnitudeLimit(float limit);
+	std::expected<bool, std::string> SetLowerMagnitudeLimit(float limit);
+	std::expected<bool, std::string> SetUpperMagnitudeLimit(float limit);
 
 	std::expected<bool, std::string> LoadFromDatabase();
 	std::expected<bool, std::string> SaveToDatabase();
@@ -34,7 +36,8 @@ private:
 	mutable std::shared_mutex mutex;
 
 	float pointSize;
-	float magnitudeLimit;
+	float lowerMagnitudeLimit;
+	float upperMagnitudeLimit;
 
 	const float STAR_POINT_SIZE_MIN = 0.0f;
 	const float STAR_POINT_SIZE_MAX = 100.0f;
