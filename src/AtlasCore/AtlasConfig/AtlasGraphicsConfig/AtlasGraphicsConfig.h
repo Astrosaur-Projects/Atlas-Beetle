@@ -31,8 +31,6 @@ private:
 	AtlasGraphicsConfig();
 
 private:
-	std::unique_ptr<AtlasQueryGraphicsConfig> graphicsConfigQueryObject;
-
 	mutable std::shared_mutex mutex;
 
 	float pointSize;

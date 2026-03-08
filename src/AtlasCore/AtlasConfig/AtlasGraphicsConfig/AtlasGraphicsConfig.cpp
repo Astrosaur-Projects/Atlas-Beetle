@@ -15,10 +15,7 @@ AtlasGraphicsConfig& AtlasGraphicsConfig::GetInstance()
 	return instance;
 }
 
-AtlasGraphicsConfig::AtlasGraphicsConfig() : pointSize(7.0f), lowerMagnitudeLimit(-27.0f), upperMagnitudeLimit(32.0f)
-{
-	graphicsConfigQueryObject = std::make_unique<AtlasQueryGraphicsConfig>();
-}
+AtlasGraphicsConfig::AtlasGraphicsConfig() : pointSize(7.0f), lowerMagnitudeLimit(-27.0f), upperMagnitudeLimit(32.0f) { }
 
 float AtlasGraphicsConfig::GetStarPointSize() const
 {
@@ -94,6 +91,8 @@ std::expected<bool, std::string> AtlasGraphicsConfig::SetUpperMagnitudeLimit(flo
 
 std::expected<bool, std::string> AtlasGraphicsConfig::LoadFromDatabase()
 {
+	std::unique_ptr<AtlasQueryGraphicsConfig> graphicsConfigQueryObject = std::make_unique<AtlasQueryGraphicsConfig>();
+
 	std::expected<std::vector<AtlasQueryGraphicsConfig::GraphicsConfigRecord>, std::string> queryGraphicsConfigResult = graphicsConfigQueryObject->Query();
 
 	if (!queryGraphicsConfigResult.has_value()) {
@@ -131,6 +130,8 @@ std::expected<bool, std::string> AtlasGraphicsConfig::SaveToDatabase()
 		lowerLimit = lowerMagnitudeLimit;
 		upperLimit = upperMagnitudeLimit;
 	}
+
+	std::unique_ptr<AtlasQueryGraphicsConfig> graphicsConfigQueryObject = std::make_unique<AtlasQueryGraphicsConfig>();
 
 	return graphicsConfigQueryObject->Update(size, lowerMagnitudeLimit, upperMagnitudeLimit);
 }
