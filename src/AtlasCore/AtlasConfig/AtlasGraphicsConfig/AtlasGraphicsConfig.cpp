@@ -15,7 +15,7 @@ AtlasGraphicsConfig& AtlasGraphicsConfig::GetInstance()
 	return instance;
 }
 
-AtlasGraphicsConfig::AtlasGraphicsConfig() : pointSize(1.0f), lowerMagnitudeLimit(-27.0f), upperMagnitudeLimit(32.0f)
+AtlasGraphicsConfig::AtlasGraphicsConfig() : pointSize(7.0f), lowerMagnitudeLimit(-27.0f), upperMagnitudeLimit(32.0f)
 {
 	graphicsConfigQueryObject = std::make_unique<AtlasQueryGraphicsConfig>();
 }
