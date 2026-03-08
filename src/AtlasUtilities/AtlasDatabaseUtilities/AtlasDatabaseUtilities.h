@@ -115,6 +115,30 @@ namespace AtlasDatabaseUtilities
 
 	std::expected<bool, std::string> Execute(sqlite3_stmt* statement, sqlite3* database);
 
+	template <typename... Args>
+	std::expected<bool, std::string> SimpleExecute(const std::string& sql, Args&&... args)
+	{
+		std::expected<MemorySafeDatabase, std::string> openDatabaseResult = Open();
+
+		if (!openDatabaseResult.has_value()) { return openDatabaseResult; }
+
+		MemorySafeDatabase database = std::move(openDatabaseResult.value());
+
+		std::expected<MemorySafeStatement, std::string> prepareStatementResult = PrepareStatement(database.get(), sql);
+
+		if (!prepareStatementResult.has_value()) { return prepareStatementResult; }
+
+		MemorySafeStatement statement = std::move(prepareStatementResult.value());
+
+		if constexpr (sizeof...(args) > 0) {
+			std::expected<bool, std::string> bindParametersResult = BindStatementParameters(statement.get(), std::forward<Args>(args)...);
+
+			if (!bindParametersResult.has_value()) { return bindParametersResult; }
+		}
+
+		return Execute(statement.get(), database.get());
+	}
+
 	template <typename T>
 	std::expected <std::vector<T>, std::string> Query(sqlite3_stmt* statement, sqlite3* database, std::function<T(sqlite3_stmt*)> initializeTypeFromStatement)
 	{
@@ -135,6 +159,30 @@ namespace AtlasDatabaseUtilities
 		}
 
 		return data;
+	}
+
+	template <typename T, typename... Args>
+	std::expected<std::vector<T>, std::string> SimpleQuery(const std::string sql, std::function<T(sqlite3_stmt*)> initializeTypeFromStatement, Args&&... args)
+	{
+		std::expected<MemorySafeDatabase, std::string> openDatabaseResult = Open();
+
+		if (!openDatabaseResult.has_value()) { return openDatabaseResult; }
+
+		MemorySafeDatabase database = std::move(openDatabaseResult.value());
+
+		std::expected<MemorySafeStatement, std::string> prepareStatementResult = PrepareStatement(database.get(), sql);
+
+		if (!prepareStatementResult.has_value()) { return prepareStatementResult; }
+
+		MemorySafeStatement statement = std::move(prepareStatementResult.value());
+
+		if constexpr (sizeof...(args) > 0) {
+			std::expected<bool, std::string> bindParametersResult = BindStatementParameters(statement.get(), std::forward<Args>(args)...);
+
+			if (!bindParametersResult.has_value()) { return bindParametersResult; }
+		}
+
+		return Query<T>(statement.get(), database.get(), std::move(initializeTypeFromStatement));
 	}
 };
 
