@@ -1,5 +1,4 @@
 #include "AtlasApp/AtlasStartupLayers/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"
-#include "AtlasCore/AtlasMath/AtlasMath.h"
 #include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
@@ -7,6 +6,7 @@
 #include <algorithm>
 #include <cfitsio/fitsio.h>
 #include <expected>
+#include <numbers>
 #include <sqlite3.h>
 #include <sstream>
 #include <stdexcept>
@@ -109,8 +109,8 @@ std::expected<bool, std::string> AtlasImportDefaultCatalog::LoadCatalog(const At
 			GetSexagesimalUnitsRA(raBuffer[i], raHours, raMinutes, raSeconds);
 			GetSexagesimalUnitsDE(deBuffer[i], deSign, deDegrees, deMinutes, deSeconds);
 
-			star.ra = AtlasMath::GetRaRadians(raHours, raMinutes, raSeconds);
-			star.de = AtlasMath::GetDecRadians(deSign, deDegrees, deMinutes, deSeconds);
+			star.ra = static_cast<double>((raHours + (raMinutes / 60) + (raSeconds / 3600)) * (std::numbers::pi / 12));
+			star.de = static_cast<double>((deDegrees + (deMinutes / 60) + (deSeconds / 3600)) * (std::numbers::pi / 180) * deSign);
 			star.pmRa = raProperMotionBuffer[i];
 			star.pmDe = decProperMotionBuffer[i];
 			star.mag = vMagBuffer[i];
