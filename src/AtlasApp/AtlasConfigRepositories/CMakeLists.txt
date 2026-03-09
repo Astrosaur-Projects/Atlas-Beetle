@@ -2,6 +2,7 @@ add_library(AtlasConfigRepositories OBJECT)
 
 target_sources(AtlasConfigRepositories PRIVATE
 	AtlasGraphicsConfigRepository/AtlasGraphicsConfigRepository.cpp
+	AtlasLocationConfigRepository/AtlasLocationConfigRepository.cpp
 )
 
 target_include_directories(AtlasConfigRepositories PUBLIC
