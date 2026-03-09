@@ -1,7 +1,6 @@
 #ifndef ATLAS_GRAPHICS_CONFIG_H
 #define ATLAS_GRAPHICS_CONFIG_H
 
-#include "AtlasApp/AtlasQueryObjects/AtlasQueryGraphicsConfig/AtlasQueryGraphicsConfig.h"
 #include <expected>
 #include <memory>
 #include <shared_mutex>
@@ -23,9 +22,6 @@ public:
 	std::expected<bool, std::string> SetStarPointSize(float size);
 	std::expected<bool, std::string> SetLowerMagnitudeLimit(float limit);
 	std::expected<bool, std::string> SetUpperMagnitudeLimit(float limit);
-
-	std::expected<bool, std::string> LoadFromDatabase();
-	std::expected<bool, std::string> SaveToDatabase();
 
 private:
 	AtlasGraphicsConfig();
