@@ -1,5 +1,6 @@
 #include "AtlasApp/AtlasConfigRepositories/AtlasGraphicsConfigRepository/AtlasGraphicsConfigRepository.h"
 #include "AtlasApp/AtlasQueryObjects/AtlasQueryGraphicsConfig/AtlasQueryGraphicsConfig.h"
+#include "AtlasCore/AtlasConfig/AtlasGraphicsConfig/AtlasGraphicsConfig.h"
 #include <expected>
 #include <memory>
 #include <string>
@@ -21,12 +22,12 @@ std::expected<bool, std::string> AtlasGraphicsConfigRepository::Load(AtlasGraphi
 
 	AtlasQueryGraphicsConfig::GraphicsConfigRecord data = queryGraphicsConfigData.front();
 
-    std::expected<bool, std::string> loadGraphicsConfigResult = true;
+	std::expected<bool, std::string> loadGraphicsConfigResult = true;
 
-    loadGraphicsConfigResult = loadGraphicsConfigResult
-        .and_then([&](bool) { return config.SetStarPointSize(data.pointSize); })
-        .and_then([&](bool) { return config.SetLowerMagnitudeLimit(data.lowerMagnitudeLimit); })
-        .and_then([&](bool) { return config.SetUpperMagnitudeLimit(data.upperMagnitudeLimit); });
+	loadGraphicsConfigResult = loadGraphicsConfigResult
+		.and_then([&](bool) { return config.SetStarPointSize(data.pointSize); })
+		.and_then([&](bool) { return config.SetLowerMagnitudeLimit(data.lowerMagnitudeLimit); })
+		.and_then([&](bool) { return config.SetUpperMagnitudeLimit(data.upperMagnitudeLimit); });
 
 	return loadGraphicsConfigResult;
 }

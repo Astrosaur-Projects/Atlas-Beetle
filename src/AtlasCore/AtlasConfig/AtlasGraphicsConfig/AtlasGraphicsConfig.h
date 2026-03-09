@@ -2,7 +2,6 @@
 #define ATLAS_GRAPHICS_CONFIG_H
 
 #include <expected>
-#include <memory>
 #include <shared_mutex>
 #include <string>
 
