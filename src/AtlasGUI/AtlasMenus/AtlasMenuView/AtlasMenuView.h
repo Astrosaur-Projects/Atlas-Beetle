@@ -8,6 +8,9 @@ class AtlasMenuView : public wxMenu
 public:
 	AtlasMenuView();
 	~AtlasMenuView();
+
+private:
+	void OnCatalogManager(wxCommandEvent& event);
 };
 
 #endif
