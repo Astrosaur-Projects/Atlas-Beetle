@@ -2,6 +2,7 @@
 #define ATLAS_RENDER_STARS_H
 
 #include "AtlasApp/AtlasQueryObjects/AtlasQueryVisibleStarRenderData/AtlasQueryVisibleStarRenderData.h"
+#include "AtlasCore/AtlasConfig/AtlasGraphicsConfig/AtlasGraphicsConfig.h"
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderLayerInterface.h"
 #include <GL/glew.h>
@@ -9,7 +10,7 @@
 class AtlasRenderStars : public AtlasRenderLayerInterface
 {
 public:
-	AtlasRenderStars();
+	AtlasRenderStars(AtlasGraphicsConfig& config);
 	~AtlasRenderStars();
 
 	void Initialize() override;
@@ -20,7 +21,9 @@ private:
 	GLuint InitializeProgram(GLuint vShader, GLuint fShader) const;
 
 private:
-    std::unique_ptr<AtlasQueryVisibleStarRenderData> visibleStarRenderDataQueryObject;
+	AtlasGraphicsConfig& config;
+
+	std::unique_ptr<AtlasQueryVisibleStarRenderData> visibleStarRenderDataQueryObject;
 
 	GLuint program;
 	GLuint vao;

@@ -1,5 +1,6 @@
 #include "AtlasApp/AtlasQueryObjects/AtlasQueryVisibleStarRenderData/AtlasQueryVisibleStarRenderData.h"
 #include "AtlasApp/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
+#include "AtlasCore/AtlasConfig/AtlasGraphicsConfig/AtlasGraphicsConfig.h"
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
 #include "AtlasCore/AtlasObjects/AtlasStar.h"
 #include "AtlasUtilities/AtlasGraphicsUtilities/AtlasGraphicsUtilities.h"
@@ -11,16 +12,16 @@
 #include <string>
 #include <vector>
 
-AtlasRenderStars::AtlasRenderStars() : program(0), vao(0), vbo(0), uViewProj(-1), uStarColor(-1)
+AtlasRenderStars::AtlasRenderStars(AtlasGraphicsConfig& config) : config(config), program(0), vao(0), vbo(0), uViewProj(-1), uStarColor(-1)
 {
 	visibleStarRenderDataQueryObject = std::make_unique<AtlasQueryVisibleStarRenderData>();
 
 	vShaderSource = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasStarShaders/Star.vert");
 	fShaderSource = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasStarShaders/Star.frag");
 
-	vStarSize = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasStarShaders/AtlasStarPointSizeShaders/StarPointSize_Default.glsl");
-	vStarColor = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasStarShaders/AtlasStarColorShaders/StarColor_Interpolation.glsl");
-	fStarAlpha = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer("resources/AtlasShaders/AtlasStarShaders/AtlasStarAlphaShaders/StarAlpha_Soft.glsl");
+	vStarSize = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer(config.GetStarPointSizeShader());
+	vStarColor = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer(config.GetStarColorShader());
+	fStarAlpha = AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer(config.GetStarAlphaShader());
 }
 
 AtlasRenderStars::~AtlasRenderStars()
