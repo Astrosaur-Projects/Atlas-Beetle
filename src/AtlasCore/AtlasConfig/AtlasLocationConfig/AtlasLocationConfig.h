@@ -32,11 +32,11 @@ private:
 private:
 	mutable std::shared_mutex mutex;
 
-	float latitude;
-	float longitude;
-	float elevation;
+	float latitude = 0.0f;
+	float longitude = 0.0f;
+	float elevation = 0.0f;
 
-	std::string timezone;
+	std::string timezone = "UTC";
 
 	const float LATITUDE_MIN = -90.0f;
 	const float LATITUDE_MAX = 90.0f;

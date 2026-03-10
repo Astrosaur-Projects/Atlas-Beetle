@@ -14,7 +14,7 @@ AtlasLocationConfig& AtlasLocationConfig::GetInstance()
 	return instance;
 }
 
-AtlasLocationConfig::AtlasLocationConfig() : latitude(0.0f), longitude(0.0f), elevation(0.0f), timezone("UTC") { }
+AtlasLocationConfig::AtlasLocationConfig() { }
 
 float AtlasLocationConfig::GetLatitude() const
 {
