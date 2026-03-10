@@ -11,6 +11,7 @@ std::string AtlasGraphicsUtilities::LoadTextFileIntoStringBuffer(std::string pat
 
 	if (!file.is_open()) {
 		std::string error = std::format("Failed opening file {}", path);
+
 		throw std::runtime_error(error);
 	}
 

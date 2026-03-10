@@ -17,7 +17,6 @@ public:
 	float GetStarPointSize() const;
 	float GetLowerMagnitudeLimit() const;
 	float GetUpperMagnitudeLimit() const;
-
 	std::string GetStarPointSizeShader() const;
 	std::string GetStarColorShader() const;
 	std::string GetStarAlphaShader() const;
@@ -25,7 +24,6 @@ public:
 	std::expected<bool, std::string> SetStarPointSize(float size);
 	std::expected<bool, std::string> SetLowerMagnitudeLimit(float limit);
 	std::expected<bool, std::string> SetUpperMagnitudeLimit(float limit);
-
 	std::expected<bool, std::string> SetStarPointSizeShader(std::string path);
 	std::expected<bool, std::string> SetStarColorShader(std::string path);
 	std::expected<bool, std::string> SetStarAlphaShader(std::string path);

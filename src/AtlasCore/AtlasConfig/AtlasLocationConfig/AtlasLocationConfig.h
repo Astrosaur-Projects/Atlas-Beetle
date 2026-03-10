@@ -17,13 +17,11 @@ public:
 	float GetLatitude() const;
 	float GetLongitude() const;
 	float GetElevation() const;
-
 	std::string GetTimezone() const;
 
 	std::expected<bool, std::string> SetLatitude(float latitude);
 	std::expected<bool, std::string> SetLongitude(float longitude);
 	std::expected<bool, std::string> SetElevation(float elevation);
-
 	std::expected<bool, std::string> SetTimezone(std::string timezone);
 
 private:

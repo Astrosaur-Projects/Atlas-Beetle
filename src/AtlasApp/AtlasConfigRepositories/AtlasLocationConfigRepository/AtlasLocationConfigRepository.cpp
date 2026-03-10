@@ -8,19 +8,19 @@
 
 std::expected<bool, std::string> AtlasLocationConfigRepository::Load(AtlasLocationConfig& config)
 {
-	std::unique_ptr<AtlasQueryLocationConfig> queryObject = std::make_unique<AtlasQueryLocationConfig>();
+	std::unique_ptr<AtlasQueryLocationConfig> locationConfigQueryObject = std::make_unique<AtlasQueryLocationConfig>();
 
-	std::expected<std::vector<AtlasQueryLocationConfig::LocationConfigRecord>, std::string> queryResult = queryObject->Query();
+	std::expected<std::vector<AtlasQueryLocationConfig::LocationConfigRecord>, std::string> queryLocationConfigResult = locationConfigQueryObject->Query();
 
-	if (!queryResult.has_value()) {
-		return std::unexpected<std::string>(queryResult.error());
+	if (!queryLocationConfigResult.has_value()) {
+		return std::unexpected<std::string>(queryLocationConfigResult.error());
 	}
 
-	std::vector<AtlasQueryLocationConfig::LocationConfigRecord> records = queryResult.value();
+	std::vector<AtlasQueryLocationConfig::LocationConfigRecord> queryLocationConfigData = queryLocationConfigResult.value();
 
-	if (records.empty()) { return false; }
+	if (queryLocationConfigData.empty()) { return false; }
 
-	AtlasQueryLocationConfig::LocationConfigRecord data = records.front();
+	AtlasQueryLocationConfig::LocationConfigRecord data = queryLocationConfigData.front();
 
 	std::expected<bool, std::string> loadLocationConfigResult = true;
 
