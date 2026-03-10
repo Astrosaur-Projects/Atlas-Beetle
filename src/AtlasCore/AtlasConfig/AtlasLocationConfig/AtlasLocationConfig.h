@@ -18,9 +18,13 @@ public:
 	float GetLongitude() const;
 	float GetElevation() const;
 
+	std::string GetTimezone() const;
+
 	std::expected<bool, std::string> SetLatitude(float latitude);
 	std::expected<bool, std::string> SetLongitude(float longitude);
 	std::expected<bool, std::string> SetElevation(float elevation);
+
+	std::expected<bool, std::string> SetTimezone(std::string timezone);
 
 private:
 	AtlasLocationConfig();
@@ -31,6 +35,8 @@ private:
 	float latitude;
 	float longitude;
 	float elevation;
+
+	std::string timezone;
 
 	const float LATITUDE_MIN = -90.0f;
 	const float LATITUDE_MAX = 90.0f;

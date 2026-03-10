@@ -1,9 +1,11 @@
 #include "AtlasCore/AtlasConfig/AtlasLocationConfig/AtlasLocationConfig.h"
+#include <chrono>
 #include <expected>
 #include <format>
 #include <mutex>
 #include <shared_mutex>
 #include <string>
+#include <tuple>
 
 AtlasLocationConfig& AtlasLocationConfig::GetInstance()
 {
@@ -12,7 +14,7 @@ AtlasLocationConfig& AtlasLocationConfig::GetInstance()
 	return instance;
 }
 
-AtlasLocationConfig::AtlasLocationConfig() : latitude(0.0f), longitude(0.0f), elevation(0.0f) { }
+AtlasLocationConfig::AtlasLocationConfig() : latitude(0.0f), longitude(0.0f), elevation(0.0f), timezone("UTC") { }
 
 float AtlasLocationConfig::GetLatitude() const
 {
@@ -33,6 +35,13 @@ float AtlasLocationConfig::GetElevation() const
 	std::shared_lock<std::shared_mutex> lock(mutex);
 
 	return elevation;
+}
+
+std::string AtlasLocationConfig::GetTimezone() const
+{
+	std::shared_lock<std::shared_mutex> lock(mutex);
+
+	return timezone;
 }
 
 std::expected<bool, std::string> AtlasLocationConfig::SetLatitude(float lat)
@@ -81,6 +90,25 @@ std::expected<bool, std::string> AtlasLocationConfig::SetElevation(float elev)
 		std::lock_guard<std::shared_mutex> lock(mutex);
 
 		elevation = elev;
+	}
+
+	return true;
+}
+
+std::expected<bool, std::string> AtlasLocationConfig::SetTimezone(std::string timezone)
+{
+	try {
+		std::ignore = std::chrono::locate_zone(timezone);
+	} catch (...) {
+		std::string error = std::format("Timezone {} not found in the IANA Timezone Database", timezone);
+
+		return std::unexpected<std::string>(error);
+	}
+
+	{
+		std::lock_guard<std::shared_mutex> lock(mutex);
+
+		AtlasLocationConfig::timezone = timezone;
 	}
 
 	return true;
