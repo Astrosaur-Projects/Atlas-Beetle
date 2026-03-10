@@ -1,12 +1,10 @@
-#include "AtlasApp/AtlasQueryObjects/AtlasQueryGraphicsConfig/AtlasQueryGraphicsConfig.h"
 #include "AtlasCore/AtlasConfig/AtlasGraphicsConfig/AtlasGraphicsConfig.h"
 #include <expected>
+#include <filesystem>
 #include <format>
-#include <memory>
 #include <mutex>
 #include <shared_mutex>
 #include <string>
-#include <vector>
 
 AtlasGraphicsConfig& AtlasGraphicsConfig::GetInstance()
 {
@@ -15,7 +13,7 @@ AtlasGraphicsConfig& AtlasGraphicsConfig::GetInstance()
 	return instance;
 }
 
-AtlasGraphicsConfig::AtlasGraphicsConfig() : pointSize(7.0f), lowerMagnitudeLimit(-27.0f), upperMagnitudeLimit(32.0f) { }
+AtlasGraphicsConfig::AtlasGraphicsConfig() { }
 
 float AtlasGraphicsConfig::GetStarPointSize() const
 {
@@ -36,6 +34,27 @@ float AtlasGraphicsConfig::GetUpperMagnitudeLimit() const
 	std::shared_lock<std::shared_mutex> lock(mutex);
 
 	return upperMagnitudeLimit;
+}
+
+std::string AtlasGraphicsConfig::GetStarPointSizeShader() const
+{
+	std::shared_lock<std::shared_mutex> lock(mutex);
+
+	return starPointSizeShader;
+}
+
+std::string AtlasGraphicsConfig::GetStarColorShader() const
+{
+	std::shared_lock<std::shared_mutex> lock(mutex);
+
+	return starColorShader;
+}
+
+std::string AtlasGraphicsConfig::GetStarAlphaShader() const
+{
+	std::shared_lock<std::shared_mutex> lock(mutex);
+
+	return starAlphaShader;
 }
 
 std::expected<bool, std::string> AtlasGraphicsConfig::SetStarPointSize(float size)
@@ -84,6 +103,57 @@ std::expected<bool, std::string> AtlasGraphicsConfig::SetUpperMagnitudeLimit(flo
 		std::lock_guard<std::shared_mutex> lock(mutex);
 
 		upperMagnitudeLimit = limit;
+	}
+
+	return true;
+}
+
+std::expected<bool, std::string> AtlasGraphicsConfig::SetStarPointSizeShader(std::string path)
+{
+	if (!std::filesystem::exists(path)) {
+		std::string error = std::format("File {} not found", path);
+
+		return std::unexpected<std::string>(error);
+	}
+
+	{
+		std::lock_guard<std::shared_mutex> lock(mutex);
+
+		starPointSizeShader = path;
+	}
+
+	return true;
+}
+
+std::expected<bool, std::string> AtlasGraphicsConfig::SetStarColorShader(std::string path)
+{
+	if (!std::filesystem::exists(path)) {
+		std::string error = std::format("File {} not found", path);
+
+		return std::unexpected<std::string>(error);
+	}
+
+	{
+		std::lock_guard<std::shared_mutex> lock(mutex);
+
+		starColorShader = path;
+	}
+
+	return true;
+}
+
+std::expected<bool, std::string> AtlasGraphicsConfig::SetStarAlphaShader(std::string path)
+{
+	if (!std::filesystem::exists(path)) {
+		std::string error = std::format("File {} not found", path);
+
+		return std::unexpected<std::string>(error);
+	}
+
+	{
+		std::lock_guard<std::shared_mutex> lock(mutex);
+
+		starAlphaShader = path;
 	}
 
 	return true;
