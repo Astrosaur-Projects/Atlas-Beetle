@@ -76,34 +76,30 @@ std::expected<bool, std::string> AtlasGraphicsConfig::SetStarPointSize(float siz
 
 std::expected<bool, std::string> AtlasGraphicsConfig::SetLowerMagnitudeLimit(float limit)
 {
+	std::lock_guard<std::shared_mutex> lock(mutex);
+
 	if (limit < MAGNITUDE_LIMIT_MIN || limit > upperMagnitudeLimit) {
 		std::string error = std::format("Lower Magnitude limit must be between {} and {}", MAGNITUDE_LIMIT_MIN, upperMagnitudeLimit);
 
 		return std::unexpected<std::string>(error);
 	}
 
-	{
-		std::lock_guard<std::shared_mutex> lock(mutex);
-
-		lowerMagnitudeLimit = limit;
-	}
+	lowerMagnitudeLimit = limit;
 
 	return true;
 }
 
 std::expected<bool, std::string> AtlasGraphicsConfig::SetUpperMagnitudeLimit(float limit)
 {
+	std::lock_guard<std::shared_mutex> lock(mutex);
+
 	if (limit < lowerMagnitudeLimit || limit > MAGNITUDE_LIMIT_MAX) {
 		std::string error = std::format("Upper Magnitude limit must be between {} and {}", lowerMagnitudeLimit, MAGNITUDE_LIMIT_MAX);
 
 		return std::unexpected<std::string>(error);
 	}
 
-	{
-		std::lock_guard<std::shared_mutex> lock(mutex);
-
-		upperMagnitudeLimit = limit;
-	}
+	upperMagnitudeLimit = limit;
 
 	return true;
 }

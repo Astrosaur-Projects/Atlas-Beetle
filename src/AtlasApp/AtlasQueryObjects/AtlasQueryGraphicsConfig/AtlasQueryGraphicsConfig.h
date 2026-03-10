@@ -20,6 +20,12 @@ public:
 		float lowerMagnitudeLimit;
 
 		float upperMagnitudeLimit;
+
+		std::string starPointSizeShader;
+
+		std::string starColorShader;
+
+		std::string starAlphaShader;
 	};
 
 public:
@@ -46,7 +52,10 @@ private:
 		UPDATE GraphicsConfig
 			SET pointSize = ?,
 			lowerMagnitudeLimit = ?,
-			upperMagnitudeLimit = ?
+			upperMagnitudeLimit = ?,
+			starPointSizeShader = ?,
+			starColorShader = ?,
+			starAlphaShader = ?
 		WHERE id = 1;
 	)";
 };
