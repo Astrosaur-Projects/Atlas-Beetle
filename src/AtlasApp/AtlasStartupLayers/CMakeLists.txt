@@ -4,6 +4,7 @@ target_sources(AtlasStartupLayers PRIVATE
 	AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
 	AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.cpp
 	AtlasLoadCurl/AtlasLoadCurl.cpp
+	AtlasLoadConfig/AtlasLoadConfig.cpp
 	AtlasInitializeDatabaseSchema/AtlasInitializeDatabaseSchema.cpp
 	AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.cpp
 	AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.cpp

@@ -3,6 +3,7 @@
 #include "AtlasApp/AtlasStartupLayers/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
 #include "AtlasApp/AtlasStartupLayers/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"
 #include "AtlasApp/AtlasStartupLayers/AtlasInitializeDatabaseSchema/AtlasInitializeDatabaseSchema.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasLoadConfig/AtlasLoadConfig.h"
 #include "AtlasApp/AtlasStartupLayers/AtlasLoadCurl/AtlasLoadCurl.h"
 #include "AtlasApp/AtlasStartupLayers/AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.h"
 #include "AtlasCore/AtlasConfig/AtlasGraphicsConfig/AtlasGraphicsConfig.h"
@@ -12,6 +13,7 @@
 #include <expected>
 #include <memory>
 #include <string>
+#include <utility>
 #include <wx/app.h>
 #include <wx/cmdline.h>
 #include <wx/defs.h>
@@ -73,6 +75,7 @@ bool AtlasApp::OnInit()
 	initSequence->AddLayer(std::make_unique<AtlasResetCatalogDirectory>());
 	initSequence->AddLayer(std::make_unique<AtlasDownloadCatalogs>());
 	initSequence->AddLayer(std::make_unique<AtlasImportDefaultCatalog>());
+	initSequence->AddLayer(std::make_unique<AtlasLoadConfig>());
 
 	std::expected<bool, std::string> initAppResult = initSequence->Start();
 
