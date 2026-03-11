@@ -2,6 +2,7 @@
 #define ATLAS_GRAPHICS_CONFIG_H
 
 #include <expected>
+#include <map>
 #include <shared_mutex>
 #include <string>
 
@@ -27,6 +28,9 @@ public:
 	std::expected<bool, std::string> SetStarPointSizeShader(std::string path);
 	std::expected<bool, std::string> SetStarColorShader(std::string path);
 	std::expected<bool, std::string> SetStarAlphaShader(std::string path);
+
+	void LoadFrom(const std::map<std::string, std::string>& settings);
+	void SaveTo(std::map<std::string, std::string>& settings) const;
 
 private:
 	AtlasGraphicsConfig();

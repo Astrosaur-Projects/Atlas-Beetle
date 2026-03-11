@@ -2,6 +2,7 @@
 #define ATLAS_LOCATION_CONFIG_H
 
 #include <expected>
+#include <map>
 #include <shared_mutex>
 #include <string>
 
@@ -23,6 +24,9 @@ public:
 	std::expected<bool, std::string> SetLongitude(float longitude);
 	std::expected<bool, std::string> SetElevation(float elevation);
 	std::expected<bool, std::string> SetTimezone(std::string timezone);
+
+	void LoadFrom(const std::map<std::string, std::string>& settings);
+	void SaveTo(std::map<std::string, std::string>& settings) const;
 
 private:
 	AtlasLocationConfig();

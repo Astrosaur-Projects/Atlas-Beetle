@@ -2,6 +2,7 @@
 #include <expected>
 #include <filesystem>
 #include <format>
+#include <map>
 #include <mutex>
 #include <shared_mutex>
 #include <string>
@@ -153,4 +154,41 @@ std::expected<bool, std::string> AtlasGraphicsConfig::SetStarAlphaShader(std::st
 	}
 
 	return true;
+}
+
+void AtlasGraphicsConfig::LoadFrom(const std::map<std::string, std::string>& settings)
+{
+	if (auto it = settings.find("pointSize"); it != settings.end()) {
+		SetStarPointSize(std::stof(it->second));
+	}
+
+	if (auto it = settings.find("lowerMagnitudeLimit"); it != settings.end()) {
+		SetLowerMagnitudeLimit(std::stof(it->second));
+	}
+
+	if (auto it = settings.find("upperMagnitudeLimit"); it != settings.end()) {
+		SetUpperMagnitudeLimit(std::stof(it->second));
+	}
+
+	if (auto it = settings.find("starPointSizeShader"); it != settings.end()) {
+		SetStarPointSizeShader(it->second);
+	}
+
+	if (auto it = settings.find("starColorShader"); it != settings.end()) {
+		SetStarColorShader(it->second);
+	}
+
+	if (auto it = settings.find("starAlphaShader"); it != settings.end()) {
+		SetStarAlphaShader(it->second);
+	}
+}
+
+void AtlasGraphicsConfig::SaveTo(std::map<std::string, std::string>& settings) const
+{
+	settings["pointSize"] = std::to_string(GetStarPointSize());
+	settings["lowerMagnitudeLimit"] = std::to_string(GetLowerMagnitudeLimit());
+	settings["upperMagnitudeLimit"] = std::to_string(GetUpperMagnitudeLimit());
+	settings["starPointSizeShader"] = GetStarPointSizeShader();
+	settings["starColorShader"] = GetStarColorShader();
+	settings["starAlphaShader"] = GetStarAlphaShader();
 }

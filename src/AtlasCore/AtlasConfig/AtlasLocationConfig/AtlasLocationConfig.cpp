@@ -2,6 +2,7 @@
 #include <chrono>
 #include <expected>
 #include <format>
+#include <map>
 #include <mutex>
 #include <shared_mutex>
 #include <string>
@@ -112,4 +113,31 @@ std::expected<bool, std::string> AtlasLocationConfig::SetTimezone(std::string ti
 	}
 
 	return true;
+}
+
+void AtlasLocationConfig::LoadFrom(const std::map<std::string, std::string>& settings)
+{
+	if (auto it = settings.find("latitude"); it != settings.end()) {
+		SetLatitude(std::stof(it->second));
+	}
+
+	if (auto it = settings.find("longitude"); it != settings.end()) {
+		SetLongitude(std::stof(it->second));
+	}
+
+	if (auto it = settings.find("elevation"); it != settings.end()) {
+		SetElevation(std::stof(it->second));
+	}
+
+	if (auto it = settings.find("timezone"); it != settings.end()) {
+		SetTimezone(it->second);
+	}
+}
+
+void AtlasLocationConfig::SaveTo(std::map<std::string, std::string>& settings) const
+{
+	settings["latitude"] = std::to_string(GetLatitude());
+	settings["longitude"] = std::to_string(GetLongitude());
+	settings["elevation"] = std::to_string(GetElevation());
+	settings["timezone"] = GetTimezone();
 }
