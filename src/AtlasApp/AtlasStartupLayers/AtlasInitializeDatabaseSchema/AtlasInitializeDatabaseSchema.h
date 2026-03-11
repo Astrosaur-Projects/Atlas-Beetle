@@ -73,6 +73,15 @@ private:
 		END;
 	)";
 
+	const std::string CREATE_TABLE_SETTINGS = R"(
+		CREATE TABLE IF NOT EXISTS Settings (
+			section	TEXT	NOT NULL,
+			key		TEXT	NOT NULL,
+			value	TEXT	NOT NULL,
+			PRIMARY	KEY	(section, key)
+		);
+	)";
+
 	const std::string CREATE_TRIGGER_DELETE_STAR_INDEX = R"(
 		CREATE TRIGGER IF NOT EXISTS TriggerDeleteStarIndex
 		AFTER DELETE ON StarRenderData

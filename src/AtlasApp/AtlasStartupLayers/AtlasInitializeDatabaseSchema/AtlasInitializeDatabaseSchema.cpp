@@ -26,6 +26,7 @@ std::expected<bool, std::string> AtlasInitializeDatabaseSchema::Start()
 		.and_then([&](bool) { return CreateTable("CatalogDirectory", CREATE_TABLE_CATALOG_DIRECTORY); })
 		.and_then([&](bool) { return CreateTable("StarRenderData", CREATE_TABLE_STAR_RENDER_DATA); })
 		.and_then([&](bool) { return CreateTable("StarIndex", CREATE_TABLE_STAR_INDEX); })
+		.and_then([&](bool) { return CreateTable("Settings", CREATE_TABLE_SETTINGS); })
 		.and_then([&](bool) { return ExecuteStatement(CREATE_TRIGGER_INSERT_STAR_INDEX); })
 		.and_then([&](bool) { return ExecuteStatement(CREATE_TRIGGER_DELETE_STAR_INDEX); });
 
