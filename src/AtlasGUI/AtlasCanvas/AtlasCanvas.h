@@ -11,7 +11,7 @@
 class AtlasCanvas : public wxGLCanvas
 {
 public:
-	AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes);
+	AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes, std::unique_ptr<AtlasRenderSky> render);
 	~AtlasCanvas();
 
 private:

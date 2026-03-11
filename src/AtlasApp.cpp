@@ -1,3 +1,12 @@
+#include "AtlasApp/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasInitializeDatabaseSchema/AtlasInitializeDatabaseSchema.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasLoadCurl/AtlasLoadCurl.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.h"
+#include "AtlasCore/AtlasConfig/AtlasGraphicsConfig/AtlasGraphicsConfig.h"
+#include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
 #include "AtlasCore/AtlasStartup/AtlasStartApplication/AtlasStartApplication.h"
 #include "AtlasGUI/AtlasFrame/AtlasFrame.h"
 #include <expected>
@@ -56,14 +65,29 @@ bool AtlasApp::OnInit()
 		return false;
 	}
 
-	std::expected<bool, std::string> initAppResult = std::make_unique<AtlasStartApplication>()->Start();
+	std::unique_ptr<AtlasStartApplication> initSequence = std::make_unique<AtlasStartApplication>();
+
+	initSequence->AddLayer(std::make_unique<AtlasLoadCurl>());
+	initSequence->AddLayer(std::make_unique<AtlasCreateApplicationDirectory>());
+	initSequence->AddLayer(std::make_unique<AtlasInitializeDatabaseSchema>());
+	initSequence->AddLayer(std::make_unique<AtlasResetCatalogDirectory>());
+	initSequence->AddLayer(std::make_unique<AtlasDownloadCatalogs>());
+	initSequence->AddLayer(std::make_unique<AtlasImportDefaultCatalog>());
+
+	std::expected<bool, std::string> initAppResult = initSequence->Start();
 
 	if (!initAppResult.has_value()) {
 		wxMessageBox(initAppResult.error(), "Error", wxOK | wxICON_ERROR);
 		return false;
 	}
 
-	frame = new AtlasFrame();
+	AtlasGraphicsConfig& config = AtlasGraphicsConfig::GetInstance();
+
+	std::unique_ptr<AtlasRenderSky> renderSequence = std::make_unique<AtlasRenderSky>();
+
+	renderSequence->AddLayer(std::make_unique<AtlasRenderStars>(config));
+
+	frame = new AtlasFrame(std::move(renderSequence));
 	frame->Show(true);
 
 	return true;

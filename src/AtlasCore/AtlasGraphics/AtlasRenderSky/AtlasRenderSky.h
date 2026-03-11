@@ -11,6 +11,7 @@ class AtlasRenderSky
 public:
 	AtlasRenderSky();
 
+	void Initialize();
 	void AddLayer(std::unique_ptr<AtlasRenderLayerInterface> layer);
 	void Render(const AtlasCamera& camera);
 

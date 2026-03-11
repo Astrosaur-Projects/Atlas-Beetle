@@ -10,7 +10,7 @@
 #include <wx/gdicmn.h>
 #include <wx/glcanvas.h>
 
-AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : wxGLCanvas(parent, glAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
+AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes, std::unique_ptr<AtlasRenderSky> renderSequence) : wxGLCanvas(parent, glAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
 {
 	wxGLContextAttrs glContextAttributes;
 	glContextAttributes.PlatformDefaults().CoreProfile().OGLVersion(3, 3).EndList();
@@ -24,6 +24,8 @@ AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes) : 
 
 	camera = std::make_unique<AtlasCamera>(900.0f, 600.0f);
 	camera->SetDirection(1.46f, 0.096f);
+
+	render = std::move(renderSequence);
 
 	Bind(wxEVT_PAINT, &AtlasCanvas::OnPaint, this);
 	Bind(wxEVT_SIZE, &AtlasCanvas::OnSize, this);
@@ -42,7 +44,7 @@ void AtlasCanvas::InitGraphics()
 {
 	if (glewInit() != GLEW_OK) { return; }
 
-	render = std::make_unique<AtlasRenderSky>();
+	render->Initialize();
 
 	isInitialized = true;
 }
