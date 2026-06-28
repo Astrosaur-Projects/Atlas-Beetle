@@ -1,4 +1,4 @@
-#include "AtlasApp/AtlasStartupLayers/AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasInitializeCatalogDirectory/AtlasInitializeCatalogDirectory.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
@@ -7,7 +7,7 @@
 #include <string>
 #include <utility>
 
-void AtlasResetCatalogDirectory::Initialize()
+void AtlasInitializeCatalogDirectory::Initialize()
 {
 	std::expected<AtlasDatabaseUtilities::MemorySafeDatabase, std::string> openDatabaseResult = AtlasDatabaseUtilities::Open();
 
@@ -18,24 +18,24 @@ void AtlasResetCatalogDirectory::Initialize()
 	database = std::move(openDatabaseResult.value());
 }
 
-std::expected<bool, std::string> AtlasResetCatalogDirectory::Start()
+std::expected<bool, std::string> AtlasInitializeCatalogDirectory::Start()
 {
 	std::expected<bool, std::string> resetCatalogDirectoryResult = true;
 
 	resetCatalogDirectoryResult = resetCatalogDirectoryResult
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasResetCatalogDirectory::TruncateCatalogDirectory(); })
-		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasResetCatalogDirectory::InsertDefaultCatalogRecord(); });
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasInitializeCatalogDirectory::TruncateCatalogDirectory(); })
+		.and_then([&](bool success) -> std::expected<bool, std::string> { return AtlasInitializeCatalogDirectory::InsertDefaultCatalogRecord(); });
 
 	return resetCatalogDirectoryResult;
 }
 
-std::expected<bool, std::string> AtlasResetCatalogDirectory::TruncateCatalogDirectory()
+std::expected<bool, std::string> AtlasInitializeCatalogDirectory::TruncateCatalogDirectory()
 {
 	return AtlasDatabaseUtilities::PrepareStatement(database.get(), TRUNCATE_CATALOG_DIRECTORY)
 		.and_then([&](AtlasDatabaseUtilities::MemorySafeStatement statement) { return AtlasDatabaseUtilities::Execute(statement.get(), database.get()); });
 }
 
-std::expected<bool, std::string> AtlasResetCatalogDirectory::InsertDefaultCatalogRecord()
+std::expected<bool, std::string> AtlasInitializeCatalogDirectory::InsertDefaultCatalogRecord()
 {
 	std::expected<AtlasDatabaseUtilities::MemorySafeStatement, std::string> prepareStatementResult = AtlasDatabaseUtilities::PrepareStatement(database.get(), INSERT_INTO_CATALOG_DIRECTORY);
 

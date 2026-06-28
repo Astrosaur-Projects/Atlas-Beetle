@@ -1,12 +1,12 @@
-#ifndef ATLAS_RESET_CATALOG_DIRECTORY_H
-#define ATLAS_RESET_CATALOG_DIRECTORY_H
+#ifndef ATLAS_INITIALIZE_CATALOG_DIRECTORY_H
+#define ATLAS_INITIALIZE_CATALOG_DIRECTORY_H
 
 #include "AtlasCore/AtlasStartup/AtlasStartupLayerInterface.h"
 #include "AtlasUtilities/AtlasDatabaseUtilities/AtlasDatabaseUtilities.h"
 #include <expected>
 #include <string>
 
-class AtlasResetCatalogDirectory : public AtlasStartupLayerInterface
+class AtlasInitializeCatalogDirectory : public AtlasStartupLayerInterface
 {
 public:
 	void Initialize() override;

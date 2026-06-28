@@ -5,7 +5,7 @@
 #include "AtlasApp/AtlasStartupLayers/AtlasInitializeDatabaseSchema/AtlasInitializeDatabaseSchema.h"
 #include "AtlasApp/AtlasStartupLayers/AtlasLoadConfig/AtlasLoadConfig.h"
 #include "AtlasApp/AtlasStartupLayers/AtlasLoadCurl/AtlasLoadCurl.h"
-#include "AtlasApp/AtlasStartupLayers/AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.h"
+#include "AtlasApp/AtlasStartupLayers/AtlasInitializeCatalogDirectory/AtlasInitializeCatalogDirectory.h"
 #include "AtlasCore/AtlasConfig/AtlasGraphicsConfig/AtlasGraphicsConfig.h"
 #include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
 #include "AtlasCore/AtlasStartup/AtlasStartApplication/AtlasStartApplication.h"
@@ -72,7 +72,7 @@ bool AtlasApp::OnInit()
 	initSequence->AddLayer(std::make_unique<AtlasLoadCurl>());
 	initSequence->AddLayer(std::make_unique<AtlasCreateApplicationDirectory>());
 	initSequence->AddLayer(std::make_unique<AtlasInitializeDatabaseSchema>());
-	initSequence->AddLayer(std::make_unique<AtlasResetCatalogDirectory>());
+	initSequence->AddLayer(std::make_unique<AtlasInitializeCatalogDirectory>());
 	initSequence->AddLayer(std::make_unique<AtlasDownloadCatalogs>());
 	initSequence->AddLayer(std::make_unique<AtlasImportDefaultCatalog>());
 	initSequence->AddLayer(std::make_unique<AtlasLoadConfig>());

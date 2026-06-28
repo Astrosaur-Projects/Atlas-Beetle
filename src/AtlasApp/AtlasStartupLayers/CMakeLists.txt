@@ -2,7 +2,7 @@ add_library(AtlasStartupLayers OBJECT)
 
 target_sources(AtlasStartupLayers PRIVATE
 	AtlasDownloadCatalogs/AtlasDownloadCatalogs.cpp
-	AtlasResetCatalogDirectory/AtlasResetCatalogDirectory.cpp
+	AtlasInitializeCatalogDirectory/AtlasInitializeCatalogDirectory.cpp
 	AtlasLoadCurl/AtlasLoadCurl.cpp
 	AtlasLoadConfig/AtlasLoadConfig.cpp
 	AtlasInitializeDatabaseSchema/AtlasInitializeDatabaseSchema.cpp
