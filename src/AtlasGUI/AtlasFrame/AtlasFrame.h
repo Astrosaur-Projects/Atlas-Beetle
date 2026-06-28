@@ -3,7 +3,7 @@
 
 #include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
 #include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
-#include "AtlasGUI/AtlasMenuBar/AtlasMenuBar.h"
+#include "AtlasGUI/AtlasToolbar/AtlasToolbar.h"
 #include <memory>
 #include <wx/event.h>
 #include <wx/frame.h>
@@ -15,7 +15,7 @@ public:
 	~AtlasFrame();
 
 private:
-	AtlasMenuBar* menuBar = nullptr;
+	AtlasToolbar* menuBar = nullptr;
 	AtlasCanvas* canvas = nullptr;
 
 private:

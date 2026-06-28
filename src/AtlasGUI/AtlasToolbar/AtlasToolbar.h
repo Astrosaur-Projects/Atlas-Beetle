@@ -5,11 +5,11 @@
 #include "AtlasGUI/AtlasMenus/AtlasMenuView/AtlasMenuView.h"
 #include <wx/menu.h>
 
-class AtlasMenuBar : public wxMenuBar
+class AtlasToolbar : public wxMenuBar
 {
 public:
-	AtlasMenuBar();
-	~AtlasMenuBar();
+	AtlasToolbar();
+	~AtlasToolbar();
 
 private:
 	AtlasMenuFile* fileMenu = nullptr;

@@ -1,9 +1,9 @@
-#include "AtlasGUI/AtlasMenuBar/AtlasMenuBar.h"
+#include "AtlasGUI/AtlasToolbar/AtlasToolbar.h"
 #include "AtlasGUI/AtlasMenus/AtlasMenuFile/AtlasMenuFile.h"
 #include "AtlasGUI/AtlasMenus/AtlasMenuView/AtlasMenuView.h"
 #include <wx/menu.h>
 
-AtlasMenuBar::AtlasMenuBar() : wxMenuBar()
+AtlasToolbar::AtlasToolbar() : wxMenuBar()
 {
 	fileMenu = new AtlasMenuFile;
 
@@ -14,6 +14,6 @@ AtlasMenuBar::AtlasMenuBar() : wxMenuBar()
 	Append(viewMenu, "&View");
 }
 
-AtlasMenuBar::~AtlasMenuBar()
+AtlasToolbar::~AtlasToolbar()
 {
 }

@@ -1,6 +1,6 @@
 #include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
 #include "AtlasGUI/AtlasFrame/AtlasFrame.h"
-#include "AtlasGUI/AtlasMenuBar/AtlasMenuBar.h"
+#include "AtlasGUI/AtlasToolbar/AtlasToolbar.h"
 #include <memory>
 #include <utility>
 #include <wx/defs.h>
@@ -24,7 +24,7 @@ AtlasFrame::AtlasFrame(std::unique_ptr<AtlasRenderSky> renderSequence) : wxFrame
 
 	SetSizerAndFit(boxSizer);
 
-	menuBar = new AtlasMenuBar();
+	menuBar = new AtlasToolbar();
 
 	SetMenuBar(menuBar);
 
