@@ -2,7 +2,7 @@ add_library(AtlasGUI STATIC)
 
 target_sources(AtlasGUI PRIVATE
 	AtlasCanvas/AtlasCanvas.cpp
-	AtlasCatalogManager/AtlasCatalogManager.cpp
+	AtlasWindows/AtlasCatalogManager/AtlasCatalogManager.cpp
 	AtlasFrame/AtlasFrame.cpp
 	AtlasToolbar/AtlasToolbar.cpp
 	AtlasMenus/AtlasMenuFile/AtlasMenuFile.cpp

@@ -1,5 +1,5 @@
 #include "AtlasApp/AtlasQueryObjects/AtlasQueryCatalogDirectory/AtlasQueryCatalogDirectory.h"
-#include "AtlasGUI/AtlasCatalogManager/AtlasCatalogManager.h"
+#include "AtlasGUI/AtlasWindows/AtlasCatalogManager/AtlasCatalogManager.h"
 #include "AtlasUtilities/AtlasCatalogUtilities/AtlasCatalogUtilities.h"
 #include "AtlasUtilities/AtlasDirectoryUtilities/AtlasDirectoryUtilities.h"
 #include <expected>
