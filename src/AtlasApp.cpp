@@ -1,4 +1,4 @@
-#include "AtlasApp/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
+#include "AtlasApp/AtlasGraphicsLayers/AtlasRenderStars/AtlasRenderStars.h"
 #include "AtlasApp/AtlasStartupLayers/AtlasCreateApplicationDirectory/AtlasCreateApplicationDirectory.h"
 #include "AtlasApp/AtlasStartupLayers/AtlasDownloadCatalogs/AtlasDownloadCatalogs.h"
 #include "AtlasApp/AtlasStartupLayers/AtlasImportDefaultCatalog/AtlasImportDefaultCatalog.h"

@@ -1,5 +1,5 @@
 #include "AtlasApp/AtlasQueryObjects/AtlasQueryVisibleStarRenderData/AtlasQueryVisibleStarRenderData.h"
-#include "AtlasApp/AtlasRenderLayers/AtlasRenderStars/AtlasRenderStars.h"
+#include "AtlasApp/AtlasGraphicsLayers/AtlasRenderStars/AtlasRenderStars.h"
 #include "AtlasCore/AtlasConfig/AtlasGraphicsConfig/AtlasGraphicsConfig.h"
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
 #include "AtlasCore/AtlasObjects/AtlasStar.h"
