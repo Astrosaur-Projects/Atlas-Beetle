@@ -3,10 +3,10 @@
 
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
 
-class AtlasRenderLayerInterface
+class AtlasGraphicsLayerInterface
 {
 public:
-    virtual ~AtlasRenderLayerInterface() = default;
+    virtual ~AtlasGraphicsLayerInterface() = default;
 
     virtual void Initialize() = 0;
     virtual void Render(const AtlasCamera& camera) = 0;

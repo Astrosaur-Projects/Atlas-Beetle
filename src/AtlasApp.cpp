@@ -7,7 +7,7 @@
 #include "AtlasApp/AtlasStartupLayers/AtlasLoadCurl/AtlasLoadCurl.h"
 #include "AtlasApp/AtlasStartupLayers/AtlasInitializeCatalogDirectory/AtlasInitializeCatalogDirectory.h"
 #include "AtlasCore/AtlasConfig/AtlasGraphicsConfig/AtlasGraphicsConfig.h"
-#include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
+#include "AtlasCore/AtlasGraphics/AtlasGraphicsEngine/AtlasGraphicsEngine.h"
 #include "AtlasCore/AtlasStartup/AtlasStartApplication/AtlasStartApplication.h"
 #include "AtlasGUI/AtlasFrame/AtlasFrame.h"
 #include <expected>
@@ -86,7 +86,7 @@ bool AtlasApp::OnInit()
 
 	AtlasGraphicsConfig& config = AtlasGraphicsConfig::GetInstance();
 
-	std::unique_ptr<AtlasRenderSky> renderSequence = std::make_unique<AtlasRenderSky>();
+	std::unique_ptr<AtlasGraphicsEngine> renderSequence = std::make_unique<AtlasGraphicsEngine>();
 
 	renderSequence->AddLayer(std::make_unique<AtlasRenderStars>(config));
 

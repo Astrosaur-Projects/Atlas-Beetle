@@ -2,7 +2,7 @@
 #define ATLAS_CANVAS_H
 
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
-#include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
+#include "AtlasCore/AtlasGraphics/AtlasGraphicsEngine/AtlasGraphicsEngine.h"
 #include <memory>
 #include <wx/event.h>
 #include <wx/frame.h>
@@ -11,7 +11,7 @@
 class AtlasCanvas : public wxGLCanvas
 {
 public:
-	AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes, std::unique_ptr<AtlasRenderSky> render);
+	AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes, std::unique_ptr<AtlasGraphicsEngine> render);
 	~AtlasCanvas();
 
 private:
@@ -33,7 +33,7 @@ private:
 	wxGLContext* glContext;
 
 	std::unique_ptr<AtlasCamera> camera;
-	std::unique_ptr<AtlasRenderSky> render;
+	std::unique_ptr<AtlasGraphicsEngine> render;
 };
 
 #endif

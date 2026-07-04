@@ -4,7 +4,7 @@ add_subdirectory(AtlasConfig)
 
 target_sources(AtlasCore PRIVATE
 	AtlasGraphics/AtlasCamera/AtlasCamera.cpp
-	AtlasGraphics/AtlasRenderSky/AtlasRenderSky.cpp
+	AtlasGraphics/AtlasGraphicsEngine/AtlasGraphicsEngine.cpp
 	AtlasStartup/AtlasStartApplication/AtlasStartApplication.cpp
 )
 

@@ -4,10 +4,10 @@
 #include "AtlasApp/AtlasQueryObjects/AtlasQueryVisibleStarRenderData/AtlasQueryVisibleStarRenderData.h"
 #include "AtlasCore/AtlasConfig/AtlasGraphicsConfig/AtlasGraphicsConfig.h"
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
-#include "AtlasCore/AtlasGraphics/AtlasRenderLayerInterface.h"
+#include "AtlasCore/AtlasGraphics/AtlasGraphicsLayerInterface.h"
 #include <GL/glew.h>
 
-class AtlasRenderStars : public AtlasRenderLayerInterface
+class AtlasRenderStars : public AtlasGraphicsLayerInterface
 {
 public:
 	AtlasRenderStars(AtlasGraphicsConfig& config);

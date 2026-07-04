@@ -1,5 +1,5 @@
 #include "AtlasCore/AtlasGraphics/AtlasCamera/AtlasCamera.h"
-#include "AtlasCore/AtlasGraphics/AtlasRenderSky/AtlasRenderSky.h"
+#include "AtlasCore/AtlasGraphics/AtlasGraphicsEngine/AtlasGraphicsEngine.h"
 #include "AtlasGUI/AtlasCanvas/AtlasCanvas.h"
 #include <GL/glew.h>
 #include <glm/trigonometric.hpp>
@@ -10,7 +10,7 @@
 #include <wx/gdicmn.h>
 #include <wx/glcanvas.h>
 
-AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes, std::unique_ptr<AtlasRenderSky> renderSequence) : wxGLCanvas(parent, glAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
+AtlasCanvas::AtlasCanvas(wxFrame* parent, const wxGLAttributes& glAttributes, std::unique_ptr<AtlasGraphicsEngine> renderSequence) : wxGLCanvas(parent, glAttributes, wxID_ANY, wxDefaultPosition, wxSize(900, 600))
 {
 	wxGLContextAttrs glContextAttributes;
 	glContextAttributes.PlatformDefaults().CoreProfile().OGLVersion(3, 3).EndList();

@@ -9,7 +9,7 @@
 #include <wx/glcanvas.h>
 #include <wx/sizer.h>
 
-AtlasFrame::AtlasFrame(std::unique_ptr<AtlasRenderSky> renderSequence) : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur Projects")
+AtlasFrame::AtlasFrame(std::unique_ptr<AtlasGraphicsEngine> renderSequence) : wxFrame(nullptr, wxID_ANY, "Atlas Beetle by Astrosaur Projects")
 {
 	wxGLAttributes canvasAttributes;
 	canvasAttributes.PlatformDefaults().Defaults().EndList();
